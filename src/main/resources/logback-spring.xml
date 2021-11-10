@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!-- <Pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{36} - %msg%n</Pattern> -->
+            <Pattern>[%d{yy-MM-dd HH:mm:ss} %5level] \(%F:%L\) | %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH:-logs}/authMng.log</file>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH:-logs}/authMng.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1000MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>200</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.springframework.web" level="INFO" />
+    <logger name="kr.or.btf.web" level="DEBUG" />
+    
+    
+    
+    <springProfile name="dev">
+    	<!-- <logger name="org.springframework.web" level="DEBUG" /> -->
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+        </root>
+	</springProfile>
+	
+    <springProfile name="real">
+        <root level="INFO">
+            <appender-ref ref="FILE" />
+        </root>
+	</springProfile>
+
+</configuration>

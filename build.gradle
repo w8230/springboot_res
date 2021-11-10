@@ -1,0 +1,96 @@
+buildscript {
+    ext {
+        queryDslVersion = "4.4.0"
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+bootJar {
+    mainClass = 'kr.co.team.res.Application'
+}
+
+group = 'kr.co.team'
+version = '0.1'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+/**
+ * comments : libs 종속성 주입
+ * author   : 김재일
+ * date     : 21.10.16
+ * **/
+dependencies {
+    // ** spring boot core [s]
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.5'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.5.5'
+
+    // ** spring boot core [e]
+
+    // ** spring security [s]
+    implementation 'org.springframework.security:spring-security-core:5.5.2'
+    implementation 'org.springframework.security:spring-security-web:5.5.2'
+    implementation 'org.springframework.security:spring-security-config:5.5.2'
+    // ** spring security [e]
+
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
+
+    // ** apache commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.4'
+
+    // ** apache http components
+    implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.13'
+
+    // ** lombok
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    // ** maria-jdbc
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.3'
+
+    // ** modelMapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.6'
+
+    // ** retrofit2 & gson
+    implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.9.0'
+    implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.9.0'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.1'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.8'
+    implementation group: 'org.json', name: 'json', version: '20210307'
+
+    // QueryDSL
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor(
+            "javax.persistence:javax.persistence-api",
+            "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
+}
+
+// QueryDSL
+sourceSets {
+    main {
+        java {
+            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
