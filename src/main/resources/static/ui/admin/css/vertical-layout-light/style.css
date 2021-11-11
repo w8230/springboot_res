@@ -19327,6 +19327,38 @@ input:focus {
 }
 
 @font-face {
+    font-family: 'Noto Sans KR';
+    src: url("../../fonts/notokr/noto-sans-kr-v12-korean-100.eot");
+    src: url("../../fonts/notokr/noto-sans-kr-v12-korean-300.eot?#iefix") format("embedded-opentype"), url("../../fonts/notokr/noto-sans-kr-v12-korean-300.woff2") format("woff2"), url("../../fonts/notokr/noto-sans-kr-v12-korean-300.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    src: url("../../fonts/notokr/noto-sans-kr-v12-korean-500.eot");
+    src: url("../../fonts/notokr/noto-sans-kr-v12-korean-500.eot?#iefix") format("embedded-opentype"), url("../../fonts/notokr/noto-sans-kr-v12-korean-500.woff2") format("woff2"), url("../../fonts/notokr/noto-sans-kr-v12-korean-500.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    src: url("../../fonts/notokr/noto-sans-kr-v12-korean-700.eot");
+    src: url("../../fonts/notokr/noto-sans-kr-v12-korean-700.eot?#iefix") format("embedded-opentype"), url("../../fonts/notokr/noto-sans-kr-v12-korean-700.woff2") format("woff2"), url("../../fonts/notokr/noto-sans-kr-v12-korean-700.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    src: url("../../fonts/notokr/noto-sans-kr-v12-korean-regular.eot");
+    src: url("../../fonts/notokr/noto-sans-kr-v12-korean-regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/notokr/noto-sans-kr-v12-korean-regular.woff2") format("woff2"), url("../../fonts/notokr/noto-sans-kr-v12-korean-regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
   font-family: 'Nunito';
   src: url("../../fonts/Nunito/Nunito-Light.eot");
   src: url("../../fonts/Nunito/Nunito-Light.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-Light.woff2") format("woff2"), url("../../fonts/Nunito/Nunito-Light.woff") format("woff"), url("../../fonts/Nunito/Nunito-Light.ttf") format("truetype");
@@ -19433,7 +19465,7 @@ input:focus {
 /* Typography */
 body {
   font-size: 1rem;
-  font-family: "Nunito", sans-serif;
+  font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif;
   font-weight: initial;
   line-height: normal;
   -webkit-font-smoothing: antialiased;
@@ -19691,7 +19723,7 @@ pre {
 code {
   padding: 5px;
   color: #FF4747;
-  font-family: "Nunito", sans-serif;
+    font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif;
   font-weight: 300;
   font-size: 0.875rem;
   border-radius: 4px;
@@ -19706,7 +19738,7 @@ code {
   -webkit-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   font-size: calc(0.875rem - 0.05rem);
-  font-family: "Nunito", sans-serif;
+    font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif;
   font-weight: 400;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -23750,7 +23782,7 @@ dl li {
   padding-left: 0;
   position: relative;
   margin-bottom: 0;
-  font-family: "Nunito", sans-serif;
+  font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif;
 }
 
 .icon-data-list li {
@@ -26401,7 +26433,7 @@ table.dataTable tbody td.select-checkbox:after {
 
 .datepicker.datepicker-dropdown .datepicker-days table.table-condensed thead tr th.dow,
 .datepicker.datepicker-inline .datepicker-days table.table-condensed thead tr th.dow {
-  font-family: "Nunito", sans-serif;
+  font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif;
   color: #1F1F1F;
   font-size: 0.875rem;
   font-weight: initial;
@@ -28466,7 +28498,7 @@ div.tagsinput span.tag a {
 .sidebar {
   min-height: calc(100vh - 60px);
   background: #fff;
-  font-family: "Nunito", sans-serif;
+  font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif;
   font-weight: 500;
   padding: 0;
   width: 235px;
@@ -30303,7 +30335,7 @@ div.tagsinput span.tag a {
 .settings-panel .settings-heading {
   padding: 16px 0 13px 35px;
   font-size: 0.875rem;
-  font-family: "Nunito", sans-serif;
+  font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif;
   font-weight: 500;
   line-height: 1;
   color: rgba(0, 0, 0, 0.9);
@@ -30498,7 +30530,7 @@ div.tagsinput span.tag a {
 }
 
 .settings-panel .events p {
-  font-family: "Nunito", sans-serif;
+  font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif;
   font-weight: 400;
 }
 
