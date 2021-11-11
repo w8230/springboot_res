@@ -1,4 +1,4 @@
-package kr.co.team.res.controller;
+package kr.co.team.res.controller.web.user;
 
 import kr.co.team.res.common.Base;
 import lombok.RequiredArgsConstructor;
@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController extends Base {
+public class MemberController extends Base{
 
-    @RequestMapping("/")
-    public String index(Model model){
-        return "index";
-    }
-
+    @RequestMapping("/join")
+    public String memberjoinpage(Model model){ return "member_join"; }
 }
