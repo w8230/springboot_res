@@ -66,11 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 수정중 김재일 인증강사 추가
         http.authorizeRequests()
-                .mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL,STUDENT,PARENT,TEACHER,INSTRUCTOR")
-                .mvcMatchers("/expert/**", "/device/**", "/pages/expert/**", "/pages/device/**", "/ui/**","/node_modules/**","/loginFailure","/message","/error"
-                        ,"/fragments/**","/popup/**","/","/index","/login","/api/common/download").permitAll()
-                .mvcMatchers("/pages/**","/api/member/**","/api/nice/**","/api/openData/**","/upload/**","/api/commonCode/listForUppCdPid").permitAll()
-                .mvcMatchers("/soulGod/**").hasAnyRole("MASTER,ADMIN,LECTURER,COUNSELOR")
+                .mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL")
+                .mvcMatchers("/ui/**","/node_modules/**","/loginFailure","/message","/error","/fragments/**","/popup/**","/","/index","/login","/api/common/download").permitAll()
+                .mvcMatchers("/pages/**","/api/member/**","/api/nice/**","/api/openData/**","/upload/**").permitAll()
+                .mvcMatchers("/soulGod/**").hasAnyRole("MASTER,ADMIN,PARTNERS")
                 .anyRequest().authenticated();
 
         http.formLogin()
@@ -89,8 +88,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);
-                /*.and()
-                    .apply(new SpringSocialConfigurer())*/
         http.addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
 
