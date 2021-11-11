@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class MemberController extends Base{
 
-    @RequestMapping("/join")
-    public String memberjoinpage(Model model){ return "member_join"; }
+    @RequestMapping("/member/join")
+    public String memberjoinpage(Model model){ return "/pages/member/member_join"; }
 }
