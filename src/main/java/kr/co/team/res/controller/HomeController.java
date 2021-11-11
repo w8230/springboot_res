@@ -14,4 +14,8 @@ public class HomeController extends Base {
     public String index(Model model){
         return "index";
     }
+    @RequestMapping("/12")
+    public String index1(Model model){
+        return "index";
+    }
 }
