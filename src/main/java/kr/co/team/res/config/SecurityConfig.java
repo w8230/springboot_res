@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL")
                 .mvcMatchers("/ui/**","/node_modules/**","/loginFailure","/message","/error","/fragments/**","/popup/**","/","/index","/login","/api/common/download").permitAll()
                 .mvcMatchers("/pages/**","/api/member/**","/api/nice/**","/api/openData/**","/upload/**").permitAll()
-                .mvcMatchers("/soulGod/**").hasAnyRole("MASTER,ADMIN,PARTNERS")
+                .mvcMatchers("/admin/**").hasAnyRole("MASTER,ADMIN,PARTNERS")
                 .anyRequest().authenticated();
 
         http.formLogin()
