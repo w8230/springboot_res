@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class AdminController extends Base {
     @RequestMapping("/admin/dashboard")
-    public String dashboard(){
-        log.info("test");
+    public String Dashboard(){
         return "/pages/admin/index";
+    }
+
+    @RequestMapping("/admin/system/commoncode")
+    public String CommonCode(){
+        return "/pages/admin/system/common_code";
     }
 }
