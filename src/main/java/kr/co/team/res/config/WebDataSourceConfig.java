@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "kr.co.team.res",
+        basePackages = "kr.co.team.res.repository",
         entityManagerFactoryRef = "webEntityManager",
         transactionManagerRef = "webTransactionManager"
 )

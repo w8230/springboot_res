@@ -3,10 +3,7 @@ package kr.co.team.res.domain.entity;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter
@@ -17,8 +14,9 @@ import java.io.Serializable;
 @Entity
 @Table(name="tbl_partners")
 @DynamicUpdate
-class Partners implements Serializable {
+public class Partners implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="partners_pid")
     private Long id;
 
