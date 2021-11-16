@@ -25,15 +25,34 @@ import java.time.LocalDateTime;
 public class MemberController extends Base{
     private final MemberService memberService;
 
-    @RequestMapping("choiceregister")
+    @RequestMapping("/pages/choiceregister")
     public String registerchoice(){ return "pages/choice_register"; }
+
     @RequestMapping("/member/register")
     public String memberjoinpage(Model model){ return "pages/member/member_register"; }
 
     @PostMapping("/api/member/insert")
-    public ResponseEntity insert(@ModelAttribute @Valid  MemberVO memberVO ,
+    public ResponseEntity insert(MemberVO memberVO ,
                                  Errors errors ,
                                  BindingResult bindingResult) {
+
+        log.info("controller run");
+
+        log.info(memberVO.getLoginId());
+
+        log.info(memberVO.getEmail());
+
+        log.info(memberVO.getBrthdy());
+
+        log.info(memberVO.getAdres());
+
+        log.info(memberVO.getPwd());
+
+        log.info(memberVO.getNm());
+
+        log.info(memberVO.getNcnm());
+
+        log.info(memberVO.getMoblphon());
 
         boolean result = false;
         String msg = "";
