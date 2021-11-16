@@ -113,6 +113,9 @@ textarea { resize: none !important; }
 	margin-left: 5px;
 	border-radius: 3px;
 }
+.bg_logo_green {
+	background: #7baf7c !important;
+}
 
 .input-group__id {
 	display: table;
