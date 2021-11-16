@@ -12,9 +12,4 @@ public class AdminController extends Base {
     public String Dashboard(){
         return "/pages/admin/index";
     }
-
-    @RequestMapping("/admin/system/commoncode")
-    public String CommonCode(){
-        return "/pages/admin/system/common_code";
-    }
 }
