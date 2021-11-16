@@ -18,17 +18,14 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title float-left">목록</h4>
-                                <p class="card-description" id="list_desc">
+                                <p class="card-description">
                                     메뉴 리스트가 노출됩니다.
                                 </p>
-                                <div class="dropdown float-right">
-                                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="sMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        전체
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="sMenu" style="">
-                                        <a class="dropdown-item" href="#">전체</a>
-                                    </div>
-                                </div>
+
+                                <select id="srchMnGbnCdPid" name="srchMnGbnCdPid" class="float-right">
+                                    <option value="">전체</option>
+                                </select>
+
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
