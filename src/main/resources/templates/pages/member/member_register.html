@@ -15,6 +15,7 @@
 
         <form class="join_frm" action="/api/member/insert" method="post">
             <input type="hidden" name="mberDvTy" value="NORMAL">
+            <input type="hidden" name="authMobileChk" value="2">
             <!--<input type="hidden" id="id_validation" value="0"/>
             <input type="hidden" id="nickname_validation" value="0"/>
             <input type="hidden" id="email_validation" value="0"/>
@@ -46,8 +47,6 @@
                     </th>
                     <td>
                         <input type="text" name="ncnm" id="ncnm" class="form-control-input wid-mid">
-                        <button type="button" class="info-manage__btn-id" onclick="return nickcheckbtn()">중복확인</button>
-                        <!--<p id="valid_nickname" class="form-control-p">특수문자 없이 입력해 주세요.</p>-->
                     </td>
                 </tr>
 
@@ -108,16 +107,6 @@
                         <p id="search_adres" class="form-control-p"></p>
                     </td>
                 </tr>
-
-                <tr>
-                    <th>인증번호<b class="color_red">*</b>
-                    </th>
-                    <td>
-                        <input class="form-control-input wid-mid" name="check_num" id="check_num" disabled>
-                        <p id="valid_check_num" class="form-control-p"></p>
-                    </td>
-                </tr>
-
                 <tr>
                     <th>
                         성별 <b class="color_red">*</b>

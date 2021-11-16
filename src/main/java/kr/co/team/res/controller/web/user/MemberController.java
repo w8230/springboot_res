@@ -36,62 +36,21 @@ public class MemberController extends Base{
                                  Errors errors ,
                                  BindingResult bindingResult) {
 
-        log.info("controller run");
-
-        log.info(memberVO.getLoginId());
-
-        log.info(memberVO.getEmail());
-
-        log.info(memberVO.getBrthdy());
-
-        log.info(memberVO.getAdres());
-
-        log.info(memberVO.getPwd());
-
-        log.info(memberVO.getNm());
-
-        log.info(memberVO.getNcnm());
-
-        log.info(memberVO.getMoblphon());
-
         boolean result = false;
         String msg = "";
-
-
-        /*//기본정보 SET 인증검수 로직 작성 후 service로 이동.
-        memberVO.setDelAt("N");
-        memberVO.setApproval("Y");
-        memberVO.setRegDtm(LocalDateTime.now());
-        memberVO.setLoginId(memberVO.getLoginId());
-        memberVO.setPwd(passwordEncoder.encode(memberVO.getPwd()));
-        memberVO.setNm(memberVO.getNm());
-        memberVO.setNcnm(memberVO.getNcnm());
-        memberVO.setMoblphon(memberVO.getMoblphon());
-        memberVO.setEmail(memberVO.getEmail());
-        memberVO.setBrthdy(memberVO.getBrthdy());
-        memberVO.setAdres(memberVO.getAdres());
-        memberVO.setDtlAdres(memberVO.getDtlAdres());
-        memberVO.setSexPrTy(memberVO.getSexPrTy());
-        //RollType 구분 vo SET
-        if(memberVO.getMberDvTy().equals(UserRollType.NORMAL)){
-            memberVO.setMberDvTy(UserRollType.NORMAL);
-        } else if(memberVO.getMberDvTy().equals(UserRollType.PARTNERS)){
-            memberVO.setMberDvTy(UserRollType.PARTNERS);
-        } else if(memberVO.getMberDvTy().equals(UserRollType.ADMIN)){
-            memberVO.setMberDvTy(UserRollType.ADMIN);
-        }*/
+        //hidden 값 잘 받아냄.
 
         if(memberVO.getAuthMobileChk() == 2 && memberVO.getAuthMobileChk() == 2) {
             if(memberVO.getAuthMobileChk() == 2){
                 memberVO.setMobileAttcAt("Y");
                 memberVO.setEmailAttcAt("N");
                 memberVO.setMobileAttcDtm(LocalDateTime.now());
-                //memberService.insert(memberVO);
+                memberService.insert(memberVO);
             } else if (memberVO.getAuthEmailChk() == 2) {
                 memberVO.setEmailAttcAt("Y");
                 memberVO.setMobileAttcAt("N");
                 memberVO.setEmailAttcDtm(LocalDateTime.now());
-                //memberService.insert(memberVO);
+                memberService.insert(memberVO);
             }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
