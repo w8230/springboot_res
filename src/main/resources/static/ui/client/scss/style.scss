@@ -1,64 +1,64 @@
-@import 'variables';
 
-@import 'media-queries';
-
-@import 'typography';
-
-@import 'tabs';
-
-@import 'lists';
-
-@import 'common';
-
-@import 'backgrounds';
-
-@import 'templates/navigation';
-
-@import 'templates/hero-area';
-
-@import 'templates/category-slider';
-
-@import 'templates/user-dashboard';
-
-@import 'templates/homepage';
-
-@import 'templates/category';
-
-@import 'templates/products';
-
-@import 'templates/widgets';
-
-@import 'templates/header';
-
-@import 'templates/call-to-action';
-
-@import 'templates/store';
-
-@import 'templates/store-single';
-
-@import 'templates/submit-coupon';
-
-@import 'templates/blog';
-
-@import 'templates/popup';
-
-@import 'templates/ad-listing';
-
-@import 'templates/ad-list-view';
-
-@import 'templates/terms-condition';
-
-@import 'templates/package';
-
-@import 'templates/about-us';
-
-@import 'templates/contact-us';
-
-@import 'templates/404';
-
-@import 'templates/footer';
+@import 'varriable.scss';
+@import 'mixins.scss';
+@import 'extend';
+@import 'responsive.scss';
+@import 'theme-default.scss';
+@import 'btn';
+@import 'section_title';
+@import 'slick-nav.scss';
 
 
 
+// header
+@import 'header';
 
+// slider
+@import 'slider';
+
+// about
+@import 'about';
+
+// counter
+@import 'counter';
+// counter
+@import 'team';
+// testmonial
+@import 'testmonial';
+
+// about
+@import 'footer';
+
+@import 'bradcam';
+
+@import 'service';
+
+
+@import '_where_to_go.scss';
+
+@import '_destination';
+
+@import 'newsletter';
+
+@import 'popular_place';
+
+@import '_video.scss';
+
+@import 'travel_variation';
+
+
+// other pages default
+
+// contact
+@import 'contact';
+
+// elements
+@import 'elements.scss';
+
+// blog
+@import 'blog';
+
+
+// blog part
+@import 'blog_part';
 

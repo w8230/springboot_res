@@ -7,7 +7,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,6 +54,9 @@ class Account implements Serializable {
 
     @Column(name = "adres")
     private String adres;
+
+    @Column(name = "dtl_adres")
+    private String dtlAdres;
 
     @Column(name = "upd_dtm")
     private LocalDateTime updDtm;

@@ -1,0 +1,30 @@
+.radius4{ border-radius: 4px !important; }
+.radius6{ border-radius: 6px !important; }
+.radius8{ border-radius: 8px !important; }
+.radius10{ border-radius: 10px !important; }
+.radius12{ border-radius: 12px !important; }
+.radius14{ border-radius: 14px !important; }
+.radius16{ border-radius: 16px !important; }
+.radius18{ border-radius: 18px !important; }
+.radius20{ border-radius: 20px !important; }
+
+.bg-logo_green{
+    background: #7bc37c !important;
+    border-radius: 4px !important;
+}
+
+.btn-logo_green{
+    background: #7bc37c;
+}
+
+.btn_hover_logo_green:hover{
+    background: #7baf7c;
+}
+.input_box{
+    border: 1px #2a2a32 !important;
+    border-radius: 11px; !important;
+}
+.input_box input{
+    border: 1px #2a2a32 !important;
+    border-radius: 11px; !important;
+}
