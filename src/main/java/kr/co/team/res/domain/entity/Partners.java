@@ -23,7 +23,7 @@ class Partners implements Serializable {
     private Long id;
 
     @Column(name="mber_pid")
-    private Long mber_pid;
+    private Long mberPid;
 
     @Column(name = "bnm")
     private String bnm;
