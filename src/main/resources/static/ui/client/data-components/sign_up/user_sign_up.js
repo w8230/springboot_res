@@ -13,12 +13,26 @@ let year;
 let month;
 let day;
 let form1;
+
 $(function (){
+
+	$('#btnSave').click(function() {
+		if(fn_chkField()){
+			return false
+		}else {
+			form1 = $('#form1');
+			form1.prop("action" , "/api/member/register")
+			form1.submit();
+		}
+
+	})
 
 	appendYear();
 })
 
-function fn_checkfield(){
+function fn_chkField(){
+	$('.err.emph').remove();
+	var brthdyStr = "";
 	loginId = $('#loginId');
 	ncnm = $('#ncnm');
 	nm = $('#nm');
@@ -29,13 +43,120 @@ function fn_checkfield(){
 	adres = $('#adres');
 	dtlAdres = $('#dtlAdres');
 	sexPrTy = $('#sexPrTy');
-	brthdy = $('#brthdy');
+	brthdy = $("#brthdy");
+	year = $("#year");
+	month = $("#month");
+	day = $("#day");
+
 
 	if(!loginId.val()){
+		if(!loginIdCheck(loginId)){
+			alert('error : loginIdCheck');
+			return false;
+		}
+	}
+	if(!idDupBool){
+		alert('error : idDupBool');
+		loginId.focus();
+		return false;
+	}
+	if (!fn_chkPwdDup()) {
+		return false;
+	}
+	if ($.trim(year.val())) {
+		brthdyStr += $.trim(year.val());
+	}else{
+		//alert('출생년도를 입력하세요');
+		brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+		year.focus();
+		alert('error : brthdyStr');
+		return false;
+	}
 
+	if ($.trim(month.val())) {
+		brthdyStr += $.trim(month.val());
+	}else{
+		//alert('생년월일을 선택하세요');
+		brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+		month.focus();
+		return false;
+	}
+
+	if ($.trim(day.val())) {
+		brthdyStr += $.trim(day.val());
+	}else{
+		//alert('생년월일을 선택하세요');
+		brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+		day.focus();
+		return false;
+	}
+
+	brthdy.val(brthdyStr);
+
+	if(!sexPrTy.val()){
+		alert('성별을 선택해주세요.')
+		sexPrTy.focus();
+		return false;
+	}
+	/*if($('#authMoblieChk') ==1 ){
+		alert('핸드폰 인증을 해주세요.');
+		moblphon.focus();
+		return false;
+	}*/
+	if (!ncnm.val()) {
+		//alert('닉네임을 입력하세요');
+		ncnm.after('<p class="err emph">닉네임은 필수 값입니다.</p>');
+		ncnm.focus();
+		return false;
 	}
 }
+function fn_chkPwdDup(){
+	pwd = $("#pwd");
+	pwdChk = $("#pwdChk");
 
+	pwd.siblings('.err.emph').remove();
+	if (!$.trim(pwd.val())) {
+		alert('비밀번호를 입력하세요');
+		pwd.focus();
+		return false;
+	}else{
+		if(!pwdCheck(pwd)){
+			pwd.val("");
+			pwd.focus();
+			return false;
+		}
+	}
+
+	pwdChk.siblings('.err.emph').remove();
+	if (!$.trim(pwdChk.val())) {
+		alert('비밀번호 확인을 입력하세요');
+		pwdChk.focus();
+		return false;
+	}else{
+		if(!pwdCheck(pwdChk)){
+			pwdChk.val("");
+			pwdChk.focus();
+			return false;
+		}
+	}
+
+	if (pwd.val() != pwdChk.val()) {
+		alert('비밀번호가 일치하지 않습니다.');
+		pwdChk.focus();
+		return false;
+	}else{
+		return true;
+	}
+}
+function fn_comparePwd() {
+	pwd = $("#pwd");
+	pwdChk = $('#pwdChk');
+	pwdChk.siblings('.err.emph').remove();
+	if (pwd.val() != pwdChk.val()) {
+		/*pwdChk.after('<p class="err emph">비밀번호가 일치하지 않습니다.</p>');*/
+		alert('비밀번호가 일치하지 않습니다.')
+	}
+}
 function appendYear() {
 	var date = new Date();
 	var currentYear = date.getFullYear();
@@ -45,13 +166,6 @@ function appendYear() {
 
 	for (var y = (currentYear - 1); (currentYear - 70) <= y; y--) {
 		year.append("<option value='" + y + "'>" + y + "년" + "</option>");
-	}
-
-	prtctorYear = $("#prtctorYear");
-	prtctorYear.append("<option value=''>선택</option>");
-	// 올해 기준으로 -1년부터 -70년을 보여준다.
-	for (var y = (currentYear - 1); (currentYear - 70) <= y; y--) {
-		prtctorYear.append("<option value='" + y + "'>" + y + "년" + "</option>");
 	}
 }
 //아이디 중복체크
