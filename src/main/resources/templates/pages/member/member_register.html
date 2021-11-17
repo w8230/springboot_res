@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <th:block th:include="fragments/client/header"></th:block>
 </head>
+
 <div id="container" class="container">
     <div class="w1100">
         <div class="sub_hd">
@@ -13,7 +13,7 @@
             <h3 class="sub_title">정보입력</h3>
         </div>
 
-        <form class="join_frm" action="/api/member/insert" method="post">
+        <form class="join_frm" id="form1" name="form1" action="/api/member/insert" method="post">
             <input type="hidden" name="mberDvTy" value="NORMAL">
             <input type="hidden" name="authMobileChk" value="2">
             <!--<input type="hidden" id="id_validation" value="0"/>
@@ -126,8 +126,60 @@
                         생년월일 <b class="color_red">*</b>
                     </th>
                     <td>
-                        <input type="number" name="brthdy" id="brthdy" class="form-control-input wid-lg" placeholder="ex) 19910302">
-                        <p id="valid_birth" class="form-control-p"></p>
+
+                        <select class="form-control-select wid-sm" name="year" id="year">
+                        </select>
+                        <select class="form-control-select wid-sm" id="month" name="month">
+                            <option value="">월</option>
+                            <option value="01">1월</option>
+                            <option value="02">2월</option>
+                            <option value="03">3월</option>
+                            <option value="04">4월</option>
+                            <option value="05">5월</option>
+                            <option value="06">6월</option>
+                            <option value="07">7월</option>
+                            <option value="08">8월</option>
+                            <option value="09">9월</option>
+                            <option value="10">10월</option>
+                            <option value="11">11월</option>
+                            <option value="12">12월</option>
+                        </select>
+                        <select class="form-control-select wid-sm" id="day" name="day">
+                            <option value="">일</option>
+                            <option value="01">1일</option>
+                            <option value="02">2일</option>
+                            <option value="03">3일</option>
+                            <option value="04">4일</option>
+                            <option value="05">5일</option>
+                            <option value="06">6일</option>
+                            <option value="07">7일</option>
+                            <option value="08">8일</option>
+                            <option value="09">9일</option>
+                            <option value="10">10일</option>
+                            <option value="11">11일</option>
+                            <option value="12">12일</option>
+                            <option value="13">13일</option>
+                            <option value="14">14일</option>
+                            <option value="15">15일</option>
+                            <option value="16">16일</option>
+                            <option value="17">17일</option>
+                            <option value="18">18일</option>
+                            <option value="19">19일</option>
+                            <option value="20">20일</option>
+                            <option value="21">21일</option>
+                            <option value="22">22일</option>
+                            <option value="23">23일</option>
+                            <option value="24">24일</option>
+                            <option value="25">25일</option>
+                            <option value="26">26일</option>
+                            <option value="27">27일</option>
+                            <option value="28">28일</option>
+                            <option value="29">29일</option>
+                            <option value="30">30일</option>
+                            <option value="31">31일</option>
+                        </select>
+                       <!-- <input type="number" name="brthdy" id="brthdy" class="form-control-input wid-lg" placeholder="ex) 19910302">
+                        <p id="valid_birth" class="form-control-p"></p>-->
                     </td>
                 </tr>
                 <!--<tr>
@@ -149,3 +201,5 @@
         </form>
     </div>
 </div>
+<!--footer-->
+<th:block th:include="fragments/client/footer"></th:block>

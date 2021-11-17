@@ -1,4 +1,60 @@
-// 아이디 중복체크[s]
+let loginId;
+let ncnm;
+let nm;
+let pwd;
+let pwdChk;
+let email;
+let moblphon;
+let adres;
+let dtlAdres;
+let sexPrTy;
+let brthdy;
+let year;
+let month;
+let day;
+let form1;
+$(function (){
+
+	appendYear();
+})
+
+function fn_checkfield(){
+	loginId = $('#loginId');
+	ncnm = $('#ncnm');
+	nm = $('#nm');
+	pwd = $('#pwd');
+	pwdChk = $('#pwdChk');
+	email = $('#email');
+	moblphon = $('#moblphon');
+	adres = $('#adres');
+	dtlAdres = $('#dtlAdres');
+	sexPrTy = $('#sexPrTy');
+	brthdy = $('#brthdy');
+
+	if(!loginId.val()){
+
+	}
+}
+
+function appendYear() {
+	var date = new Date();
+	var currentYear = date.getFullYear();
+
+	year = $('#year');
+	year.append("<option value=''>년도</option>")
+
+	for (var y = (currentYear - 1); (currentYear - 70) <= y; y--) {
+		year.append("<option value='" + y + "'>" + y + "년" + "</option>");
+	}
+
+	prtctorYear = $("#prtctorYear");
+	prtctorYear.append("<option value=''>선택</option>");
+	// 올해 기준으로 -1년부터 -70년을 보여준다.
+	for (var y = (currentYear - 1); (currentYear - 70) <= y; y--) {
+		prtctorYear.append("<option value='" + y + "'>" + y + "년" + "</option>");
+	}
+}
+//아이디 중복체크
 function idcheckbtn() {
 	var user_id = $("#user_id").val();
 	var regExp_id = /^[a-z]+[a-z0-9]{5,19}$/g;
@@ -355,4 +411,5 @@ $(function(){
 		}
 	});
 });
+
 // keyup, keydown 되었을때, 메세지 제거 [e]

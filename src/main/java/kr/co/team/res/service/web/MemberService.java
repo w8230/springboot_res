@@ -44,7 +44,7 @@ public class MemberService extends BaseService {
             account.setApproval("Y");
             account.setRegDtm(LocalDateTime.now());
             account.setLoginId(memberVO.getLoginId());
-            // account.setPwd(passwordEncoder.encode(memberVO.getPwd()));
+            account.setPwd(passwordEncoder.encode(memberVO.getPwd()));
             account.setNm(memberVO.getNm());
             account.setNcnm(memberVO.getNcnm());
             account.setMoblphon(memberVO.getMoblphon());
@@ -56,6 +56,7 @@ public class MemberService extends BaseService {
 
             //RollType 구분 vo SET
             if(memberVO.getMberDvTy().equals(UserRollType.NORMAL)){
+                account.setId(account.getId());
                 account.setMberDvTy(UserRollType.NORMAL);
                 memberRepository.save(account);
 
