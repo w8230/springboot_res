@@ -39,7 +39,7 @@ public class CommonCodeController extends Base {
         List<Map<String, Object>> retList = new ArrayList<>();
         Map<String, Object> tmp = null;
         List<CommonCode> commonCodeList = commonCodeService.findAll();
-
+        log.info(commonCodeList.get(0).getCodeNm() + "ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴ");
         for (CommonCode commonCodeVo2 : commonCodeList) {
             if (commonCodeVo2.getPrntCodePid() == null) {
                 tmp = new HashMap<>();
@@ -47,7 +47,7 @@ public class CommonCodeController extends Base {
                 tmp.put("text", commonCodeVo2.getCodeNm());
                 tmp.put("id", commonCodeVo2.getId());
                 tmp.put("items", getMakeTree(commonCodeVo2.getId(), commonCodeList));
-
+                log.info(tmp.toString());
                 retList.add(tmp);
             }
         }
