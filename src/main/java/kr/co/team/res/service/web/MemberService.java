@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberService extends BaseService {
+public class MemberService extends _BaseService {
 
     private final JPAQueryFactory queryFactory;
     private final MemberRepository memberRepository;

@@ -13,8 +13,4 @@ public class SystemController extends Base {
         return "/pages/admin/system/menuList";
     }
 
-    @RequestMapping("/admin/system/commoncode")
-    public String CommonCode(){
-        return "/pages/admin/system/common_code";
-    }
 }

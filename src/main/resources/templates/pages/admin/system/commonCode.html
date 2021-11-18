@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script src="/data/admin/system/commonCode.js"></script>
+</head>
+<body>
+<div class="container-scroller">
+    <th:block th:include="fragments/admin/tnb"></th:block>
+    <div class="container-fluid page-body-wrapper">
+        <th:block th:include="fragments/admin/settings-panel"></th:block>
+        <th:block th:include="fragments/admin/rnb"></th:block>
+        <th:block th:include="fragments/admin/lnb"></th:block>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">공통코드</h4>
+                                <p class="card-description">
+                                    Add class <code>.table</code>
+                                </p>
+                                <div>
+                                    <div class="board_top clearfix">
+                                        <div class="fl">
+                                            <h4 class="sec_tit">공통코드</h4>
+                                        </div>
+                                        <div class="fr">
+                                            <a href="javascript:;" class="btn btn_sm btn_lightgray"
+                                               onclick="fn_openAll(capabilityCodeTree, codeList);"><i
+                                                    class="material-icons">add_circle</i>전체 펼치기</a>
+                                            <a href="javascript:;" class="btn btn_sm btn_lightgray"
+                                               onclick="fn_closeAll(capabilityCodeTree, codeList);"><i
+                                                    class="material-icons">remove_circle</i>전체 닫기</a>
+                                            <a href="javascript:;" class="btn btn_sm btn_lightgray"
+                                               onclick="fn_refresh();"><i class="material-icons mr2 fz19">refresh</i>새로고침</a>
+                                        </div>
+                                    </div>
+                                    <!-- <div  style="overflow: auto; height:600px;"> -->
+                                    <div>
+                                        <label for="capabilityCodeTree" class="blind"></label>
+                                        <div id="capabilityCodeTree" style="width:100%;height:600px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Hoverable Table</h4>
+                                <p class="card-description">
+                                    Add class <code>.table-hover</code>
+                                </p>
+                                <div class="fr">
+                                    <div class="sec">
+                                        <h4 class="sec_tit">코드 상세</h4>
+
+                                        <table class="tbl_write">
+                                            <colgroup>
+                                                <col style="width:20%"/>
+                                                <col style="width:80%"/>
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row"><label for="id">코드</label></th>
+                                                <td>
+                                                    <input type="text" id="id" name="id" disabled="disabled"/>
+                                                    <input type="hidden" id="prntCodePid" name="prntCodePid"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><span class="aster">*</span><label for="codeNm">코드명</label></th>
+                                                <td><input type="text" id="codeNm"/></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><label for="codeValue">코드값</label></th>
+                                                <td><input type="text" id="codeValue"/></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><label for="codeSno">노출순번</label></th>
+                                                <td><input type="text" id="codeSno"/></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="btn_area">
+                                            <button id="btnDele" class="btn btn_sm btn_red" type="button"
+                                                    onclick="return fn_delete();">
+                                                <i class="material-icons">delete</i>삭제
+                                            </button>
+                                            <button id="btnSave" class="btn btn_sm btn_blue" type="button"
+                                                    onclick="return fn_saveChk('');">
+                                                <i class="material-icons fz17">done</i>저장
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="sec">
+                                        <h4 class="sec_tit">하위코드 상세</h4>
+
+                                        <table class="tbl_write">
+                                            <colgroup>
+                                                <col style="width:20%"/>
+                                                <col style="width:80%"/>
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row"><span class="aster">*</span><label for="u_codeNm">코드명</label></th>
+                                                <td><input type="text" id="u_codeNm"/></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><label for="u_codeValue">코드값</label></th>
+                                                <td><input type="text" id="u_codeValue"/></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><label for="u_codeSno">노출순번</label></th>
+                                                <td><input type="text" id="u_codeSno"/></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="btn_area">
+                                            <button id="btnSaveSub" class="btn btn_sm btn_blue" type="button"
+                                                    onclick="return fn_saveChk('u');">
+                                                <i class="material-icons fz17">done</i>저장
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <th:block th:include="fragments/admin/footer"></th:block>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

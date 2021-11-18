@@ -19,6 +19,9 @@ public class CommonCode {
     @Column(name = "code_pid")
     private Long id;
 
+    @Column(name = "prnt_code_pid")
+    private Long prntCodePid;
+
     @Column(name = "code_sno")
     private int codeSno;
 
