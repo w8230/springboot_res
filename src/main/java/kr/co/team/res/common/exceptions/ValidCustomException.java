@@ -12,7 +12,7 @@ public class ValidCustomException extends RuntimeException{
     }
     public ValidCustomException(Error[] errors) {this.errors = errors;}
 
-    private Error[] getErrors() {return errors;}
+    public Error[] getErrors() {return errors;}
 
     private static class Error {
 
