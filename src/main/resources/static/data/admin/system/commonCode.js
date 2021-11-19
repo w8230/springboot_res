@@ -50,7 +50,7 @@ function fn_saveChk(tp) {
     };
     $.ajax({
         type: 'post',
-        url: '/api/soulGod/commonCode/save',
+        url: '/api/commonCode/save',
         contentType: "application/json",
         data: JSON.stringify(jsonData),
         datatype: 'text',
@@ -99,7 +99,7 @@ function fn_delete() {
     };
     $.ajax({
         type: 'post',
-        url: '/api/soulGod/commonCode/delete',
+        url: '/api/commonCode/delete',
         contentType: "application/json",
         data: JSON.stringify(jsonData),
         datatype: 'text',
@@ -189,7 +189,7 @@ function fn_select(id) {
 
     $.ajax({
         type: 'post',
-        url: '/api/soulGod/commonCode/load',
+        url: '/api/commonCode/load',
         contentType: "application/json",
         data: JSON.stringify(jsonData),
         datatype: 'json',

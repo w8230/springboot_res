@@ -39,7 +39,6 @@ public class CommonCodeController extends Base {
         List<Map<String, Object>> retList = new ArrayList<>();
         Map<String, Object> tmp = null;
         List<CommonCode> commonCodeList = commonCodeService.findAll();
-        log.info(commonCodeList.get(0).getCodeNm() + "ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴ");
         for (CommonCode commonCodeVo2 : commonCodeList) {
             if (commonCodeVo2.getPrntCodePid() == null) {
                 tmp = new HashMap<>();
@@ -47,7 +46,6 @@ public class CommonCodeController extends Base {
                 tmp.put("text", commonCodeVo2.getCodeNm());
                 tmp.put("id", commonCodeVo2.getId());
                 tmp.put("items", getMakeTree(commonCodeVo2.getId(), commonCodeList));
-                log.info(tmp.toString());
                 retList.add(tmp);
             }
         }
@@ -55,7 +53,7 @@ public class CommonCodeController extends Base {
     }
 
     @ResponseBody
-    @PostMapping("/api/soulGod/commonCode/load")
+    @PostMapping("/api/commonCode/load")
     public CommonCode load(Model model,
                            @RequestBody CommonCodeVO vo) {
         CommonCode byId = commonCodeService.findById(vo.getId());
@@ -63,15 +61,15 @@ public class CommonCodeController extends Base {
     }
 
     @ResponseBody
-    @PostMapping("/api/soulGod/commonCode/save")
+    @PostMapping("/api/commonCode/save")
     public String save(Model model,
                        @CurrentUser Account account,
                        @RequestBody CommonCodeVO commonCodeForm,
                        RedirectAttributes redirectAttributes) {
 
-        commonCodeForm.setRegPsId(account.getLoginId());
+        commonCodeForm.setRegPsId("master");
         commonCodeForm.setRegDtm(LocalDateTime.now());
-        commonCodeForm.setUpdPsId(account.getLoginId());
+        commonCodeForm.setUpdPsId("master");
         commonCodeForm.setUpdDtm(LocalDateTime.now());
         commonCodeForm.setDelAt("N");
 
@@ -88,7 +86,7 @@ public class CommonCodeController extends Base {
     }
 
     @ResponseBody
-    @PostMapping("/api/soulGod/commonCode/delete")
+    @PostMapping("/api/commonCode/delete")
     public String delete(Model model,
                          @CurrentUser Account account,
                          @RequestBody CommonCodeVO vo,
@@ -96,10 +94,10 @@ public class CommonCodeController extends Base {
 
         if (vo.getId() == null) {
             redirectAttributes.addFlashAttribute("message", "잘못된 접근입니다.");
-            return "redirect:" + "/soulGod/systemCode/list";
+            return "redirect:" + "/admin/system/commoncode";
         }
 
-        vo.setUpdPsId(account.getLoginId());
+        vo.setUpdPsId("master");
         vo.setUpdDtm(LocalDateTime.now());
         vo.setDelAt("Y");
 
