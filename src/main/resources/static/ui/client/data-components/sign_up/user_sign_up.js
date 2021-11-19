@@ -12,19 +12,21 @@ let brthdy;
 let year;
 let month;
 let day;
-let form1;
+
+var idDupBool = false;
+var emailDupBool = false;
+
 
 $(function (){
 
 	$('#btnSave').click(function() {
-		if(fn_chkField()){
-			return false
-		}else {
-			form1 = $('#form1');
-			form1.prop("action" , "/api/member/register")
-			form1.submit();
-		}
+		if(!fn_chkField()) {
+			return;
 
+		}
+		var frm = $('#form1');
+		frm.prop('action' , '/api/member/insert')
+		frm.submit();
 	})
 
 	appendYear();
@@ -110,6 +112,33 @@ function fn_chkField(){
 		return false;
 	}
 }
+function fn_chkIdDup(){
+	loginId = $('#loginId');
+	loginId.siblings('.err.emph').remove();
+
+	if(!loginIdCheck(loginId)){
+		return false;
+	}
+	$.ajax({
+		type : "POST" ,
+		url : "/api/member/isExistsByLoginId" ,
+		data : {
+			"loginId" : loginId.val()
+		},
+		success : function (data) {
+			if(loginId.val() != '') {
+				alert('사용 가능한 아이디 입니다.')
+				idDupBool = true;
+			}
+		},
+		error : function (error) {
+			alert(error.responseText);
+			idDupBool = false;
+			loginId.val('');
+			loginId.focus();
+		}
+	})
+}
 function fn_chkPwdDup(){
 	pwd = $("#pwd");
 	pwdChk = $("#pwdChk");
@@ -168,7 +197,30 @@ function appendYear() {
 		year.append("<option value='" + y + "'>" + y + "년" + "</option>");
 	}
 }
-//아이디 중복체크
+function loginIdCheck(loginId, errTgt) {
+	var errTgt;
+	if (errTgt) {
+		errTgt = errTgt;
+	} else {
+		errTgt = loginId;
+	}
+	errTgt.siblings('.err.emph').remove();
+	var regExp = /[a-z0-9]{6,12}/;
+	if ($.trim(loginId.val()) == '') {
+		errTgt.after('<p class="err emph">아이디는 필수 값입니다.</p>');
+		loginId.focus();
+		return false;
+	}
+
+	if (regExp.test(loginId.val()) == false) {
+		//alert("아이디는 영문 소문자, 숫자를 포함해서 6~12자리 이내로 입력해주세요.");
+		errTgt.after('<p class="err emph">아이디는 영문 소문자, 숫자를 포함해서 6~12자리 이내로 입력해주세요.</p>');
+		loginId.focus();
+		return false;
+	}
+	return true;
+}
+/*//아이디 중복체크
 function idcheckbtn() {
 	var user_id = $("#user_id").val();
 	var regExp_id = /^[a-z]+[a-z0-9]{5,19}$/g;
@@ -302,7 +354,7 @@ function form_validation() {
 	var regExp_phone_num = /^\d{3}\d{3,4}\d{4}$/;
 	var regExp_email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	var regExp_birth = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
-	/* var regExp_tel_num = /^\d{2,3}-\d{3,4}-\d{4}$/; */
+	/!* var regExp_tel_num = /^\d{2,3}-\d{3,4}-\d{4}$/; *!/
 	
 	if(!regExp_id.test(user_id)) {
 		$("#valid_id").css("color", "#f30c43").addClass("fas fa-times").text(" 아이디는 6~20자 영어 또는 숫자로 입력하세요.");
@@ -524,6 +576,6 @@ $(function(){
 			$("#valid_user_job").empty().removeClass();
 		}
 	});
-});
+});*/
 
 // keyup, keydown 되었을때, 메세지 제거 [e]

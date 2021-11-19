@@ -10,6 +10,7 @@ function fn_comparePwd(){
         alert('비밀번호가 다릅니다.');
     }
 }
+/*
 //responseText 분석하여 작성 할 것.
 function fn_chkIdDup(){
     loginId = $('#loginId');
@@ -40,22 +41,32 @@ function fn_chkIdDup(){
     });
 
 }
-function loginIdCheck(loginId) {
-    loginId.siblings('.err.emph').remove();
-    var regExp = /[a-z0-9]{6,12}/;
+*/
 
-    if($.trim(loginId.val()) == ''){
-        alert('아이디를 입력해주세요.')
+/*function loginIdCheck(loginId, errTgt) {
+    var errTgt;
+    if (errTgt) {
+        errTgt = errTgt;
+    } else {
+        errTgt = loginId;
+    }
+    errTgt.siblings('.err.emph').remove();
+    var regExp = /[a-z0-9]{6,12}/;
+    if ($.trim(loginId.val()) == '') {
+        errTgt.after('<p class="err emph">아이디는 필수 값입니다.</p>');
         loginId.focus();
         return false;
     }
-    if(regExp.test($.trim(loginId.val())) == false) {
-        alert('아이디는 영문 소문자, 숫자를 포함해서 6~12자리 이내로 입력해주세요.')
+
+    if (regExp.test(loginId.val()) == false) {
+        //alert("아이디는 영문 소문자, 숫자를 포함해서 6~12자리 이내로 입력해주세요.");
+        errTgt.after('<p class="err emph">아이디는 영문 소문자, 숫자를 포함해서 6~12자리 이내로 입력해주세요.</p>');
         loginId.focus();
         return false;
     }
     return true;
-}
+}*/
+
 function pwdCheck(pwd) {
     pwd.siblings('.err.emph').remove();
     var regExp = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;

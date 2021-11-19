@@ -95,4 +95,18 @@ public class MemberService extends _BaseService {
             throw new ValidCustomException("이미 사용 중인 이메일입니다." , "email");
         }
     }
+
+    public boolean existsByLoginId(String loginId) {
+        Account account = memberRepository.findByLoginId(loginId).orElseGet(Account::new);
+        return (account != null && account.getId() != null);
+    }
+    public boolean existsByEmail(String email) {
+        Account account = memberRepository.findByEmail(email).orElseGet(Account::new);
+        return (account != null && account.getId() != null);
+    }
+    public boolean existsSpace(String text) {
+        if (text == null) return true;
+        return text.contains(" ");
+    }
+
 }

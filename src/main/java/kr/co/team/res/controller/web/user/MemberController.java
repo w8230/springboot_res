@@ -7,15 +7,14 @@ import kr.co.team.res.service.web.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindingResultUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -31,6 +30,7 @@ public class MemberController extends Base{
     @RequestMapping("/member/register")
     public String memberjoinpage(Model model){ return "pages/member/member_register"; }
 
+    //회원가입 컨트롤러
     @PostMapping("/api/member/insert")
     public ResponseEntity insert(MemberVO memberVO ,
                                  Errors errors ,
@@ -61,6 +61,24 @@ public class MemberController extends Base{
             return ResponseEntity.ok(msg);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+        }
+    }
+
+    //계정 중복확인 컨트롤러
+    @ResponseBody
+    @PostMapping("/api/member/isExistsByLoginId")
+    public ResponseEntity isExistsByLoginId(Model model , @ModelAttribute MemberVO memberVO , BindingResult bindingResult) {
+        if (memberService.existsByLoginId(memberVO.getLoginId())) {
+            bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberVO.getLoginId()}, "이미 사용중인 아이디입니다.");
+        }
+        if (memberService.existsSpace(memberVO.getLoginId())) {
+            bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberVO.getLoginId()}, "아이디에는 공백을 사용 할 수 없습니다.");
+        }
+        //memberFormValidator.validate(memberForm, bindingResult);
+        if (bindingResult.hasFieldErrors("loginId")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldError("loginId").getDefaultMessage());
+        } else {
+            return ResponseEntity.ok(memberVO);
         }
     }
     /*@ResponseBody
