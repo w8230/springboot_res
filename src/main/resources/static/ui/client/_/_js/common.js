@@ -1,15 +1,4 @@
 /*정규식 체크*/
-function fn_chkField(){
-
-}
-function fn_comparePwd(){
-    pwd = $('#pwd');
-    pwdChk = $('#pwdChk');
-    pwdChk.siblings('.err.emph').remove();
-    if(pwd.val() != pwdChk.val()){
-        alert('비밀번호가 다릅니다.');
-    }
-}
 /*
 //responseText 분석하여 작성 할 것.
 function fn_chkIdDup(){
@@ -67,21 +56,8 @@ function fn_chkIdDup(){
     return true;
 }*/
 
-function pwdCheck(pwd) {
-    pwd.siblings('.err.emph').remove();
-    var regExp = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
 
-    if($.trim(pwd.val()) == ''){
-        alert('비밀번호를 입력해주세요.');
-        pwd.focus();
-        return false;
-    }
-    if(regExp.test($.trim(pwd.val())) == false) {
-        alert('비밀번호는 특수문자를 포함하여 8~16자리 이내로 입력해주세요.');
-        return false;
-    }
-    return true;
-}
+
 /*이메일 인증 체크*/
 function fn_chkEmail() {
     if(tempKey == $('.eKey').val()) {

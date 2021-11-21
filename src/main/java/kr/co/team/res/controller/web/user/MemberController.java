@@ -38,6 +38,8 @@ public class MemberController extends Base{
 
         boolean result = false;
         String msg = "";
+        //스크립트 조합값 확인.
+        log.info(memberVO.getBrthdy());
         //hidden 값 잘 받아냄.
 
         if(memberVO.getAuthMobileChk() == 2 && memberVO.getAuthMobileChk() == 2) {
@@ -81,10 +83,4 @@ public class MemberController extends Base{
             return ResponseEntity.ok(memberVO);
         }
     }
-    /*@ResponseBody
-    @PostMapping("/api/member/isExistsByLoginId")
-    public ResponseEntity isExistsByLoginId(@ModelAttribute MemberVO memberVO ,
-                                            BindingResult bindingResult) {
-        if(memberService.)
-    }*/
 }

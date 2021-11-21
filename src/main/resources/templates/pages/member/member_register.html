@@ -15,7 +15,8 @@
 
         <form class="join_frm" id="form1" name="form1" action="/api/member/insert" method="post">
             <input type="hidden" name="mberDvTy" value="NORMAL">
-            <input type="hidden" name="authMobileChk" value="2">
+            <!--Default value = 1 -> 인증완료 시 value = 2-->
+            <input type="hidden" name="authMobileChk" value="1">
             <!--<input type="hidden" id="id_validation" value="0"/>
             <input type="hidden" id="nickname_validation" value="0"/>
             <input type="hidden" id="email_validation" value="0"/>
@@ -65,9 +66,9 @@
                         비밀번호<b class="color_red">*</b>
                     </th>
                     <td>
-                        <input type="password" name="pwd" id="pwd" class="form-control-input wid-lg m-b-10" maxlength="32" placeholder="비밀번호">
-                        <p id="valid_password" class="form-control-p">특수문자 포함 8자이상 16자 이하로 입력해 주세요.</p><br>
-                        <input type="password" id="pwdChk" class="form-control-input wid-lg" maxlength="32" placeholder="비밀번호 확인">
+                        <input type="password" name="pwd" id="pwd" class="form-control-input wid-lg m-b-10" maxlength="32" onkeyup="fn_comparePwd()" placeholder="특수문자 포함 8자이상 16자 이하로 입력해 주세요.">
+                        <br>
+                        <input type="password" id="pwdChk" class="form-control-input wid-lg" maxlength="32" onkeyup="fn_comparePwd()" placeholder="비밀번호를 다시 입력해주세요.">
                         <p id="valid_password2" class="form-control-p"></p>
                     </td>
                 </tr>
@@ -77,7 +78,7 @@
                         이메일 <b class="color_red">*</b>
                     </th>
                     <td>
-                        <input type="number" name="email" id="email" class="form-control-input wid-lg" placeholder="예) 01012345678">
+                        <input type="text" name="email" id="email" class="form-control-input wid-lg" placeholder="ex)res@reservation.com">
                         <p id="valid_phone_num" class="form-control-p"></p>
                     </td>
                 </tr>
@@ -87,11 +88,8 @@
                         핸드폰 <b class="color_red">*</b>
                     </th>
                     <td>
-                        <input name="moblphon" id="moblphon" class="form-control-input wid-mid m-b-10" placeholder="ex) guesthouse@naver.com">
+                        <input type="number" name="moblphon" id="moblphon" class="form-control-input wid-mid m-b-10" placeholder=" '-' 제외하여 입력해주세요.">
                         <button type="button" class="info-manage__btn-id email_btn bg_logo_green" onclick="return emailchkbtn()">인증번호 받기</button>
-                        <br>
-                        <input name="authnum" id="authnum" class="form-control-input wid-lg" placeholder="인증 번호를 입력해주세요." readonly>
-                        <p id="valid_email" class="form-control-p"></p>
                     </td>
                 </tr>
 
@@ -177,28 +175,17 @@
                             <option value="30">30일</option>
                             <option value="31">31일</option>
                         </select>
-                       <!-- <input type="number" name="brthdy" id="brthdy" class="form-control-input wid-lg" placeholder="ex) 19910302">
-                        <p id="valid_birth" class="form-control-p"></p>-->
+                        <input type="hidden" name="brthdy" id="brthdy"/>
                     </td>
                 </tr>
-                <!--<tr>
-                    <th>
-                        직업 <b class="color_red">*</b>
-                    </th>
-                    <td>
-                        <input type="text" name="USER_JOB" id="user_job" class="form-control-input wid-mid">
-                        <p id="valid_user_job" class="form-control-p"></p>
-                    </td>
-                </tr>-->
                 </tbody>
             </table>
 
             <div class="text-center m-t-25">
-                <button class="btn bg_blu btn-lg nsdow bg-logo_green" onclick="return form_validation();">회원가입</button>
+                <button id="btnSave" class="btn bg_blu btn-lg nsdow bg-logo_green">회원가입</button>
                 <button class="btn bg_dark_grey btn-lg m-l-5 nsdow" type="button" onclick="cancel();">취소</button>
             </div>
         </form>
     </div>
 </div>
-<!--footer-->
 <th:block th:include="fragments/client/footer"></th:block>
