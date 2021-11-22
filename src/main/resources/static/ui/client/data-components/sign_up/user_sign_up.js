@@ -24,14 +24,17 @@ $(function (){
 		if(!fn_chkField()){
 			$('#btnSave').prop('disabled', false);
 			return false;
-
 		} else {
 			var frm = $('#form1');
 			frm.prop('action' , '/api/member/insert')
 			frm.submit();
+			alert('RES 회원가입이 완료되었습니다.');
 		}
 	})
+	//연도 출력
 	appendYear();
+	//다음 우편번호 api
+	//fn_openMap();
 })
 
 function fn_chkField(){
@@ -60,6 +63,7 @@ function fn_chkField(){
 	}
 	if(!idDupBool){
 		alert('아이디 중복체크를 해주세요.');
+		loginId.after('<p class="err emph">아이디 중복체크를 해주세요.</p>')
 		loginId.focus();
 		return false;
 	}
@@ -136,6 +140,8 @@ function fn_chkField(){
 	//정상작동
 	brthdy.val(brthdyStr)
 	console.log(brthdyStr);
+	console.log(adres);
+	console.log(dtlAdres);
 
 
 	if(!fn_chkPwdDup()){
@@ -153,28 +159,36 @@ function fn_chkIdDup(){
 	loginId = $('#loginId');
 	loginId.siblings('.err.emph').remove();
 
-	if(!loginIdCheck(loginId)){
+	var regExp = /[a-z0-9]{6,12}/
+	if(!regExp.test(loginId.val())){
+		alert('아이디는 6~12자 영문 소문자 , 숫자로 입력해주세요.')
+		loginId.val("");
+		loginId.focus();
 		return false;
 	}
-	$.ajax({
-		type : "POST" ,
-		url : "/api/member/isExistsByLoginId" ,
-		data : {
-			"loginId" : loginId.val()
-		},
-		success : function (data) {
-			if(loginId.val() != '') {
-				alert('사용 가능한 아이디 입니다.')
-				idDupBool = true;
+	if(!loginIdCheck(loginId)){
+		return false;
+	} else {
+		$.ajax({
+			type : "POST" ,
+			url : "/api/member/isExistsByLoginId" ,
+			data : {
+				"loginId" : loginId.val()
+			},
+			success : function (data) {
+				if(loginId.val() != '') {
+					alert('사용 가능한 아이디 입니다.')
+					idDupBool = true;
+				}
+			},
+			error : function (error) {
+				alert(error.responseText);
+				idDupBool = false;
+				loginId.val('');
+				loginId.focus();
 			}
-		},
-		error : function (error) {
-			alert(error.responseText);
-			idDupBool = false;
-			loginId.val('');
-			loginId.focus();
-		}
-	})
+		})
+	}
 }
 
 function fn_chkPwdDup(){
@@ -268,11 +282,45 @@ function loginIdCheck(loginId, errTgt) {
 		loginId.focus();
 		return false;
 	}
-
+	//idChkDup과 정규식 공유함 6~12자 영문 소문자, 숫자.
 	if (regExp.test(loginId.val()) == false) {
 		alert("아이디는 영문 소문자, 숫자를 포함해서 6~12자리 이내로 입력해주세요.");
 		loginId.focus();
 		return false;
 	}
 	return true;
+}
+function fn_openMap() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+
+			var addr = '';
+			var extraAddr = '';
+
+			if (data.userSelectedType === 'R') {
+				addr = data.roadAddress;
+			} else {
+				addr = data.jibunAddress;
+			}
+
+			if(data.userSelectedType === 'R'){
+				if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+					extraAddr += data.bname;
+				}
+				if(data.buildingName !== '' && data.apartment === 'Y'){
+					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				if(extraAddr !== ''){
+					extraAddr = ' (' + extraAddr + ')';
+				}
+				document.getElementById("adres").value = extraAddr;
+
+			} else {
+				document.getElementById("adres").value = '';
+			}
+			document.getElementById('adres').value = data.zonecode;
+			document.getElementById("adres").value = addr;
+			document.getElementById("adres").focus();
+		}
+	}).open();
 }
