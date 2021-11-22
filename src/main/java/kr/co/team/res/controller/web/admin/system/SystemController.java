@@ -8,9 +8,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 public class SystemController extends Base {
-    @RequestMapping("/admin/system/menu/list")
-    public String MenuList(){
-        return "/pages/admin/system/menuList";
-    }
 
 }
