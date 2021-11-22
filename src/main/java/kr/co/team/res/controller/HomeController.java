@@ -14,4 +14,5 @@ public class HomeController extends Base {
     public String index(Model model){
         return "index";
     }
+
 }

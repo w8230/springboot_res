@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -66,11 +68,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 수정중 김재일 인증강사 추가
         http.authorizeRequests()
-                .mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL,STUDENT,PARENT,TEACHER,INSTRUCTOR")
-                .mvcMatchers("/expert/**", "/device/**", "/pages/expert/**", "/pages/device/**", "/ui/**","/node_modules/**","/loginFailure","/message","/error"
-                        ,"/fragments/**","/popup/**","/","/index","/login","/api/common/download").permitAll()
-                .mvcMatchers("/pages/**","/api/member/**","/api/nice/**","/api/openData/**","/upload/**","/api/commonCode/listForUppCdPid").permitAll()
-                .mvcMatchers("/soulGod/**").hasAnyRole("MASTER,ADMIN,LECTURER,COUNSELOR")
+                .mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL")
+                .mvcMatchers("/ui/**","/data/**","/node_modules/**","/loginFailure","/message","/error","/fragments/**","/popup/**","/","/index","/login","/api/common/download").permitAll()
+                .mvcMatchers("/pages/**","/api/member/**","/api/nice/**","/api/commonCode/**","/api/openData/**","/upload/**","/member/**" , "/partners/**").permitAll()
+                .mvcMatchers("/pages/admin/**","/admin/**").permitAll()
+                //.mvcMatchers("/admin/**").hasAnyRole("MASTER,ADMIN,PARTNERS")
                 .anyRequest().authenticated();
 
         http.formLogin()
@@ -89,8 +91,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);
-                /*.and()
-                    .apply(new SpringSocialConfigurer())*/
         http.addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
 

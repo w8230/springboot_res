@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script src="/data/admin/system/menuList.js"></script>
+</head>
+<body>
+<div class="container-scroller">
+    <th:block th:include="fragments/admin/tnb"></th:block>
+    <div class="container-fluid page-body-wrapper">
+        <th:block th:include="fragments/admin/settings-panel"></th:block>
+        <th:block th:include="fragments/admin/rnb"></th:block>
+        <th:block th:include="fragments/admin/lnb"></th:block>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-8 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <select id="srchMnGbnCdPid" name="srchMnGbnCdPid" class="float-right">
+                                    <option value="">전체</option>
+                                </select>
+                                <h4 class="card-title float-left">목록</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>대분류</th>
+                                            <th>순번</th>
+                                            <th>메뉴명</th>
+                                            <th>경로</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>시스템관리</td>
+                                            <td>1</td>
+                                            <td>공통코드관리</td>
+                                            <td>/admin/system/menu/list</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button class="btn btn-info btn-sm btn-icon-text float-right">
+                                    <i class="ti-plus btn-icon-prepend"></i>
+                                    추가
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">상세정보</h4>
+                                <p class="card-description" id="menu_desc">
+
+                                </p>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row"><label for="menuGroupCdPid">메뉴구분*</label></th>
+                                        <td>
+                                            <select id="menuGroupCdPid" name="menuGroupCdPid">
+                                                <option value="">선택</option>
+<!--                                                <option th:each="item:${menuGroupCodes}" th:text="${item.codeNm}"-->
+<!--                                                        th:value="${item.id}"></option>-->
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">메뉴명</th>
+                                        <td><input type="text" class="form-control form-control-sm" id="menu_nm" placeholder="Username"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">메뉴경로</th>
+                                        <td><input type="text" class="form-control form-control-sm" id="menu_url" placeholder="Username"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">순번</th>
+                                        <td><input type="text" class="form-control form-control-sm" id="menu_sn" placeholder="Username"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-outline-dark btn-sm float-right">저장</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <th:block th:include="fragments/admin/footer"></th:block>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

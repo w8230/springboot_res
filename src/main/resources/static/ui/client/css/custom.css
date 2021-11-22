@@ -1,0 +1,83 @@
+.bg_logo{width:200px !important;}
+#top-sticky-header{
+  border-bottom: 1px solid #eee !important;
+}
+.top-header-area .top-main-header-area {
+  background: #fff;
+  background: transparent;
+  padding: 0px 10px 0px 0px;
+}
+.top-container-fluid {
+    width: 100%;
+    padding-right: 60px;
+    padding-left: 15px;
+	margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: inline-block !important;
+    text-transform: capitalize !important;
+    position: static !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    color: #484848 !important;
+    transition: none !important;
+}
+.header-area .main-header-area .main-menu {
+	float: right;
+}
+.header-area .main-header-area {
+	border-bottom: 1px solid #f0f0f0;
+    padding: 15px 10px 15px 10px !important;
+}
+a, button, input, textarea {
+    -webkit-transition: border-color .4s,background .4s,color .4s,opacity .4s !important;
+    transition: border-color .4s,background .4s,color .4s,opacity .4s,transform .4s !important;
+}
+#keyword_field{width: 225px !important;}
+.header-area .main-header-area .main-menu ul li a {
+    display: inline-block !important;
+    font-family: "Noto Sans KR", sans-serif !important;
+    text-transform: capitalize !important;
+    position: static !important;
+    padding: 0px !important;
+    margin: 0 0px 0 0 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    color: #484848 !important;
+    cursor: pointer !important;
+    transition: none !important;
+}
+.header-area .main-header-area .main-menu ul li a:hover{
+	color:#ff4a52 !important;
+}
+.top-a-tag{padding-left: 15px !important;}
+.index-a-tag{padding-right: 15px !important;}
+#mid-nav-wd{max-width: 1200px !important;}
+a:hover{color:#ff4a52 !important;}
+.a-active{color:#ff4a52; font-weight:500;}
+.banner_places_area {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background: #F7FAFD;
+}
+.bnimg{min-width:100%;}
+.searchTag{
+	font-size: 38px;
+    font-weight: 400;
+    color: #ffffff;
+    position: relative;
+    z-index: 0;
+    padding-bottom: 7px;
+    padding-right: 25px;
+}
+.searchTag_m{
+	font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    position: relative;
+    z-index: 0;
+    padding-bottom: 7px;
+    padding-right: 25px;
+}
+.sp_active{color:#ff4a52 !important;}

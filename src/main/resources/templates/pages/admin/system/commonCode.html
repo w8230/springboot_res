@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script src="/data/admin/system/commonCode.js"></script>
+</head>
+<body>
+<div class="container-scroller">
+    <th:block th:include="fragments/admin/tnb"></th:block>
+    <div class="container-fluid page-body-wrapper">
+        <th:block th:include="fragments/admin/settings-panel"></th:block>
+        <th:block th:include="fragments/admin/rnb"></th:block>
+        <th:block th:include="fragments/admin/lnb"></th:block>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-8 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">공통코드</h4>
+                                <p class="card-description">
+                                    공통코드 목록이 노출됩니다.
+                                </p>
+                                <div class="btn-group float-right" role="group">
+                                    <a href="javascript:;"  class="btn btn-outline-secondary btn-sm" onclick="fn_openAll(capabilityCodeTree, codeList);">펼치기</a>
+                                    <a href="javascript:;"  class="btn btn-outline-secondary btn-sm" onclick="fn_closeAll(capabilityCodeTree, codeList);">닫기</a>
+                                    <a href="javascript:;"  class="btn btn-outline-secondary btn-sm" onclick="fn_refresh();">새로고침</a>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="capabilityCodeTree" class="blind"></label>
+                                        <div id="capabilityCodeTree" style="width:100%;height:600px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">코드 정보</h4>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">코드번호</th>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" id="id" name="id" disabled="disabled"/>
+                                            <input type="hidden" id="prntCodePid" name="prntCodePid"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">코드명</th>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" id="codeNm" placeholder="코드명을 입력하세요.">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">코드값</th>
+                                        <td><input type="text" class="form-control form-control-sm" id="codeValue" placeholder="코드값을 입력하세요."></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">순번</th>
+                                        <td><input type="text" class="form-control form-control-sm" id="codeSno" placeholder="순번을 입력하세요."></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="btn-group float-right" role="group">
+                                    <button id="btnDele" class="btn btn-outline-secondary btn-sm" type="button"
+                                            onclick="return fn_delete();">삭제
+                                    </button>
+                                    <button id="btnSave" class="btn btn-outline-secondary btn-sm" type="button"
+                                            onclick="return fn_saveChk('');">저장
+                                    </button>
+                                </div>
+                                <br/>
+                                <h4 class="card-title">하위 코드</h4>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">코드명</th>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" id="u_codeNm" placeholder="코드명을 입력하세요."/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">코드값</th>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" id="u_codeValue" placeholder="코드명을 입력하세요.">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">순번</th>
+                                        <td><input type="text" class="form-control form-control-sm" id="u_codeSno" placeholder="순번을 입력하세요."></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="btn-group float-right" role="group">
+                                    <button id="btnSaveSub" class="btn btn-outline-secondary btn-sm" type="button"
+                                            onclick="return fn_saveChk('u');">저장
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <th:block th:include="fragments/admin/footer"></th:block>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
