@@ -30,7 +30,7 @@ public class MenuController extends Base {
     private final MenuService MenuService;
     private final CommonCodeService commonCodeService;
 
-    @RequestMapping("/admin/system/menu/list")
+    @RequestMapping("/admin/system/menuList")
     public String list(Model model,
                        @ModelAttribute SearchVO form,
                        @Value("${common.code.mnGbnCdPid}") Long mnGbnCdPid) {

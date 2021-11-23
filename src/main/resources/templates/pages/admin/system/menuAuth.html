@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script src="/data/admin/system/menuAuth.js"></script>
+    <style>
+        .checkbox label:after {
+            border-radius: 2px;
+        }
+        .checkbox label:after, .radio label:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 18px;
+            height: 18px;
+            border: 1px;
+            solid #c3cfe5;
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="container-scroller">
+    <th:block th:include="fragments/admin/tnb"></th:block>
+    <div class="container-fluid page-body-wrapper">
+        <th:block th:include="fragments/admin/settings-panel"></th:block>
+        <th:block th:include="fragments/admin/rnb"></th:block>
+        <th:block th:include="fragments/admin/lnb"></th:block>
+        <div class="main-panel">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+            <input type="hidden" id="mberPid" name="mberPid"/>
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title float-left">목록</h4>
+                                <button class="btn btn-info btn-sm btn-icon-text float-right" onclick="fn_resetForm()">
+                                    <i class="ti-plus btn-icon-prepend"></i>
+                                    추가
+                                </button>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">회원ID</th>
+                                            <th scope="col">회원명</th>
+                                            <th scope="col">등록일자</th>
+                                            <th scope="col">사용권한</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:id="|tr_member_${item.id}|" th:each="item:${members}" style="cursor: pointer">
+                                            <td th:text="${item.loginId}"></td>
+                                            <td>
+                                                <a href="#" th:onclick="|fn_select(${item.id})|">
+                                                    <b th:text="${item.nm}"></b>
+                                                </a>
+                                            </td>
+                                            <td th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></td>
+                                            <td th:text="${T(kr.co.team.res.domain.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">상세정보</h4>
+                                <p class="card-description" id="menu_desc">
+
+                                </p>
+                                <div class="btn-group float-right" role="group">
+                                    <button class="btn btn-outline-secondary btn-sm btn_chk_true" type="button">전체선택
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm btn_chk_false" type="button">선택해제
+                                    </button>
+                                </div>
+                                <table class="table">
+                                    <tbody id="tr_menu">
+                                    <tr>
+                                        <th scope="col">
+                                            <select id="srch_menu_group_id" name="srch_menu_group_id"
+                                                    onchange="fn_search();" class="w120">
+                                                <option value="" selected>전체</option>
+                                                <option th:each="item : ${menuGroupCodes}"
+                                                        th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                            </select>
+                                            <!--												th:selected="${item.id eq srch_menu_group_id ? true : false}"-->
+                                        </th>
+                                        <th scope="col">메뉴명</th>
+                                        <th scope="col">새창여부</th>
+                                        <th scope="col">사용권한</th>
+                                    </tr>
+                                    <tr th:if="${mngMenus == null or mngMenus.isEmpty()}">
+                                        <td colspan="4">등록된 정보 없습니다.</td>
+                                    </tr>
+                                    <tr th:each="item:${mngMenus}">
+
+                                        <td th:text="${item.menuGroupNm}"></td>
+                                        <td th:text="${item.menuNm}"></td>
+                                        <td th:text="${item.newwinAt}"></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <input type="checkbox" th:id="|menuPid_${item.id}|" name="menuPid"
+                                                       th:value="${item.id}"
+                                                       th:onclick="|return fn_chkSave(${item.id})|"/>
+                                                <label th:for="|menuPid_${item.id}|"><span
+                                                        class="blind">선택</span></label>
+                                            </div>
+                                        </td>
+                                    <tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+            <th:block th:include="fragments/admin/footer"></th:block>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

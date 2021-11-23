@@ -1,13 +1,19 @@
 package kr.co.team.res.service.web;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.team.res.common.exceptions.ValidCustomException;
 import kr.co.team.res.domain.entity.Account;
 import kr.co.team.res.domain.entity.Partners;
+import kr.co.team.res.domain.entity.QAccount;
+import kr.co.team.res.domain.entity.QCommonCode;
 import kr.co.team.res.domain.enums.UserRollType;
 import kr.co.team.res.domain.repository.MemberRepository;
 import kr.co.team.res.domain.repository.PartnersRepository;
 import kr.co.team.res.domain.vo.MemberVO;
+import kr.co.team.res.domain.vo.common.SearchVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
@@ -17,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.bind.ValidationException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -107,6 +114,33 @@ public class MemberService extends _BaseService {
     public boolean existsSpace(String text) {
         if (text == null) return true;
         return text.contains(" ");
+    }
+
+    public List<Account> listByAdminUser(SearchVO vo) {
+
+        QAccount qAccount = QAccount.account;
+        QCommonCode qCommonCode = QCommonCode.commonCode;
+
+        OrderSpecifier<Long> orderSpecifier = qAccount.id.desc();
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qAccount.delAt.eq("N"));
+        builder.and(qAccount.mberDvTy.eq(UserRollType.MASTER));
+        builder.or(qAccount.mberDvTy.eq(UserRollType.ADMIN));
+
+        List<Account> mngList = queryFactory
+                .select(Projections.fields(Account.class,
+                        qAccount.id,
+                        qAccount.loginId, qAccount.nm, qAccount.mberDvTy,
+                        qAccount.sexPrTy, qAccount.moblphon, qAccount.email, qAccount.adres,
+                        qAccount.regDtm, qAccount.updDtm
+                ))
+                .from(qAccount)
+                .where(builder)
+                .orderBy(orderSpecifier)
+                .fetch();
+
+        return mngList;
     }
 
 }
