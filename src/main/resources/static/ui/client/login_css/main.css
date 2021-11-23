@@ -316,21 +316,26 @@ table {
 }
 
 .sub_hd > h2 {
-	margin: 2em;
+	margin: 1em;
 	font-size: 44px;
 	text-align: center;
-	color: #454443;
+	color: #9ce39e;
 }
-
+.sub_hd > h3 {
+	margin: 1em;
+	font-size: 17px;
+	text-align: center;
+	color: #aaadab;
+}
 .term_hd {
 	margin-bottom: 10px;
-	border-bottom: 2px solid #5b5b5b;
+	/*border-bottom: 2px solid #5b5b5b;*/
 }
 
 .sub_title {
 	padding: 2.5em 0 1.1em;
-	font-size: 22px;
-	color: #000;
+	font-size: 32px;
+	color: #3c3c3c;
 }
 
 .tb_frm > tbody tr:first-child th,

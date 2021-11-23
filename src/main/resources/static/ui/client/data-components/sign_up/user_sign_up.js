@@ -18,6 +18,7 @@ let emailDupBool = false;
 
 
 $(function (){
+
 	$('#btnSave').on('click',function () {
 		$('#btnSave').prop('disabled', true);
 
@@ -31,10 +32,7 @@ $(function (){
 			alert('RES 회원가입이 완료되었습니다.');
 		}
 	})
-	//연도 출력
 	appendYear();
-	//다음 우편번호 api
-	//fn_openMap();
 })
 
 function fn_chkField(){
@@ -88,6 +86,19 @@ function fn_chkField(){
 		nm.focus();
 		return false;
 	}
+	/*if(!pwd.val()){
+		alert('비밀번호를 입력해주세요.')
+		pwd.focus();
+		return false;
+	}
+	if(!pwdChk()){
+		alert('비밀번호를 확인해주세요.')
+		pwdChk.focus();
+		return false;
+	}*/
+	if(!fn_chkPwdDup()){
+		return false;
+	}
 	if(!email.val()){
 		alert('이메일을 입력해주세요.')
 		email.focus();
@@ -137,22 +148,8 @@ function fn_chkField(){
 		day.focus();
 		return false;
 	}
-	//정상작동
-	brthdy.val(brthdyStr)
-	console.log(brthdyStr);
-	console.log(adres);
-	console.log(dtlAdres);
 
-
-	if(!fn_chkPwdDup()){
-		return false;
-	}
-	/*if($('#authMoblieChk') ==1 ){
-		alert('핸드폰 인증을 해주세요.');
-		moblphon.focus();
-		return false;
-	}*/
-
+	return true;
 }
 //정상 작동
 function fn_chkIdDup(){
@@ -194,8 +191,8 @@ function fn_chkIdDup(){
 function fn_chkPwdDup(){
 	pwd = $("#pwd");
 	pwdChk = $("#pwdChk");
-
 	pwd.siblings('.err.emph').remove();
+
 	if (!$.trim(pwd.val())) {
 		alert('비밀번호를 입력하세요');
 		pwd.focus();
@@ -229,7 +226,7 @@ function fn_chkPwdDup(){
 		return true;
 	}
 }
-//키업 이벤트
+//키업 이벤트 문재 없음.
 function pwdCheck(pwd) {
 	pwd.siblings('.err.emph').remove();
 	var regExp = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
@@ -288,6 +285,7 @@ function loginIdCheck(loginId, errTgt) {
 		loginId.focus();
 		return false;
 	}
+
 	return true;
 }
 function fn_openMap() {

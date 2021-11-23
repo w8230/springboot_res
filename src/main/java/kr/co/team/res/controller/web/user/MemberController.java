@@ -44,11 +44,14 @@ public class MemberController extends Base{
 
         if(memberVO.getAuthMobileChk() == 2 && memberVO.getAuthMobileChk() == 2) {
             if(memberVO.getAuthMobileChk() == 2){
+                log.info("val moble 2");
                 memberVO.setMobileAttcAt("Y");
                 memberVO.setEmailAttcAt("N");
                 memberVO.setMobileAttcDtm(LocalDateTime.now());
                 memberService.insert(memberVO);
+
             } else if (memberVO.getAuthEmailChk() == 2) {
+                log.info("val email 2");
                 memberVO.setEmailAttcAt("Y");
                 memberVO.setMobileAttcAt("N");
                 memberVO.setEmailAttcDtm(LocalDateTime.now());

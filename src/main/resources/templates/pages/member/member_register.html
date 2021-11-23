@@ -7,7 +7,8 @@
 <div id="container" class="container">
     <div class="w1100">
         <div class="sub_hd">
-            <h2>회원가입</h2>
+            <h2>RES 회원가입</h2>
+            <h2>환영합니다! 입력하신 기본정보로 회원가입이 진행됩니다!</h2>
         </div>
         <div class="term_hd">
             <h3 class="sub_title">정보입력</h3>
@@ -16,7 +17,8 @@
         <form class="join_frm" id="form1" name="form1" action="/api/member/insert" method="post">
             <input type="hidden" name="mberDvTy" value="NORMAL">
             <!--Default value = 1 -> 인증완료 시 value = 2-->
-            <input type="hidden" name="authMobileChk" value="1">
+            <input type="hidden" name="authMobileChk" value="2">
+
             <!--<input type="hidden" id="id_validation" value="0"/>
             <input type="hidden" id="nickname_validation" value="0"/>
             <input type="hidden" id="email_validation" value="0"/>
@@ -47,7 +49,7 @@
                         닉네임 <b class="color_red">*</b>
                     </th>
                     <td>
-                        <input type="text" name="ncnm" id="ncnm" class="form-control-input wid-sm">
+                        <input type="text" name="ncnm" id="ncnm" class="form-control-input wid-mid">
                     </td>
                 </tr>
 
@@ -56,7 +58,7 @@
                         이름 <b class="color_red">*</b>
                     </th>
                     <td>
-                        <input type="text" name="nm" id="nm" class="form-control-input wid-sm">
+                        <input type="text" name="nm" id="nm" class="form-control-input wid-mid">
                         <!--<p id="valid_name" class="form-control-p">특수문자 없이 입력해 주세요.</p>-->
                     </td>
                 </tr>
