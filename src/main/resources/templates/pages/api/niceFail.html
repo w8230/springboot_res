@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NICE평가정보 - 안심본인인증</title>
+    <script type="text/javascript">
+        var sErrorCode = '[[${sErrorCode}]]';
+        alert("휴대폰인증에 실패했습니다.\nErrorCode : " + sErrorCode);
+        self.close();
+    </script>
+</head>
+<body>
+<!--<center>
+    <p><p><p><p>
+    본인인증이 실패하였습니다.<br>
+    <table border=1>
+        <tr>
+            <td>복호화한 시간</td>
+            <td><th:block th:text="${sCipherTime}"/> (YYMMDDHHMMSS)</td>
+        </tr>
+        <tr>
+            <td>요청 번호</td>
+            <td><th:block th:text="${sRequestNumber}"/></td>
+        </tr>
+        <tr>
+            <td>본인인증 실패 코드</td>
+            <td><th:block th:text="${sErrorCode}"/></td>
+        </tr>
+        <tr>
+            <td>인증수단</td>
+            <td><th:block th:text="${sAuthType}"/></td>
+        </tr>
+    </table><br><br>
+    <th:block th:text="${sMessage}"/><br>
+</center>-->
+</body>
+</html>

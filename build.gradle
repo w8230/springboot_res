@@ -28,6 +28,7 @@ repositories {
  * date     : 21.10.16
  * **/
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // ** spring boot core [s]
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.5.5'
