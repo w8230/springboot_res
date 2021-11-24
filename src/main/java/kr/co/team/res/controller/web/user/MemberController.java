@@ -1,22 +1,17 @@
 package kr.co.team.res.controller.web.user;
 
 import kr.co.team.res.common.Base;
-import kr.co.team.res.domain.enums.UserRollType;
 import kr.co.team.res.domain.vo.MemberVO;
-import kr.co.team.res.service.web.MemberService;
+import kr.co.team.res.service.web.user.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.BindingResultUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @Controller
@@ -42,7 +37,7 @@ public class MemberController extends Base{
         log.info(memberVO.getBrthdy());
         //hidden 값 잘 받아냄.
 
-        if(memberVO.getAuthMobileChk() == 2 && memberVO.getAuthMobileChk() == 2) {
+        if(memberVO.getAuthMobileChk() == 2) {
             if(memberVO.getAuthMobileChk() == 2){
                 log.info("val moble 2");
                 memberVO.setMobileAttcAt("Y");
