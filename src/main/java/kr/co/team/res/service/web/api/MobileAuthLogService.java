@@ -2,8 +2,8 @@ package kr.co.team.res.service.web.api;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.team.res.domain.entity.MobileAuthLog;
+import kr.co.team.res.domain.repository.MobileAuthLogRepository;
 import kr.co.team.res.domain.vo.MobileAuthLogVO;
-import kr.co.team.res.repository.api.MobileAuthLogRepository;
 import kr.co.team.res.service.web._BaseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
