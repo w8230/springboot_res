@@ -1,4 +1,4 @@
-package kr.co.team.res.repository.api;
+package kr.co.team.res.domain.repository;
 
 import kr.co.team.res.domain.entity.MobileAuthLog;
 import org.springframework.data.jpa.repository.JpaRepository;
