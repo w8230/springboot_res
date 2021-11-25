@@ -1,4 +1,4 @@
-package kr.co.team.res.service.web;
+package kr.co.team.res.service.web.user;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.OrderSpecifier;
@@ -13,7 +13,9 @@ import kr.co.team.res.domain.enums.UserRollType;
 import kr.co.team.res.domain.repository.MemberRepository;
 import kr.co.team.res.domain.repository.PartnersRepository;
 import kr.co.team.res.domain.vo.MemberVO;
+import kr.co.team.res.domain.vo.PartnersVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
+import kr.co.team.res.service.web._BaseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
@@ -33,8 +35,10 @@ public class MemberService extends _BaseService {
 
     private final JPAQueryFactory queryFactory;
     private final MemberRepository memberRepository;
-    private final PartnersRepository partnersRepository;
+    private final MemberVO memberVO;
     private final PasswordEncoder passwordEncoder;
+    private final PartnersRepository partnersRepository;
+    private final PartnersVO partnersVO;
 
 
     public boolean insert(MemberVO memberVO) throws ValidCustomException {
@@ -43,7 +47,6 @@ public class MemberService extends _BaseService {
             verifyDuplicateLoginId(memberVO.getLoginId());
 
             Account account = new Account();
-            Partners partners = new Partners();
 
             //Controller에서 인증로직 수행 후 Service에서 인증로직 검토 -> insert 수행
 
@@ -68,10 +71,22 @@ public class MemberService extends _BaseService {
                 memberRepository.save(account);
 
             } else if(memberVO.getMberDvTy().equals(UserRollType.PARTNERS)){
-                //Partners Table 추가 정보 입력.
+                Partners partners = new Partners();
+                partners.setAdres(partnersVO.getAdres());
+                partners.setDtlAdres(partnersVO.getDtlAdres());
+                partners.setApproval(partnersVO.getApproval());
+                partners.setDelAt("N");
+                partners.setTel(partners.getTel());
+                partners.setRegDtm("String");
+
+                partners.setId(account.getId());
+
 
                 account.setMberDvTy(UserRollType.PARTNERS);
                 memberRepository.save(account);
+            } else {
+                log.info("== insert logic error ==");
+                return false;
             }
 
             return true;
