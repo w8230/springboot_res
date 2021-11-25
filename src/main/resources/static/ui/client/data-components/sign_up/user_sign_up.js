@@ -33,6 +33,21 @@ $(function (){
 		}
 	})
 	appendYear();
+
+	window.name = "Parent_window";
+	function fn_niceCallPopup(){
+		window.open('/api/nice/call', 'popupNiceCall', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+	}
+
+	window.addEventListener('message' , function (e) {
+		if(e.origin !== "https://nice.checkplus.co.kr") {
+			return false;
+		}
+
+		console.log(e.data.moblphon);
+		console.log(e.data.sRequestNumber);
+		console.log(e.data.sResponseNumber);
+	});
 })
 
 function fn_chkField(){

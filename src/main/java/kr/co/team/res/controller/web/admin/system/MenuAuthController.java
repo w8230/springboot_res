@@ -9,7 +9,7 @@ import kr.co.team.res.domain.entity.MenuAuth;
 import kr.co.team.res.domain.vo.admin.MenuAuthVO;
 import kr.co.team.res.domain.vo.admin.MenuVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
-import kr.co.team.res.service.web.MemberService;
+import kr.co.team.res.service.web.user.MemberService;
 import kr.co.team.res.service.web.admin.CommonCodeService;
 import kr.co.team.res.service.web.admin.MenuAuthService;
 import kr.co.team.res.service.web.admin.MenuService;

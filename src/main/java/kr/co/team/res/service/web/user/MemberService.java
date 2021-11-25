@@ -18,12 +18,10 @@ import kr.co.team.res.domain.vo.common.SearchVO;
 import kr.co.team.res.service.web._BaseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.bind.ValidationException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,10 +33,8 @@ public class MemberService extends _BaseService {
 
     private final JPAQueryFactory queryFactory;
     private final MemberRepository memberRepository;
-    private final MemberVO memberVO;
     private final PasswordEncoder passwordEncoder;
     private final PartnersRepository partnersRepository;
-    private final PartnersVO partnersVO;
 
 
     public boolean insert(MemberVO memberVO) throws ValidCustomException {
@@ -71,15 +67,7 @@ public class MemberService extends _BaseService {
                 memberRepository.save(account);
 
             } else if(memberVO.getMberDvTy().equals(UserRollType.PARTNERS)){
-                Partners partners = new Partners();
-                partners.setAdres(partnersVO.getAdres());
-                partners.setDtlAdres(partnersVO.getDtlAdres());
-                partners.setApproval(partnersVO.getApproval());
-                partners.setDelAt("N");
-                partners.setTel(partners.getTel());
-                partners.setRegDtm("String");
 
-                partners.setId(account.getId());
 
 
                 account.setMberDvTy(UserRollType.PARTNERS);

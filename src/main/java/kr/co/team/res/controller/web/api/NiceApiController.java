@@ -28,7 +28,7 @@ public class NiceApiController extends BaseCont {
 
     @GetMapping(value = ApiNiceCall)
     public String niceCall(Model model,
-                           @Value("${Globals.domain.full}") String domain,
+                           @Value("localhost:14327") String domain,
                            @Value("${nice.api.code}") String sSiteCode,
                            @Value("${nice.api.password}") String sSitePassword,
                            HttpSession session,
