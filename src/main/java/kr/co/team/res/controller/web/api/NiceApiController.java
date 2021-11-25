@@ -1,6 +1,6 @@
 package kr.co.team.res.controller.web.api;
 import NiceID.Check.CPClient;
-import kr.co.team.res.controller.web.BaseCont;
+import kr.co.team.res.common.Base;
 import kr.co.team.res.domain.vo.MobileAuthLogVO;
 import kr.co.team.res.service.web.api.MobileAuthLogService;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +20,7 @@ import java.util.HashMap;
  * 작성일 : 2021/08/12
 **/
 @Controller
-public class NiceApiController extends BaseCont {
+public class NiceApiController extends Base {
     private final String ApiNiceCall = "/api/nice/call";
     private final String ApiNiceSuccess = "/api/nice/success";
     private final String ApiNiceFail = "/api/nice/fail";
