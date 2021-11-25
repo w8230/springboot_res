@@ -17,38 +17,7 @@ let idDupBool = false;
 let emailDupBool = false;
 
 
-$(function (){
 
-	$('#btnSave').on('click',function () {
-		$('#btnSave').prop('disabled', true);
-
-		if(!fn_chkField()){
-			$('#btnSave').prop('disabled', false);
-			return false;
-		} else {
-			var frm = $('#form1');
-			frm.prop('action' , '/api/member/insert')
-			frm.submit();
-			alert('RES 회원가입이 완료되었습니다.');
-		}
-	})
-	appendYear();
-
-	window.name = "Parent_window";
-	function fn_niceCallPopup(){
-		window.open('/api/nice/call', 'popupNiceCall', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
-	}
-
-	window.addEventListener('message' , function (e) {
-		if(e.origin !== "https://nice.checkplus.co.kr") {
-			return false;
-		}
-
-		console.log(e.data.moblphon);
-		console.log(e.data.sRequestNumber);
-		console.log(e.data.sResponseNumber);
-	});
-})
 
 function fn_chkField(){
 	$('.err.emph').remove();
@@ -337,3 +306,37 @@ function fn_openMap() {
 		}
 	}).open();
 }
+window.name ="Parent_window";
+function fn_niceAuth() {
+	window.open('/api/nice/call', 'popupNiceCall', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+}
+
+window.addEventListener('message', function (e) {
+	if (e.origin !== "https://nice.checkplus.co.kr") {
+		return ;
+	}
+
+	console.log(e.data.moblphon);
+	console.log(e.data.sRequestNumber);
+	console.log(e.data.sResponseNumber);
+});
+
+$(function (){
+
+	$('#btnSave').on('click',function () {
+		$('#btnSave').prop('disabled', true);
+
+		if(!fn_chkField()){
+			$('#btnSave').prop('disabled', false);
+			return false;
+		} else {
+			var frm = $('#form1');
+			frm.prop('action' , '/api/member/insert')
+			frm.submit();
+			alert('RES 회원가입이 완료되었습니다.');
+		}
+	});
+	appendYear();
+
+
+})
