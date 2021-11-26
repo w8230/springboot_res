@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -48,7 +49,7 @@ public class Partners implements Serializable {
     private String DtlAdres;
 
     @Column(name = "reg_dtm")
-    private String RegDtm;
+    private LocalDateTime RegDtm;
 
     @Column(name = "upd_dtm")
     private String UpdDtm;

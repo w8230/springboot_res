@@ -43,11 +43,20 @@ public class MemberVO {
     private UserRollType mberDvTy;
     private String moblphon;
     private String email;
-    private Integer zip;
+    private String zip;
     private String adres;
     private String dtlAdres;
     private LocalDateTime updDtm;
     private String delAt;
+
+    //partners
+    private String bnm;
+    private String bno;
+    private String tel;
+    private String bzip;
+    private String thumnail;
+    private String badres;
+    private String bdtlAdres;
 
     private LocalDateTime emailAttcDtm;
     private LocalDateTime mobileAttcDtm;

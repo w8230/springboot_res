@@ -3,7 +3,7 @@
 <head>
     <th:block th:include="fragments/client/header"></th:block>
 </head>
-
+<th:block th:include="fragments/client/__topNav"></th:block>
 <div id="container" class="container">
     <div class="w1100">
         <div class="sub_hd">
@@ -16,14 +16,7 @@
 
         <form class="join_frm" id="form1" name="form1" action="/api/member/insert" method="post">
             <input type="hidden" name="mberDvTy" value="NORMAL">
-            <!--Default value = 1 -> 인증완료 시 value = 2-->
             <input type="hidden" name="authMobileChk" value="2">
-
-            <!--<input type="hidden" id="id_validation" value="0"/>
-            <input type="hidden" id="nickname_validation" value="0"/>
-            <input type="hidden" id="email_validation" value="0"/>
-            <input type="hidden" id="check_num1" value="">-->
-
             <p class="m-t-35 m-b-15">
                 <b class="color_red">*</b> 표시는 필수 입력항목입니다.
             </p>
@@ -104,6 +97,7 @@
                         <button type="button" class="info-manage__btn-id email_btn" onclick="fn_openMap()">주소 검색</button>
                         <br>
                         <input name="dtlAdres" id="dtlAdres" class="form-control-input wid-lg" placeholder="상세 주소를 입력해주세요.">
+                        <input type="hidden" name="zip" id="zip">
                         <p id="search_adres" class="form-control-p"></p>
                     </td>
                 </tr>
@@ -184,7 +178,7 @@
             </table>
 
             <div class="text-center m-t-25">
-                <button id="btnSave" class="btn bg_blu btn-lg nsdow bg-logo_green">회원가입</button>
+                <button id="btnSave" class="btn bg_green btn-lg nsdow bg-logo_green">회원가입</button>
                 <button class="btn bg_dark_grey btn-lg m-l-5 nsdow" type="button" onclick="cancel();">취소</button>
             </div>
         </form>
