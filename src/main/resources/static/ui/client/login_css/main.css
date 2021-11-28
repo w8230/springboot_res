@@ -198,6 +198,7 @@ textarea { resize: none !important; }
 .tit-wrap:first-child .tit-split { margin-top: 5px; }
 .bg_dark_grey { background-color: #484848; color: white; }
 .bg_blu { background-color: #349eff; color: white;}
+.bg_green { background-color : #80cf86; color: white; }
 .color_red { color: #e93d3d; }
 .nsdow:focus { box-shadow: none !important; }
 textarea:focus { outline: none; }
