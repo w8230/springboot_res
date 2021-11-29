@@ -1,6 +1,7 @@
 package kr.co.team.res.controller.web.user;
 
 import kr.co.team.res.common.Base;
+import kr.co.team.res.controller.web.BaseCont;
 import kr.co.team.res.domain.vo.MemberVO;
 import kr.co.team.res.service.web.user.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 
 @Controller
 @RequiredArgsConstructor
-public class MemberController extends Base{
+public class MemberController extends BaseCont {
     private final MemberService memberService;
 
     @RequestMapping("/pages/choiceregister")
