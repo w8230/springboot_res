@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import kr.co.team.res.common.Base;
 import kr.co.team.res.common.exceptions.ValidCustomException;
 import kr.co.team.res.domain.entity.Account;
 import kr.co.team.res.domain.entity.Partners;
@@ -18,9 +19,11 @@ import kr.co.team.res.domain.vo.common.SearchVO;
 import kr.co.team.res.service.web._BaseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,6 +36,7 @@ public class MemberService extends _BaseService {
 
     private final JPAQueryFactory queryFactory;
     private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final PartnersRepository partnersRepository;
 
@@ -41,11 +45,8 @@ public class MemberService extends _BaseService {
 
         try {
             verifyDuplicateLoginId(memberVO.getLoginId());
-
-            Account account = new Account();
-
+            Account account = modelMapper.map(memberVO, Account.class);
             //Controller에서 인증로직 수행 후 Service에서 인증로직 검토 -> insert 수행
-
             account.setDelAt("N");
             account.setApproval("Y");
             account.setRegDtm(LocalDateTime.now());
@@ -56,22 +57,43 @@ public class MemberService extends _BaseService {
             account.setMoblphon(memberVO.getMoblphon());
             account.setEmail(memberVO.getEmail());
             account.setBrthdy(memberVO.getBrthdy());
+            account.setZip(memberVO.getZip());
             account.setAdres(memberVO.getAdres());
             account.setDtlAdres(memberVO.getDtlAdres());
             account.setSexPrTy(memberVO.getSexPrTy());
 
+            if(memberVO.getAuthMobileChk() == 2) {
+                account.setEmailAttcAt("N");
+                account.setMobileAttcAt("Y");
+                account.setMobileAttcDtm(LocalDateTime.now());
+            } else if (memberVO.getAuthEmailChk() == 2){
+                account.setMobileAttcAt("N");
+                account.setEmailAttcAt("Y");
+                account.setEmailAttcDtm(LocalDateTime.now());
+            }
             //RollType 구분 vo SET
             if(memberVO.getMberDvTy().equals(UserRollType.NORMAL)){
                 account.setId(account.getId());
                 account.setMberDvTy(UserRollType.NORMAL);
                 memberRepository.save(account);
-
             } else if(memberVO.getMberDvTy().equals(UserRollType.PARTNERS)){
+                Partners partners = new Partners();
 
-
-
+                partners.setBnm(memberVO.getBnm());
+                partners.setBno(memberVO.getBno());
+                partners.setThumnail(partners.getThumnail());
+                partners.setTel(memberVO.getTel());
+                partners.setAdres(memberVO.getBadres());
+                partners.setDtlAdres(memberVO.getBdtlAdres());
+                partners.setZip(memberVO.getBzip());
+                partners.setRegDtm(LocalDateTime.now());
+                partners.setDelAt("N");
+                partners.setApproval("Y");
+                partners.setId(partners.getId());
                 account.setMberDvTy(UserRollType.PARTNERS);
-                memberRepository.save(account);
+                Account result = memberRepository.save(account);
+                partners.setMberPid(result.getId());
+                partnersRepository.save(partners);
             } else {
                 log.info("== insert logic error ==");
                 return false;

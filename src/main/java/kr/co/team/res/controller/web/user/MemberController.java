@@ -43,6 +43,8 @@ public class MemberController extends Base{
                 memberVO.setMobileAttcAt("Y");
                 memberVO.setEmailAttcAt("N");
                 memberVO.setMobileAttcDtm(LocalDateTime.now());
+                System.out.println(memberVO.getZip());
+                System.out.println(memberVO.getBzip());
                 memberService.insert(memberVO);
 
             } else if (memberVO.getAuthEmailChk() == 2) {

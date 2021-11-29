@@ -51,7 +51,7 @@ public class Account implements Serializable {
     private String email;
 
     @Column(name = "zip")
-    private Integer zip;
+    private String zip;
 
     @Column(name = "adres")
     private String adres;

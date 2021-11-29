@@ -54,7 +54,7 @@ a, button, input, textarea {
 .top-a-tag{padding-left: 15px !important;}
 .index-a-tag{padding-right: 15px !important;}
 #mid-nav-wd{max-width: 1200px !important;}
-a:hover{color:#ff4a52 !important;}
+a:hover{color:#80cf86 !important;}
 .a-active{color:#ff4a52; font-weight:500;}
 .banner_places_area {
     padding-top: 80px;
@@ -80,4 +80,4 @@ a:hover{color:#ff4a52 !important;}
     padding-bottom: 7px;
     padding-right: 25px;
 }
-.sp_active{color:#ff4a52 !important;}
+.sp_active{color:#80cf86 !important;}

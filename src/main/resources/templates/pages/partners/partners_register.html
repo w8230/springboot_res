@@ -3,7 +3,7 @@
 <head>
     <th:block th:include="fragments/client/header"></th:block>
 </head>
-
+<th:block th:include="fragments/client/__topNav"></th:block>
 <div id="container" class="container">
     <div class="w1100">
         <div class="sub_hd">
@@ -18,8 +18,8 @@
                 <h3 class="sub_title">기본정보 입력</h3>
             </div>
 
-            <input type="hidden" name="mberDvTy" value="PARTNERS">
-            <input type="hidden" name="authMobileChk" value="2">
+            <input type="hidden" id="mberDvTy" name="mberDvTy" value="PARTNERS">
+            <input type="hidden" id="authMobileChk" name="authMobileChk" value="2">
 
             <p class="m-t-35 m-b-15">
                 <b class="color_red">*</b> 표시는 필수 입력항목입니다.
@@ -100,6 +100,7 @@
                         <button type="button" class="info-manage__btn-id email_btn" onclick="fn_openMap()">주소 검색</button>
                         <br>
                         <input name="dtlAdres" id="dtlAdres" class="form-control-input wid-lg" placeholder="상세 주소를 입력해주세요.">
+                        <input type="hidden" name="zip" id="zip">
                         <p id="search_adres" class="form-control-p"></p>
                     </td>
                 </tr>
@@ -201,10 +202,11 @@
                         사업장 주소 <b class="color_red">*</b>
                     </th>
                     <td>
-                        <input name="badres" id="badres" class="form-control-input wid-mid m-b-10 bg-gray" placeholder="주소를 검색해주세요." readonly onclick="fn_openMap()">
-                        <button type="button" class="info-manage__btn-id email_btn" onclick="fn_openMap()">주소 검색</button>
+                        <input name="badres" id="badres" class="form-control-input wid-mid m-b-10 bg-gray" placeholder="주소를 검색해주세요." readonly onclick="fn_openBMap()">
+                        <button type="button" class="info-manage__btn-id email_btn" onclick="fn_openBmap()">주소 검색</button>
                         <br>
                         <input name="bdtlAdres" id="bdtlAdres" class="form-control-input wid-lg" placeholder="상세 주소를 입력해주세요.">
+                        <input type="hidden" name="bzip" id="bzip">
                         <p id="search_badres" class="form-control-p"></p>
                     </td>
                 </tr>
@@ -230,8 +232,8 @@
                         대표이미지
                     </th>
                     <td>
-                        <input type="number" name="thumnail" id="thumnail" class="form-control-input wid-mid m-b-10" placeholder=" '-' 제외하여 입력해주세요.">
-                        <button type="button" class="info-manage__btn-id email_btn bg_logo_green" onclick="return emailchkbtn()">이미지 찾기</button>
+                        <input type="text" name="thumnail" id="thumnail" class="form-control-input wid-mid m-b-10" placeholder="이미지를 첨부해주세요.">
+                        <button type="button" class="info-manage__btn-id email_btn bg_logo_green">이미지 찾기</button>
                     </td>
                 </tr>
 
@@ -240,7 +242,7 @@
             </table>
 
             <div class="text-center m-t-25">
-                <button id="btnSave" class="btn bg_blu btn-lg nsdow bg-logo_green">회원가입</button>
+                <button id="btnSave" class="btn bg_green btn-lg nsdow bg-logo_green">회원가입</button>
                 <button class="btn bg_dark_grey btn-lg m-l-5 nsdow" type="button" onclick="cancel();">취소</button>
             </div>
         </form>

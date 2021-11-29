@@ -41,7 +41,7 @@ public class PartnersVO {
     private UserRollType mberDvTy;
     private String moblphon;
     private String email;
-    private Integer zip;
+    private String zip;
     private String adres;
     private String dtlAdres;
     private LocalDateTime updDtm;
@@ -59,6 +59,7 @@ public class PartnersVO {
 
     private String bnm;
     private String bno;
+    private String bzip;
     private String thumnail;
     private String sectorDvTy;
     private String tel;

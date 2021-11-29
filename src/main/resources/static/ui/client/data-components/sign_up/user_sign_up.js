@@ -12,12 +12,36 @@ let brthdy;
 let year;
 let month;
 let day;
+let zip;
+let mberDvTy;
+let authMobileChk;
+
+let bnm;
+let bno;
+let badres;
+let bzip;
+let bdtlAdres;
+let tel;
+let thumnail;
+
+
 
 let idDupBool = false;
 let emailDupBool = false;
 
 
+var themeObj = {
+	bgColor: "#8AD19B",
+	searchBgColor: "#171717",
+	contentBgColor: "",
+	pageBgColor: "",
+	textColor: "",
+	queryTextColor: "#FEFBFB",
+	postcodeTextColor: "",
+	emphTextColor: "",
+	outlineColor: "",
 
+};
 
 function fn_chkField(){
 	$('.err.emph').remove();
@@ -37,6 +61,37 @@ function fn_chkField(){
 	year = $("#year");
 	month = $("#month");
 	day = $("#day");
+	mberDvTy = $('#mberDvTy');
+
+	bnm = $('#bnm');
+	bno = $('#bno');
+	badres = $('#badres');
+	bdtlAdres = $('#bdtlAdres');
+	tel = $('#tel');
+	thumnail = $('#thumnail');
+
+	if(mberDvTy.val() == 'PARTNERS') {
+		if(!bnm.val()){
+			alert('사업장 이름을 입력해주세요.')
+			bnm.focus();
+			return false;
+		}
+		if(!badres.val()) {
+			alert('사업장 주소 입력은 필수 입니다.')
+			badres.focus()
+			return false
+		}
+		if(!bdtlAdres.val()) {
+			alert('사업장 상세주소를 입력해주세요.')
+			bdtlAdres.focus()
+			return false;
+		}
+		if(!tel.val()){
+			alert('사업장 연락처를 입력해주세요.')
+			tel.focus();
+			return false;
+		}
+	}
 
 	if(!loginId.val()){
 		alert('아이디를 입력해주세요.')
@@ -132,6 +187,10 @@ function fn_chkField(){
 		day.focus();
 		return false;
 	}
+
+	brthdy.val(brthdyStr);
+
+
 
 	return true;
 }
@@ -300,9 +359,44 @@ function fn_openMap() {
 			} else {
 				document.getElementById("adres").value = '';
 			}
-			document.getElementById('adres').value = data.zonecode;
+			document.getElementById('zip').value = data.zonecode;
 			document.getElementById("adres").value = addr;
-			document.getElementById("adres").focus();
+			document.getElementById("dtlAdres").focus();
+		}
+	}).open();
+}
+function fn_openBmap() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+
+			theme: themeObj
+			var addr = '';
+			var extraAddr = '';
+
+			if (data.userSelectedType === 'R') {
+				addr = data.roadAddress;
+			} else {
+				addr = data.jibunAddress;
+			}
+
+			if(data.userSelectedType === 'R'){
+				if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+					extraAddr += data.bname;
+				}
+				if(data.buildingName !== '' && data.apartment === 'Y'){
+					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				if(extraAddr !== ''){
+					extraAddr = ' (' + extraAddr + ')';
+				}
+				document.getElementById("badres").value = extraAddr;
+
+			} else {
+				document.getElementById("badres").value = '';
+			}
+			document.getElementById('bzip').value = data.zonecode;
+			document.getElementById("badres").value = addr;
+			document.getElementById("bdtlAdres").focus();
 		}
 	}).open();
 }
