@@ -70,7 +70,7 @@ public class LoginController extends BaseCont {
 
     @RequestMapping("/pages/session/duplication")
     public String sessionDuplication(Model model) {
-        return "/login";
+        return "/pages/login";
     }
 
     @RequestMapping("/loginSuccess")
@@ -87,7 +87,7 @@ public class LoginController extends BaseCont {
         if(account.getApproval().equals("N")) {
             model.addAttribute("mc","memberJoin");
             model.addAttribute("rsMsg","미승인 계정입니다.");
-            return "/login";
+            return "/pages/login";
         }
         if(UserRollType.ADMIN.name().equals(account.getMberDvTy().name())
                 || UserRollType.MASTER.name().equals(account.getMberDvTy().name())) {
@@ -162,7 +162,7 @@ public class LoginController extends BaseCont {
         }
 
         model.addAttribute("mc", "memberJoin");
-        return "/login";
+        return "/pages/login";
     }
 
 
@@ -172,7 +172,7 @@ public class LoginController extends BaseCont {
         HttpSession session = request.getSession(false);
         session.invalidate();
         if(request.getParameter("dv").equals("n")) {
-            url = "/login";
+            url = "/pages/login";
         }
         return "redirect:"+url;
     }
