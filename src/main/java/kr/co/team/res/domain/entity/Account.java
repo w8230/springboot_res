@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -82,8 +83,10 @@ public class Account implements Serializable {
     @Column(name = "reg_dtm")
     private LocalDateTime regDtm;
 
+    @Transient
+    private List<MemberRoll> authorites;
     @Builder
-    public Account(Long id, String loginId, String nm, String pwd, String ncnm, LocalDateTime regDtm, LocalDateTime updDtm, UserRollType mberDvTy, String moblphon, String approval) {
+    public Account(Long id, String loginId, String nm, String pwd, String ncnm, LocalDateTime regDtm, LocalDateTime updDtm, UserRollType mberDvTy, List<MemberRoll> authorites, String moblphon, String approval) {
 
         this.id = id;
         this.loginId = loginId;
@@ -93,6 +96,7 @@ public class Account implements Serializable {
         this.regDtm = regDtm;
         this.updDtm = updDtm;
         this.mberDvTy = mberDvTy;
+        this.authorites = authorites;
         this.moblphon = moblphon;
         this.approval = approval;
     }

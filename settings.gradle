@@ -1,1 +1,6 @@
 rootProject.name = 'res'
+//includeBuild '../res/libs'
+
+//include ':nice'
+//project(':nice').projectDir = new File(settingsDir, '../res/libs/kr/res/niceID/1.0')
+

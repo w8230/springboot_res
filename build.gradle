@@ -8,6 +8,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'maven-publish'
 }
 
 bootJar {
@@ -19,6 +20,13 @@ version = '0.1'
 sourceCompatibility = '17'
 
 repositories {
+//    flatDir {
+//        dirs "$rootProject.projectDir/libs"
+//    }
+//    maven {
+//        url = uri("$rootProject.projectDir/libs")
+//    }
+    //mavenLocal()
     mavenCentral()
 }
 
@@ -28,8 +36,12 @@ repositories {
  * date     : 21.10.16
  * **/
 dependencies {
+    //implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //implementation group : 'kr.res', name: 'niceID', version: '1.0'
+    //implementation project(':nice')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // ** spring boot core [s]
+    //implementation 'kr.res:niceID:1.0'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.5.5'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
@@ -94,4 +106,8 @@ sourceSets {
 
 test {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
