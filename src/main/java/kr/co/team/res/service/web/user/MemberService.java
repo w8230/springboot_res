@@ -8,6 +8,7 @@ import kr.co.team.res.common.exceptions.ValidCustomException;
 import kr.co.team.res.domain.entity.*;
 import kr.co.team.res.domain.enums.UserRollType;
 import kr.co.team.res.domain.repository.MemberRepository;
+import kr.co.team.res.domain.repository.MemberRollRepository;
 import kr.co.team.res.domain.repository.PartnersRepository;
 import kr.co.team.res.domain.vo.user.MemberVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
@@ -30,6 +31,7 @@ public class MemberService extends _BaseService {
 
     private final JPAQueryFactory queryFactory;
     private final MemberRepository memberRepository;
+    private final MemberRollRepository memberRollRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final PartnersRepository partnersRepository;
@@ -40,7 +42,6 @@ public class MemberService extends _BaseService {
         try {
             verifyDuplicateLoginId(memberVO.getLoginId());
             Account account = modelMapper.map(memberVO, Account.class);
-            //Controller에서 인증로직 수행 후 Service에서 인증로직 검토 -> insert 수행
             account.setDelAt("N");
             account.setApproval("Y");
             account.setRegDtm(LocalDateTime.now());
@@ -65,11 +66,16 @@ public class MemberService extends _BaseService {
                 account.setEmailAttcAt("Y");
                 account.setEmailAttcDtm(LocalDateTime.now());
             }
-            //RollType 구분 vo SET
+
             if(memberVO.getMberDvTy().equals(UserRollType.NORMAL)){
                 account.setId(account.getId());
                 account.setMberDvTy(UserRollType.NORMAL);
+                MemberRoll memberRoll = new MemberRoll();
+                memberRoll.setMberDvTy(UserRollType.NORMAL);
+                memberRoll.setRegDtm(LocalDateTime.now());
                 memberRepository.save(account);
+                memberRoll.setMberPid(account.getId());
+                memberRollRepository.save(memberRoll);
             } else if(memberVO.getMberDvTy().equals(UserRollType.PARTNERS)){
                 Partners partners = new Partners();
 
@@ -87,6 +93,11 @@ public class MemberService extends _BaseService {
                 account.setMberDvTy(UserRollType.PARTNERS);
                 Account result = memberRepository.save(account);
                 partners.setMberPid(result.getId());
+                MemberRoll memberRoll = new MemberRoll();
+                memberRoll.setMberPid(account.getId());
+                memberRoll.setMberDvTy(UserRollType.PARTNERS);
+                memberRoll.setRegDtm(LocalDateTime.now());
+                memberRollRepository.save(memberRoll);
                 partnersRepository.save(partners);
             } else {
                 log.info("== insert logic error ==");

@@ -44,6 +44,10 @@ public class LoginController extends BaseCont {
 
 
     //private final ResourceServerTokenServices tokenServices;	//kakao login 2020.03.03  fail
+    @RequestMapping("/pages/login")
+    public String loginPage() {
+        return "/pages/login";
+    }
 
     // 로그인 button submit method @CurrentUser Account account,
     @RequestMapping("/login")
