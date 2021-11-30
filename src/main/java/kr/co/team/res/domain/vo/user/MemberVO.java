@@ -1,8 +1,9 @@
-package kr.co.team.res.domain.vo;
+package kr.co.team.res.domain.vo.user;
 
 import kr.co.team.res.domain.enums.UserRollType;
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -10,7 +11,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class PartnersVO {
+public class MemberVO {
+    private Long id;
 
     @NotNull(message = "아이디는 필수 값입니다.")
     @NotBlank(message = "아이디는 필수 값입니다.")
@@ -47,6 +49,15 @@ public class PartnersVO {
     private LocalDateTime updDtm;
     private String delAt;
 
+    //partners
+    private String bnm;
+    private String bno;
+    private String tel;
+    private String bzip;
+    private String thumnail;
+    private String badres;
+    private String bdtlAdres;
+
     private LocalDateTime emailAttcDtm;
     private LocalDateTime mobileAttcDtm;
     private String mobileAttcAt;
@@ -57,13 +68,4 @@ public class PartnersVO {
     private String approval;
     private LocalDateTime regDtm;
 
-    private String bnm;
-    private String bno;
-    private String bzip;
-    private String thumnail;
-    private String sectorDvTy;
-    private String tel;
-    private String RegDtm;
-    private String UpdDtm;
-    private String DelAt;
 }

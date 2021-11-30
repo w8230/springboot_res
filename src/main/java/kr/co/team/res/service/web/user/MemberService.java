@@ -4,17 +4,12 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.co.team.res.common.Base;
 import kr.co.team.res.common.exceptions.ValidCustomException;
-import kr.co.team.res.domain.entity.Account;
-import kr.co.team.res.domain.entity.Partners;
-import kr.co.team.res.domain.entity.QAccount;
-import kr.co.team.res.domain.entity.QCommonCode;
+import kr.co.team.res.domain.entity.*;
 import kr.co.team.res.domain.enums.UserRollType;
 import kr.co.team.res.domain.repository.MemberRepository;
 import kr.co.team.res.domain.repository.PartnersRepository;
-import kr.co.team.res.domain.vo.MemberVO;
-import kr.co.team.res.domain.vo.PartnersVO;
+import kr.co.team.res.domain.vo.user.MemberVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
 import kr.co.team.res.service.web._BaseService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +18,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -166,6 +160,47 @@ public class MemberService extends _BaseService {
                 .fetch();
 
         return mngList;
+    }
+
+    public Account load(Long id) {
+
+        QAccount qAccount = QAccount.account;
+        QPartners qPartners = QPartners.partners;
+
+        BooleanBuilder builder = new BooleanBuilder();
+        //로그인 시 -> 회원정보 + if(파트너스 pid 조회되면 파트너스까지)
+        Account account = queryFactory.select(Projections.fields(Account.class,
+                qAccount.id,
+                qAccount.loginId,
+                qAccount.pwd,
+                qAccount.nm,
+                qAccount.sexPrTy,
+                qAccount.mberDvTy,
+                qAccount.moblphon,
+                qAccount.email,
+                qAccount.zip,
+                qAccount.adres,
+                qAccount.dtlAdres,
+                qAccount.ncnm,
+                qAccount.brthdy,
+                qAccount.mobileAttcAt,
+                qAccount.mobileAttcDtm,
+                qAccount.emailAttcAt,
+                qAccount.emailAttcDtm,
+                //qAccount.secsnDtm,
+                //qAccount.secsnRsn,
+                //qAccount.regPsId,
+                qAccount.regDtm,
+                //qAccount.updPsId,
+                qAccount.updDtm,
+                qAccount.delAt,
+                qAccount.approval))
+                .from(qAccount)
+                .leftJoin(qPartners).on(qPartners.id.eq(qPartners.mberPid))
+                .where(builder)
+                .fetchFirst();
+
+        return account;
     }
 
 }

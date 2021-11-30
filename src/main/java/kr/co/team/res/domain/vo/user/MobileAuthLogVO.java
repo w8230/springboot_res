@@ -1,4 +1,4 @@
-package kr.co.team.res.domain.vo;
+package kr.co.team.res.domain.vo.user;
 
 import kr.co.team.res.domain.vo.common.SearchVO;
 import lombok.Getter;
