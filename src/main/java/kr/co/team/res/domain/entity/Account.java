@@ -83,6 +83,18 @@ public class Account implements Serializable {
     @Column(name = "reg_dtm")
     private LocalDateTime regDtm;
 
+    @Column(name = "secsn_dtm")
+    private String secsnDtm;
+
+    @Column(name = "secsn_rsn")
+    private String secsnRsn;
+
+    @Column(name = "reg_ps_id")
+    private String regPsId;
+
+    @Column(name = "upd_ps_id")
+    private String updPsId;
+
     @Transient
     private List<MemberRoll> authorites;
     @Builder
