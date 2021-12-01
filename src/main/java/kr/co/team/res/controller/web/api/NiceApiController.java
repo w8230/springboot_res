@@ -33,7 +33,7 @@ public class NiceApiController extends Base {
                            @Value("${nice.api.password}") String sSitePassword,
                            HttpSession session,
                            HttpServletRequest request) {
-        CPClient niceCheck = new CPClient();
+        CPClient niceCheck = new NiceID.Check.CPClient();
         String sRequestNumber = "REQ0000000001";
         sRequestNumber = niceCheck.getRequestNO(sSiteCode);
         session.setAttribute("REQ_SEQ", sRequestNumber);

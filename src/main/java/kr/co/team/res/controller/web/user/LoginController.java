@@ -65,7 +65,7 @@ public class LoginController extends BaseCont {
         String referrer = request.getHeader("Referer");
         request.getSession().setAttribute("prevPage", referrer);
         model.addAttribute("mc", "memberJoin");
-        return "/login";
+        return "/pages/login";
     }
 
     @RequestMapping("/pages/session/duplication")
