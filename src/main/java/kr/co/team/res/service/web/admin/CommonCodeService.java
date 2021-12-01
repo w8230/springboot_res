@@ -74,7 +74,7 @@ public class CommonCodeService extends _BaseService {
             return false;
         }
     }
-
+// push test
     public List<CommonCode> menuListForUppCdPid(Long prntCodePid) {
         QCommonCode qCommonCode = QCommonCode.commonCode;
 
