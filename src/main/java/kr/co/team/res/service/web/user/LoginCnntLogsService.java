@@ -7,9 +7,10 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.team.res.domain.entity.LoginCnntLogs;
+import kr.co.team.res.domain.vo.user.LoginCnntLogsVO;
 import kr.co.team.res.domain.entity.QLoginCnntLogs;
 import kr.co.team.res.domain.repository.LoginCnntLogsRepository;
-import kr.co.team.res.domain.vo.user.LoginCnntLogsVO;
+import kr.co.team.res.service.web._BaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class LoginCnntLogsService {
+public class LoginCnntLogsService extends _BaseService {
 
     private final JPAQueryFactory queryFactory;
     private final LoginCnntLogsRepository loginCnntLogsRepository;
@@ -118,14 +119,14 @@ public class LoginCnntLogsService {
         return fetch;
     }
 
-    public LoginCnntLogs lastLogin(LoginCnntLogsVO LoginCnntLogsVO) {
+    public LoginCnntLogs lastLogin(LoginCnntLogsVO loginCnntLogsVO) {
         QLoginCnntLogs qLoginCnntLogs = QLoginCnntLogs.loginCnntLogs;
 
         OrderSpecifier<LocalDateTime> orderSpecifier = qLoginCnntLogs.cnctDtm.desc();
 
         BooleanBuilder builder = new BooleanBuilder();
-        builder.and(qLoginCnntLogs.cnctId.eq(LoginCnntLogsVO.getCnctId()));
-        builder.and(qLoginCnntLogs.succesAt.eq(LoginCnntLogsVO.getSuccesAt()));
+        builder.and(qLoginCnntLogs.cnctId.eq(loginCnntLogsVO.getCnctId()));
+        builder.and(qLoginCnntLogs.succesAt.eq(loginCnntLogsVO.getSuccesAt()));
 
         LoginCnntLogs fetch = queryFactory
                 .select(Projections.fields(LoginCnntLogs.class,

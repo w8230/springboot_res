@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class LoginCnntLogsVO extends SearchVO {
 
+
     private LocalDateTime cnctDtm;
     private String cnctId;
     private String succesAt;
