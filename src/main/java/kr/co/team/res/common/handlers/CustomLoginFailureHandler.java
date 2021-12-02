@@ -66,7 +66,8 @@ public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
         }*/
 
         if(exception instanceof BadCredentialsException) {
-            errormsg = messageSource.getMessage("error.BadCredentials", null, LocaleContextHolder.getLocale());
+            log.info("failureHandler");
+            errormsg = "아이디나 비밀번호를 확인 해주세요.";
         } else {
             errormsg = messageSource.getMessage(exception.getMessage(), null, LocaleContextHolder.getLocale());
             request.setAttribute("mailAuthBool", false);

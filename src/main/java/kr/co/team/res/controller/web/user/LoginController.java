@@ -46,6 +46,7 @@ public class LoginController extends BaseCont {
     //private final ResourceServerTokenServices tokenServices;	//kakao login 2020.03.03  fail
     @RequestMapping("/pages/login")
     public String loginPage() {
+
         return "/pages/login";
     }
 
@@ -138,7 +139,9 @@ public class LoginController extends BaseCont {
         //log.debug("==로그인실패 후처리시작");
         String userId = request.getAttribute("userId") != null ? request.getAttribute("userId").toString() : "";
         String msg = request.getAttribute("ERRORMSG") != null ? request.getAttribute("ERRORMSG").toString() : "";
+
         System.out.println("Failure ==" + msg);
+
         model.addAttribute("errormsg", msg);
 
         //rttr.addFlashAttribute("message", "fail");
@@ -182,6 +185,7 @@ public class LoginController extends BaseCont {
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
         String url = "/";
+        log.info(" == logout == ");
         HttpSession session = request.getSession(false);
         session.invalidate();
         if(request.getParameter("dv").equals("n")) {
