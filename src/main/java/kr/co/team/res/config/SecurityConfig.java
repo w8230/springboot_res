@@ -78,11 +78,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/login").permitAll()
+                //성공시 /loginSuccess
                 .successForwardUrl("/loginSuccess")
+                .failureForwardUrl("/loginFailure")
                 .usernameParameter("userId")
                 .passwordParameter("userPw")
-                .failureHandler(failureHandler("userId", "userPw"))
-        ;
+                .failureHandler(failureHandler("userId", "userPw"));
+
         http.rememberMe()
                 .userDetailsService(userDetailsService)
                 .key("remember-me-key");
@@ -92,6 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);
+
         http.addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
 

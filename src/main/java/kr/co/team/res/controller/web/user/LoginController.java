@@ -55,6 +55,10 @@ public class LoginController extends BaseCont {
                         HttpServletRequest request,
                         @CurrentUser Account account,
                         HttpSession session) throws UnsupportedEncodingException {
+
+        log.info("Run Login");
+
+
         String redirect = "/";
         if (super.isLogined(account)) {
             log.debug("이미로그인됨 메인이동, account:{}", account);
@@ -83,10 +87,12 @@ public class LoginController extends BaseCont {
                                HttpServletRequest request,
                                HttpServletResponse response) throws IOException {
 
-
+        log.info("== Run LoginSuccess ==");
+        log.info("Success LoginID Get "+ account.getLoginId());
         //log.debug("==로그인성공 후처리시작");
 
         String redirect = "/";
+
         log.info("가나다라마"+account.getApproval().equals("N"));
         if(account.getApproval().equals("N")) {
             model.addAttribute("mc","memberJoin");
@@ -127,9 +133,12 @@ public class LoginController extends BaseCont {
     public String loginFailure(Model model,
                                HttpServletRequest request) {
 
+        log.info("== Run LoginFailure ==");
+
         //log.debug("==로그인실패 후처리시작");
         String userId = request.getAttribute("userId") != null ? request.getAttribute("userId").toString() : "";
         String msg = request.getAttribute("ERRORMSG") != null ? request.getAttribute("ERRORMSG").toString() : "";
+        System.out.println("Failure ==" + msg);
         model.addAttribute("errormsg", msg);
 
         //rttr.addFlashAttribute("message", "fail");
