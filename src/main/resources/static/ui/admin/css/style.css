@@ -35,9 +35,9 @@
 #header .btn_menu span:after{top:16px}
 #header .btn_app{position:absolute;top:28px;right:40px;color:#f5f7fa;border-color:#f5f7fa}
 #lnb{position:absolute;top:71px;bottom:0;left:0;width:240px;min-height:calc(100vh - 71px);background-color:#f5f7fa;transition:left linear .4s;z-index:110}
-#lnb .user_area{text-align:center;background-color:#5981ba}
+#lnb .user_area{text-align:center;background-color:#7bc37c}
 #lnb .user_area .user_info{padding:27px 10px 30px}
-#lnb .user_area .user_info i{color:#bed3f7;font-size:72px;line-height:1;vertical-align:top}
+#lnb .user_area .user_info i{color:#ffffff;font-size:72px;line-height:1;vertical-align:top}
 #lnb .user_area .user_info p{margin-top:2px;color:#fff;font-size:15px;line-height:25px}
 #lnb .user_area .user_info p span{position:relative}
 #lnb .user_area .user_info p span:after{content:'';display:block;position:absolute;bottom:-2px;left:1px;width:100%;height:1px;background-color:#fff}
@@ -47,7 +47,7 @@
 #lnb .user_area .user_menu li{width:33.33%;border-left:1px solid rgba(255,255,255,.2)}
 #lnb .user_area .user_menu li:first-child{border-left:none}
 #lnb .user_area .user_menu li a{display:block;padding:18px 0}
-#lnb .user_area .user_menu li a i{color:#bed3f7;font-size:20px;vertical-align:top}
+#lnb .user_area .user_menu li a i{color:#ffffff;font-size:20px;vertical-align:top}
 #lnb .user_area .user_menu li.active a, #lnb .user_area .user_menu li:hover a{background-color:#041026}
 .lnb{overflow-y:auto;height:calc(100% - 238px)}
 .lnb > li{border-bottom:1px solid #dce0e6}

@@ -1,5 +1,5 @@
 <div id="header">
-    <h1 class="logo"><a href="/"><img src="/ui/admin/images/common/logo.png" alt="RES" /></a></h1>
+    <h1 class="logo"><a href="/"><img src="/ui/admin/images/common/logo1.png" alt="RES" /></a></h1>
     <a href="javascript:;" class="btn_menu"><span></span></a>
     <!--<a href="/app/appDown" class="btn btn_sm btn_app" target="_blank"><i class="material-icons">get_app</i>APP 다운로드</a>-->
 </div>
@@ -7,11 +7,19 @@
 <div id="lnb" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="user_area">
         <div class="user_info">
-            <i class="material-icons">account_circle</i>
-<!--            <p><th:block sec:authentication="principal.account.loginId"></th:block>-->
-<!--                <span><th:block sec:authentication="principal.account.ncnm"></th:block>님</span>의 권한은<br />-->
-<!--                <b th:text="${T(kr.co.team.res.domain.enums.UserRollType).valueOf(#authentication.principal.account.mberDvTy).getName()}"></b>입니다.-->
-<!--            </p>-->
+            <i class="material-icons">dashboard</i>
+            <p>
+                <th:block th:if="${T(kr.co.team.res.domain.enums.UserRollType).valueOf(#authentication.principal.account.mberDvTy).getName() eq '마스터'}" >
+                    <span>
+                        관리자님 환영합니댜.
+                    </span>
+                </th:block>
+                <th:block th:if="${T(kr.co.team.res.domain.enums.UserRollType).valueOf(#authentication.principal.account.mberDvTy).getName() eq '협력사'}" >
+                    <span>
+                        파트너님 환영합니댜.
+                    </span>
+                </th:block>
+            </p>
         </div>
         <ul class="user_menu clearfix">
             <li><a href="/admin/dashboard"><i class="material-icons">home</i></a></li>

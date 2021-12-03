@@ -2,538 +2,538 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/admin/header"></th:block>
-    <script type="text/javascript">
-        /*var colorList = [
-            "#67B7DC"
-            ,"#6a74dc"
-            ,"#534bc2"
-            ,"#9a4df5"
-            ,"#fe9b19"
-            ,"#ce0f54"
-            ,"#21c1aa"
-            ,"#84f4a8"
-            ,"#ff66ad"
-            ,"#1f9925"
-        ]*/
+<!--    <script type="text/javascript">-->
+<!--        /*var colorList = [-->
+<!--            "#67B7DC"-->
+<!--            ,"#6a74dc"-->
+<!--            ,"#534bc2"-->
+<!--            ,"#9a4df5"-->
+<!--            ,"#fe9b19"-->
+<!--            ,"#ce0f54"-->
+<!--            ,"#21c1aa"-->
+<!--            ,"#84f4a8"-->
+<!--            ,"#ff66ad"-->
+<!--            ,"#1f9925"-->
+<!--        ]*/-->
 
-        ////-------- page load
-        $(function(){
-            fn_setDatePicker('#adviceSrchStDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        maxDate:$('#adviceSrchEdDt').val()?$('#adviceSrchEdDt').val():false
-                    });
-                }
-            });
+<!--        ////&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; page load-->
+<!--        $(function(){-->
+<!--            fn_setDatePicker('#adviceSrchStDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        maxDate:$('#adviceSrchEdDt').val()?$('#adviceSrchEdDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
 
-            fn_setDatePicker('#adviceSrchEdDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        minDate:$('#adviceSrchStDt').val()?$('#adviceSrchStDt').val():false
-                    });
-                }
-            });
-            fn_setDatePicker('#courseSrchStDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        maxDate:$('#courseSrchEdDt').val()?$('#courseSrchEdDt').val():false
-                    });
-                }
-            });
+<!--            fn_setDatePicker('#adviceSrchEdDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        minDate:$('#adviceSrchStDt').val()?$('#adviceSrchStDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
+<!--            fn_setDatePicker('#courseSrchStDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        maxDate:$('#courseSrchEdDt').val()?$('#courseSrchEdDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
 
-            fn_setDatePicker('#courseSrchEdDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        minDate:$('#courseSrchStDt').val()?$('#courseSrchStDt').val():false
-                    });
-                }
-            });
-            fn_setDatePicker('#courseStateSrchStDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        maxDate:$('#courseStateSrchEdDt').val()?$('#courseStateSrchEdDt').val():false
-                    });
-                }
-            });
+<!--            fn_setDatePicker('#courseSrchEdDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        minDate:$('#courseSrchStDt').val()?$('#courseSrchStDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
+<!--            fn_setDatePicker('#courseStateSrchStDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        maxDate:$('#courseStateSrchEdDt').val()?$('#courseStateSrchEdDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
 
-            fn_setDatePicker('#courseStateSrchEdDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        minDate:$('#courseStateSrchStDt').val()?$('#courseStateSrchStDt').val():false
-                    });
-                }
-            });
-            fn_setDatePicker('#surveySrchStDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        maxDate:$('#surveyStateSrchEdDt').val()?$('#surveyStateSrchEdDt').val():false
-                    });
-                }
-            });
+<!--            fn_setDatePicker('#courseStateSrchEdDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        minDate:$('#courseStateSrchStDt').val()?$('#courseStateSrchStDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
+<!--            fn_setDatePicker('#surveySrchStDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        maxDate:$('#surveyStateSrchEdDt').val()?$('#surveyStateSrchEdDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
 
-            fn_setDatePicker('#surveyStateSrchEdDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        minDate:$('#surveySrchStDt').val()?$('#surveySrchStDt').val():false
-                    });
-                }
-            });
-            fn_setDatePicker('#menuSrchStDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        maxDate:$('#menuStateSrchEdDt').val()?$('#menuStateSrchEdDt').val():false
-                    });
-                }
-            });
+<!--            fn_setDatePicker('#surveyStateSrchEdDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        minDate:$('#surveySrchStDt').val()?$('#surveySrchStDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
+<!--            fn_setDatePicker('#menuSrchStDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        maxDate:$('#menuStateSrchEdDt').val()?$('#menuStateSrchEdDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
 
-            fn_setDatePicker('#menuStateSrchEdDt', {
-                onShow:function( ct ){
-                    this.setOptions({
-                        minDate:$('#menuSrchStDt').val()?$('#menuSrchStDt').val():false
-                    });
-                }
-            });
-            fn_monthResult();
-            fn_monthConnectResult();
-            fn_dayConnnectResult();
+<!--            fn_setDatePicker('#menuStateSrchEdDt', {-->
+<!--                onShow:function( ct ){-->
+<!--                    this.setOptions({-->
+<!--                        minDate:$('#menuSrchStDt').val()?$('#menuSrchStDt').val():false-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
+<!--            fn_monthResult();-->
+<!--            fn_monthConnectResult();-->
+<!--            fn_dayConnnectResult();-->
 
-            fn_adviceSearch();
-            fn_courseSearch();
-            fn_courseStateSearch();
+<!--            fn_adviceSearch();-->
+<!--            fn_courseSearch();-->
+<!--            fn_courseStateSearch();-->
 
-            fn_surveySearch();
-            fn_menuSearch();
-        });
+<!--            fn_surveySearch();-->
+<!--            fn_menuSearch();-->
+<!--        });-->
 
-        function fn_adviceSearch() {
-            fn_monthConnectResult_2('memberToAdvice', '/api/admin/dashboard/memberTypeToAdvice');
-        }
+<!--        function fn_adviceSearch() {-->
+<!--            fn_monthConnectResult_2('memberToAdvice', '/api/admin/dashboard/memberTypeToAdvice');-->
+<!--        }-->
 
-        function fn_courseSearch() {
-            fn_monthConnectResult_2('memberToCourse', '/api/admin/dashboard/memberTypeToCourse');
-        }
+<!--        function fn_courseSearch() {-->
+<!--            fn_monthConnectResult_2('memberToCourse', '/api/admin/dashboard/memberTypeToCourse');-->
+<!--        }-->
 
-        function fn_courseStateSearch() {
-            fn_monthConnectResult_2('courseCompleteStatus', '/api/admin/dashboard/courseCompleteStatus');
-        }
+<!--        function fn_courseStateSearch() {-->
+<!--            fn_monthConnectResult_2('courseCompleteStatus', '/api/admin/dashboard/courseCompleteStatus');-->
+<!--        }-->
 
-        function fn_surveySearch() {
-            fn_surveyRequest();
-        }
+<!--        function fn_surveySearch() {-->
+<!--            fn_surveyRequest();-->
+<!--        }-->
 
-        function fn_menuSearch() {
-            fn_monthConnectResult_2('menuResult', '/api/admin/dashboard/menuStatusResult');
-        }
+<!--        function fn_menuSearch() {-->
+<!--            fn_monthConnectResult_2('menuResult', '/api/admin/dashboard/menuStatusResult');-->
+<!--        }-->
 
-        function fn_groupByCourseRequest(type, defaultNm, id) {
-            var jsonData = {
-                'areaNm' : $("#courseStateAreaNm").val(),
-                'schlNm' : $("#courseStateSchlNm").val(),
-                'grade' : $("#courseStateGrade").val(),
-                'ban' : $("#courseStateBan").val(),
-            };
-            $.ajax({
-                type: 'post',
-                url: '/api/admin/dashboard/groupByCourseRequest',
-                contentType: "application/json",
-                data: JSON.stringify(jsonData),
-                datatype: 'json',
-                success: function (data) {
-                    let optionHtml = '<option value="">' + defaultNm + '</option>';
-                    if (data) {
-                        $.each(data, function (index, item) {
-                            optionHtml += '<option value="' + item + '">' + item + '</option>';
-                        });
-                    }
+<!--        function fn_groupByCourseRequest(type, defaultNm, id) {-->
+<!--            var jsonData = {-->
+<!--                'areaNm' : $("#courseStateAreaNm").val(),-->
+<!--                'schlNm' : $("#courseStateSchlNm").val(),-->
+<!--                'grade' : $("#courseStateGrade").val(),-->
+<!--                'ban' : $("#courseStateBan").val(),-->
+<!--            };-->
+<!--            $.ajax({-->
+<!--                type: 'post',-->
+<!--                url: '/api/admin/dashboard/groupByCourseRequest',-->
+<!--                contentType: "application/json",-->
+<!--                data: JSON.stringify(jsonData),-->
+<!--                datatype: 'json',-->
+<!--                success: function (data) {-->
+<!--                    let optionHtml = '<option value="">' + defaultNm + '</option>';-->
+<!--                    if (data) {-->
+<!--                        $.each(data, function (index, item) {-->
+<!--                            optionHtml += '<option value="' + item + '">' + item + '</option>';-->
+<!--                        });-->
+<!--                    }-->
 
-                    $("#" + id).html(optionHtml).niceSelect('update');
+<!--                    $("#" + id).html(optionHtml).niceSelect('update');-->
 
-                    if (type == '1') {
-                        $("#courseStateGrade").html('<option value="">학년</option>').niceSelect('update');
-                        $("#courseStateBan").html('<option value="">반</option>').niceSelect('update');
-                        $("#courseStateNo").html('<option value="">번</option>').niceSelect('update');
-                    } else if (type == '2') {
-                        $("#courseStateBan").html('<option value="">반</option>').niceSelect('update');
-                        $("#courseStateNo").html('<option value="">번</option>').niceSelect('update');
-                    } else if (type == '3') {
-                        $("#courseStateNo").html('<option value="">번</option>').niceSelect('update');
-                    }
-                },
-                error: function (error) {
-                    //alert('save error!!!');
-                    alert('error::' + error.statusText);
-                }
-            });
-        }
+<!--                    if (type == '1') {-->
+<!--                        $("#courseStateGrade").html('<option value="">학년</option>').niceSelect('update');-->
+<!--                        $("#courseStateBan").html('<option value="">반</option>').niceSelect('update');-->
+<!--                        $("#courseStateNo").html('<option value="">번</option>').niceSelect('update');-->
+<!--                    } else if (type == '2') {-->
+<!--                        $("#courseStateBan").html('<option value="">반</option>').niceSelect('update');-->
+<!--                        $("#courseStateNo").html('<option value="">번</option>').niceSelect('update');-->
+<!--                    } else if (type == '3') {-->
+<!--                        $("#courseStateNo").html('<option value="">번</option>').niceSelect('update');-->
+<!--                    }-->
+<!--                },-->
+<!--                error: function (error) {-->
+<!--                    //alert('save error!!!');-->
+<!--                    alert('error::' + error.statusText);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
 
-        function fn_surveyRequest() {
-            var jsonData = {
-                'userRollTypeStr' : $("#surveyUserRollType").val(),
-                'surveyDvTypeStr': $("#surveyDvType").val(),
-                'srchStDt': $("#surveySrchStDt").val(),
-                'srchEdDt': $("#surveySrchEdDt").val()
-            };
-            $.ajax({
-                type: 'post',
-                url: '/api/admin/dashboard/surveyStatusResult',
-                contentType: "application/json",
-                data: JSON.stringify(jsonData),
-                datatype: 'json',
-                success: function (data) {
-                    makeChart_pieChart("surveyResult", data);
-                },
-                error: function (error) {
-                    //alert('save error!!!');
-                    alert('error::' + error.statusText);
-                }
-            });
-        }
+<!--        function fn_surveyRequest() {-->
+<!--            var jsonData = {-->
+<!--                'userRollTypeStr' : $("#surveyUserRollType").val(),-->
+<!--                'surveyDvTypeStr': $("#surveyDvType").val(),-->
+<!--                'srchStDt': $("#surveySrchStDt").val(),-->
+<!--                'srchEdDt': $("#surveySrchEdDt").val()-->
+<!--            };-->
+<!--            $.ajax({-->
+<!--                type: 'post',-->
+<!--                url: '/api/admin/dashboard/surveyStatusResult',-->
+<!--                contentType: "application/json",-->
+<!--                data: JSON.stringify(jsonData),-->
+<!--                datatype: 'json',-->
+<!--                success: function (data) {-->
+<!--                    makeChart_pieChart("surveyResult", data);-->
+<!--                },-->
+<!--                error: function (error) {-->
+<!--                    //alert('save error!!!');-->
+<!--                    alert('error::' + error.statusText);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
 
-        function fn_dayConnnectResult(yyyymm) {
-            //var nowYear = $('#srchYear2').val();
-            var yearMonth = yyyymm;
-            var jsonData = {
-                'nowYearMonth' : yearMonth
-            };
-            $.ajax({
-                type: 'post',
-                url: '/api/admin/dashboard/dayConnectResult',
-                contentType: "application/json",
-                data: JSON.stringify(jsonData),
-                datatype: 'json',
-                success: function (data) {
-                    makeToBarChart("memberDayConnect", data);
+<!--        function fn_dayConnnectResult(yyyymm) {-->
+<!--            //var nowYear = $('#srchYear2').val();-->
+<!--            var yearMonth = yyyymm;-->
+<!--            var jsonData = {-->
+<!--                'nowYearMonth' : yearMonth-->
+<!--            };-->
+<!--            $.ajax({-->
+<!--                type: 'post',-->
+<!--                url: '/api/admin/dashboard/dayConnectResult',-->
+<!--                contentType: "application/json",-->
+<!--                data: JSON.stringify(jsonData),-->
+<!--                datatype: 'json',-->
+<!--                success: function (data) {-->
+<!--                    makeToBarChart("memberDayConnect", data);-->
 
-                    var theadHtml;
-                    var tbodyHtml;
-                    $.each(data, function(index, items){
-                        theadHtml += `<th>${items.category}</th>`;
-                        tbodyHtml += `<td>${items.first}</td>`;
-                    });
+<!--                    var theadHtml;-->
+<!--                    var tbodyHtml;-->
+<!--                    $.each(data, function(index, items){-->
+<!--                        theadHtml += `<th>${items.category}</th>`;-->
+<!--                        tbodyHtml += `<td>${items.first}</td>`;-->
+<!--                    });-->
 
-                    $('#thead_dayConnect').html(theadHtml);
-                    $('#tbody_dayConnect').html(tbodyHtml);
-                },
-                error: function (error) {
-                    //alert('save error!!!');
-                    alert('error::' + error.statusText);
-                }
-            });
-        }
+<!--                    $('#thead_dayConnect').html(theadHtml);-->
+<!--                    $('#tbody_dayConnect').html(tbodyHtml);-->
+<!--                },-->
+<!--                error: function (error) {-->
+<!--                    //alert('save error!!!');-->
+<!--                    alert('error::' + error.statusText);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
 
-        function fn_monthConnectResult() {
-            var nowYear = $('#srchYear2').val();
-            var jsonData = {
-                'nowYear' : nowYear
-            };
-            $.ajax({
-                type: 'post',
-                url: '/api/admin/dashboard/monthConnectResult',
-                contentType: "application/json",
-                data: JSON.stringify(jsonData),
-                datatype: 'json',
-                success: function (data) {
-                    makeToBarChart("memberMonthConnect", data, fn_dayConnnectResult);
+<!--        function fn_monthConnectResult() {-->
+<!--            var nowYear = $('#srchYear2').val();-->
+<!--            var jsonData = {-->
+<!--                'nowYear' : nowYear-->
+<!--            };-->
+<!--            $.ajax({-->
+<!--                type: 'post',-->
+<!--                url: '/api/admin/dashboard/monthConnectResult',-->
+<!--                contentType: "application/json",-->
+<!--                data: JSON.stringify(jsonData),-->
+<!--                datatype: 'json',-->
+<!--                success: function (data) {-->
+<!--                    makeToBarChart("memberMonthConnect", data, fn_dayConnnectResult);-->
 
-                    var theadHtml;
-                    var tbodyHtml;
-                    $.each(data, function(index, items){
-                        theadHtml += `<th>${items.category}</th>`;
-                        tbodyHtml += `<td>${items.first}</td>`;
-                    });
+<!--                    var theadHtml;-->
+<!--                    var tbodyHtml;-->
+<!--                    $.each(data, function(index, items){-->
+<!--                        theadHtml += `<th>${items.category}</th>`;-->
+<!--                        tbodyHtml += `<td>${items.first}</td>`;-->
+<!--                    });-->
 
-                    $('#thead_monthConnect').html(theadHtml);
-                    $('#tbody_monthConnect').html(tbodyHtml);
-                },
-                error: function (error) {
-                    //alert('save error!!!');
-                    alert('error::' + error.statusText);
-                }
-            });
-        }
+<!--                    $('#thead_monthConnect').html(theadHtml);-->
+<!--                    $('#tbody_monthConnect').html(tbodyHtml);-->
+<!--                },-->
+<!--                error: function (error) {-->
+<!--                    //alert('save error!!!');-->
+<!--                    alert('error::' + error.statusText);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
 
-        function fn_monthConnectResult_2(divId, api_url) {
-            var jsonData = {};
-            if (divId === 'memberToAdvice') {
-                jsonData = {
-                    //'reservationDvTy': $("#adviceDvTy").val(),
-                    'srchCodePid': $("#adviceAreaCode").val() ? $("#adviceAreaCode").val() : 0,
-                    'srchStDt': $("#adviceSrchStDt").val(),
-                    'srchEdDt': $("#adviceSrchEdDt").val()
-                };
-            } else if (divId === 'memberToCourse') {
-                jsonData = {
-                    'srchWord': $("#courseAreaNm").val(),
-                    'srchStDt': $("#courseSrchStDt").val(),
-                    'srchEdDt': $("#courseSrchEdDt").val()
-                };
-            } else if (divId === 'courseCompleteStatus') {
-                jsonData = {
-                    'sn': $("#courseStateSn").val(),
-                    'areaNm' : $("#courseStateAreaNm").val(),
-                    'schlNm' : $("#courseStateSchlNm").val(),
-                    'grade' : $("#courseStateGrade").val(),
-                    'ban' : $("#courseStateBan").val(),
-                    'no' : $("#courseStateNo").val(),
-                    'srchStDt': $("#courseStateSrchStDt").val(),
-                    'srchEdDt': $("#courseStateSrchEdDt").val()
-                };
-            } else if (divId === 'menuResult') {
-                jsonData = {
-                    'userRollTypeStr' : $("#userRollType").val(),
-                    'srchStDt': $("#menuSrchStDt").val(),
-                    'srchEdDt': $("#menuSrchEdDt").val()
-                };
-            }
-            $.ajax({
-                type: 'post',
-                url: api_url,
-                contentType: "application/json",
-                data: JSON.stringify(jsonData),
-                datatype: 'json',
-                success: function (data) {
-                    makeToBarChart_2(divId, data);
+<!--        function fn_monthConnectResult_2(divId, api_url) {-->
+<!--            var jsonData = {};-->
+<!--            if (divId === 'memberToAdvice') {-->
+<!--                jsonData = {-->
+<!--                    //'reservationDvTy': $("#adviceDvTy").val(),-->
+<!--                    'srchCodePid': $("#adviceAreaCode").val() ? $("#adviceAreaCode").val() : 0,-->
+<!--                    'srchStDt': $("#adviceSrchStDt").val(),-->
+<!--                    'srchEdDt': $("#adviceSrchEdDt").val()-->
+<!--                };-->
+<!--            } else if (divId === 'memberToCourse') {-->
+<!--                jsonData = {-->
+<!--                    'srchWord': $("#courseAreaNm").val(),-->
+<!--                    'srchStDt': $("#courseSrchStDt").val(),-->
+<!--                    'srchEdDt': $("#courseSrchEdDt").val()-->
+<!--                };-->
+<!--            } else if (divId === 'courseCompleteStatus') {-->
+<!--                jsonData = {-->
+<!--                    'sn': $("#courseStateSn").val(),-->
+<!--                    'areaNm' : $("#courseStateAreaNm").val(),-->
+<!--                    'schlNm' : $("#courseStateSchlNm").val(),-->
+<!--                    'grade' : $("#courseStateGrade").val(),-->
+<!--                    'ban' : $("#courseStateBan").val(),-->
+<!--                    'no' : $("#courseStateNo").val(),-->
+<!--                    'srchStDt': $("#courseStateSrchStDt").val(),-->
+<!--                    'srchEdDt': $("#courseStateSrchEdDt").val()-->
+<!--                };-->
+<!--            } else if (divId === 'menuResult') {-->
+<!--                jsonData = {-->
+<!--                    'userRollTypeStr' : $("#userRollType").val(),-->
+<!--                    'srchStDt': $("#menuSrchStDt").val(),-->
+<!--                    'srchEdDt': $("#menuSrchEdDt").val()-->
+<!--                };-->
+<!--            }-->
+<!--            $.ajax({-->
+<!--                type: 'post',-->
+<!--                url: api_url,-->
+<!--                contentType: "application/json",-->
+<!--                data: JSON.stringify(jsonData),-->
+<!--                datatype: 'json',-->
+<!--                success: function (data) {-->
+<!--                    makeToBarChart_2(divId, data);-->
 
-                    /*var theadHtml;
-                    var tbodyHtml;
-                    $.each(data, function(index, items){
-                        theadHtml += `<th>${items.category}</th>`;
-                        tbodyHtml += `<td>${items.first}</td>`;
-                    });
+<!--                    /*var theadHtml;-->
+<!--                    var tbodyHtml;-->
+<!--                    $.each(data, function(index, items){-->
+<!--                        theadHtml += `<th>${items.category}</th>`;-->
+<!--                        tbodyHtml += `<td>${items.first}</td>`;-->
+<!--                    });-->
 
-                    $('#thead_monthConnect').html(theadHtml);
-                    $('#tbody_monthConnect').html(tbodyHtml);*/
-                },
-                error: function (error) {
-                    //alert('save error!!!');
-                    alert('error::' + error.statusText);
-                }
-            });
-        }
+<!--                    $('#thead_monthConnect').html(theadHtml);-->
+<!--                    $('#tbody_monthConnect').html(tbodyHtml);*/-->
+<!--                },-->
+<!--                error: function (error) {-->
+<!--                    //alert('save error!!!');-->
+<!--                    alert('error::' + error.statusText);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
 
-        function fn_monthResult() {
-            var nowYear = $('#srchYear').val();
-            var jsonData = {
-                'nowYear' : nowYear
-            };
-            $.ajax({
-                type: 'post',
-                url: '/api/admin/dashboard/monthResult',
-                contentType: "application/json",
-                data: JSON.stringify(jsonData),
-                datatype: 'json',
-                success: function (data) {
-                    makeToBarChart("memberMonthGbn", data);
+<!--        function fn_monthResult() {-->
+<!--            var nowYear = $('#srchYear').val();-->
+<!--            var jsonData = {-->
+<!--                'nowYear' : nowYear-->
+<!--            };-->
+<!--            $.ajax({-->
+<!--                type: 'post',-->
+<!--                url: '/api/admin/dashboard/monthResult',-->
+<!--                contentType: "application/json",-->
+<!--                data: JSON.stringify(jsonData),-->
+<!--                datatype: 'json',-->
+<!--                success: function (data) {-->
+<!--                    makeToBarChart("memberMonthGbn", data);-->
 
-                    // makeToMonthly("memberMonthGbn", data);
+<!--                    // makeToMonthly("memberMonthGbn", data);-->
 
-                    var theadHtml;
-                    var tbodyHtml;
-                    $.each(data, function(index, items){
-                        theadHtml += `<th>${items.category}</th>`;
-                        tbodyHtml += `<td>${items.first}</td>`;
-                    });
+<!--                    var theadHtml;-->
+<!--                    var tbodyHtml;-->
+<!--                    $.each(data, function(index, items){-->
+<!--                        theadHtml += `<th>${items.category}</th>`;-->
+<!--                        tbodyHtml += `<td>${items.first}</td>`;-->
+<!--                    });-->
 
-                    $('#thead_monthJoin').html(theadHtml);
-                    $('#tbody_monthJoin').html(tbodyHtml);
-                },
-                error: function (error) {
-                    //alert('save error!!!');
-                    alert('error::' + error.statusText);
-                }
-            });
-        }
+<!--                    $('#thead_monthJoin').html(theadHtml);-->
+<!--                    $('#tbody_monthJoin').html(tbodyHtml);-->
+<!--                },-->
+<!--                error: function (error) {-->
+<!--                    //alert('save error!!!');-->
+<!--                    alert('error::' + error.statusText);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
 
-        am4core.ready(function () {
+<!--        am4core.ready(function () {-->
 
-            makeChart_pieChart('memberSexGbn', [(${memberSexGbn})]); //회원현황 (성별) 파이차트
-            makeChart_pieChart('memberAgeGbn', [(${memberAgeGbn})]); //회원현황 (연령대) 파이차트
-            makeChart_pieChart('memberTypeGbn', [(${memberTypeGbn})]); //회원현황 (연령대) 파이차트
+<!--            makeChart_pieChart('memberSexGbn', [(${memberSexGbn})]); //회원현황 (성별) 파이차트-->
+<!--            makeChart_pieChart('memberAgeGbn', [(${memberAgeGbn})]); //회원현황 (연령대) 파이차트-->
+<!--            makeChart_pieChart('memberTypeGbn', [(${memberTypeGbn})]); //회원현황 (연령대) 파이차트-->
 
-            makeToBarChart_2('memberTypeGbn_2', [(${memberTypeGbn})])
+<!--            makeToBarChart_2('memberTypeGbn_2', [(${memberTypeGbn})])-->
 
-        }); // end am4core.ready()
+<!--        }); // end am4core.ready()-->
 
-        /*[파이차트]*/
-        function makeChart_pieChart(id, data){
-            var data = data;
+<!--        /*[파이차트]*/-->
+<!--        function makeChart_pieChart(id, data){-->
+<!--            var data = data;-->
 
-            // Themes begin
-            am4core.useTheme(am4themes_animated);
-            // Themes end
+<!--            // Themes begin-->
+<!--            am4core.useTheme(am4themes_animated);-->
+<!--            // Themes end-->
 
-            // Create chart instance
-            var chart = am4core.create(id, am4charts.PieChart);
-            // Add data
+<!--            // Create chart instance-->
+<!--            var chart = am4core.create(id, am4charts.PieChart);-->
+<!--            // Add data-->
 
-            /*for (var i=0; i<data.length; i++) {
-                if (i < colorList.length) {
-                    data[i].color = colorList[i];
-                }
-            }*/
-            chart.data = data;
+<!--            /*for (var i=0; i<data.length; i++) {-->
+<!--                if (i < colorList.length) {-->
+<!--                    data[i].color = colorList[i];-->
+<!--                }-->
+<!--            }*/-->
+<!--            chart.data = data;-->
 
-            // Add and configure Series
-            var pieSeries = chart.series.push(new am4charts.PieSeries());
-            pieSeries.dataFields.value = "cVal";
-            pieSeries.dataFields.category = "category";
-            pieSeries.slices.template.stroke = am4core.color("#fff");
-            pieSeries.slices.template.strokeWidth = 2;
-            pieSeries.slices.template.strokeOpacity = 1;
-            pieSeries.slices.template.propertyFields.fill = "color";
-            pieSeries.labels.template.disabled = true;
+<!--            // Add and configure Series-->
+<!--            var pieSeries = chart.series.push(new am4charts.PieSeries());-->
+<!--            pieSeries.dataFields.value = "cVal";-->
+<!--            pieSeries.dataFields.category = "category";-->
+<!--            pieSeries.slices.template.stroke = am4core.color("#fff");-->
+<!--            pieSeries.slices.template.strokeWidth = 2;-->
+<!--            pieSeries.slices.template.strokeOpacity = 1;-->
+<!--            pieSeries.slices.template.propertyFields.fill = "color";-->
+<!--            pieSeries.labels.template.disabled = true;-->
 
-            chart.legend = new am4charts.Legend();
-            chart.legend.position = "right";
-            chart.legend.scrollable = true;
+<!--            chart.legend = new am4charts.Legend();-->
+<!--            chart.legend.position = "right";-->
+<!--            chart.legend.scrollable = true;-->
 
-            // This creates initial animation
-            pieSeries.hiddenState.properties.opacity = 1;
-            pieSeries.hiddenState.properties.endAngle = -90;
-            pieSeries.hiddenState.properties.startAngle = -90;
+<!--            // This creates initial animation-->
+<!--            pieSeries.hiddenState.properties.opacity = 1;-->
+<!--            pieSeries.hiddenState.properties.endAngle = -90;-->
+<!--            pieSeries.hiddenState.properties.startAngle = -90;-->
 
-            /*pieSeries.slices.template.events.on("hit", function(ev) {
-                var id = ev.target.dataItem.pieId;
-                if (hitCallback && typeof hitCallback === 'function') {
-                    hitCallback(id);
-                }
-            }, this);*/
-        }
+<!--            /*pieSeries.slices.template.events.on("hit", function(ev) {-->
+<!--                var id = ev.target.dataItem.pieId;-->
+<!--                if (hitCallback && typeof hitCallback === 'function') {-->
+<!--                    hitCallback(id);-->
+<!--                }-->
+<!--            }, this);*/-->
+<!--        }-->
 
-        function makeToBarChart(divID, chartData, hitCallback){
-            am4core.useTheme(am4themes_animated);
-            var chart = am4core.create(divID, am4charts.XYChart)
-            /*chart.colors.list = [
-                am4core.color("#01afb6"),
-                am4core.color("#00437f"),
-            ]*/
+<!--        function makeToBarChart(divID, chartData, hitCallback){-->
+<!--            am4core.useTheme(am4themes_animated);-->
+<!--            var chart = am4core.create(divID, am4charts.XYChart)-->
+<!--            /*chart.colors.list = [-->
+<!--                am4core.color("#01afb6"),-->
+<!--                am4core.color("#00437f"),-->
+<!--            ]*/-->
 
-            chart.legend = new am4charts.Legend()
-            chart.legend.position = 'top'
-            chart.legend.paddingBottom = 20
-            chart.legend.labels.template.maxWidth = 95
-            chart.data = chartData;
+<!--            chart.legend = new am4charts.Legend()-->
+<!--            chart.legend.position = 'top'-->
+<!--            chart.legend.paddingBottom = 20-->
+<!--            chart.legend.labels.template.maxWidth = 95-->
+<!--            chart.data = chartData;-->
 
-            var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
-            xAxis.dataFields.category = 'category'
-            xAxis.renderer.cellStartLocation = 0.1
-            xAxis.renderer.cellEndLocation = 0.9
-            xAxis.renderer.grid.template.location = 0;
-            xAxis.renderer.minGridDistance = 1;
-            //xAxis.renderer.labels.template.rotation = 90;
+<!--            var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())-->
+<!--            xAxis.dataFields.category = 'category'-->
+<!--            xAxis.renderer.cellStartLocation = 0.1-->
+<!--            xAxis.renderer.cellEndLocation = 0.9-->
+<!--            xAxis.renderer.grid.template.location = 0;-->
+<!--            xAxis.renderer.minGridDistance = 1;-->
+<!--            //xAxis.renderer.labels.template.rotation = 90;-->
 
-            let label = xAxis.renderer.labels.template;
-            label.wrap = true;
-            //label.truncate = true;
-            label.maxWidth = 100;
-            //label.tooltipText = "{category}";
+<!--            let label = xAxis.renderer.labels.template;-->
+<!--            label.wrap = true;-->
+<!--            //label.truncate = true;-->
+<!--            label.maxWidth = 100;-->
+<!--            //label.tooltipText = "{category}";-->
 
-            let max = fn_getMax(chartData, 'first');
-            var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
-            yAxis.min = 0;
-            if (max) {
-                yAxis.max = max * 1.1;
-            }
+<!--            let max = fn_getMax(chartData, 'first');-->
+<!--            var yAxis = chart.yAxes.push(new am4charts.ValueAxis());-->
+<!--            yAxis.min = 0;-->
+<!--            if (max) {-->
+<!--                yAxis.max = max * 1.1;-->
+<!--            }-->
 
-            var series = chart.series.push(new am4charts.ColumnSeries())
-            series.dataFields.valueY = 'first'
-            series.dataFields.categoryX = 'category'
-            series.name = '건수'
-            series.columns.template.events.on("hit", function(ev) {
-                if (hitCallback && typeof hitCallback === 'function') {
-                    hitCallback(ev.target.dataItem.categoryX);
-                }
-            });
-            series.columns.template.tooltipText = "[#fff font-size: 15px]{categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]"
-            series.columns.template.propertyFields.fillOpacity = "fillOpacity";
-            series.columns.template.propertyFields.stroke = "stroke";
-            series.columns.template.propertyFields.strokeWidth = "strokeWidth";
-            series.columns.template.propertyFields.strokeDasharray = "columnDash";
-            series.columns.template.width = am4core.percent(70);
-            series.tooltip.label.textAlign = "middle";
+<!--            var series = chart.series.push(new am4charts.ColumnSeries())-->
+<!--            series.dataFields.valueY = 'first'-->
+<!--            series.dataFields.categoryX = 'category'-->
+<!--            series.name = '건수'-->
+<!--            series.columns.template.events.on("hit", function(ev) {-->
+<!--                if (hitCallback && typeof hitCallback === 'function') {-->
+<!--                    hitCallback(ev.target.dataItem.categoryX);-->
+<!--                }-->
+<!--            });-->
+<!--            series.columns.template.tooltipText = "[#fff font-size: 15px]{categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]"-->
+<!--            series.columns.template.propertyFields.fillOpacity = "fillOpacity";-->
+<!--            series.columns.template.propertyFields.stroke = "stroke";-->
+<!--            series.columns.template.propertyFields.strokeWidth = "strokeWidth";-->
+<!--            series.columns.template.propertyFields.strokeDasharray = "columnDash";-->
+<!--            series.columns.template.width = am4core.percent(70);-->
+<!--            series.tooltip.label.textAlign = "middle";-->
 
-            /*series.events.on("hidden", arrangeColumns);
-            series.events.on("shown", arrangeColumns);*/
+<!--            /*series.events.on("hidden", arrangeColumns);-->
+<!--            series.events.on("shown", arrangeColumns);*/-->
 
-            var bullet = series.bullets.push(new am4charts.LabelBullet())
-            bullet.interactionsEnabled = false
-            bullet.dy = - 10;
-            bullet.label.text = '{valueY}'
-            bullet.label.fill = am4core.color('#000000')
+<!--            var bullet = series.bullets.push(new am4charts.LabelBullet())-->
+<!--            bullet.interactionsEnabled = false-->
+<!--            bullet.dy = - 10;-->
+<!--            bullet.label.text = '{valueY}'-->
+<!--            bullet.label.fill = am4core.color('#000000')-->
 
-        }
+<!--        }-->
 
-        function makeToBarChart_2(divID, chartData){
-            am4core.useTheme(am4themes_animated);
-            var chart = am4core.create(divID, am4charts.XYChart)
-            /*chart.colors.list = [
-                am4core.color("#01afb6"),
-                am4core.color("#00437f"),
-            ]*/
+<!--        function makeToBarChart_2(divID, chartData){-->
+<!--            am4core.useTheme(am4themes_animated);-->
+<!--            var chart = am4core.create(divID, am4charts.XYChart)-->
+<!--            /*chart.colors.list = [-->
+<!--                am4core.color("#01afb6"),-->
+<!--                am4core.color("#00437f"),-->
+<!--            ]*/-->
 
-            chart.legend = new am4charts.Legend()
-            chart.legend.position = 'top'
-            chart.legend.paddingBottom = 20
-            chart.legend.labels.template.maxWidth = 95
-            chart.data = chartData;
+<!--            chart.legend = new am4charts.Legend()-->
+<!--            chart.legend.position = 'top'-->
+<!--            chart.legend.paddingBottom = 20-->
+<!--            chart.legend.labels.template.maxWidth = 95-->
+<!--            chart.data = chartData;-->
 
-            var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
-            xAxis.dataFields.category = 'category'
-            xAxis.renderer.cellStartLocation = 0.1
-            xAxis.renderer.cellEndLocation = 0.9
-            xAxis.renderer.grid.template.location = 0;
-            xAxis.renderer.minGridDistance = 1;
-            //xAxis.renderer.labels.template.rotation = 90;
+<!--            var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())-->
+<!--            xAxis.dataFields.category = 'category'-->
+<!--            xAxis.renderer.cellStartLocation = 0.1-->
+<!--            xAxis.renderer.cellEndLocation = 0.9-->
+<!--            xAxis.renderer.grid.template.location = 0;-->
+<!--            xAxis.renderer.minGridDistance = 1;-->
+<!--            //xAxis.renderer.labels.template.rotation = 90;-->
 
-            let label = xAxis.renderer.labels.template;
-            label.wrap = true;
-            //label.truncate = true;
-            label.maxWidth = 100;
-            //label.tooltipText = "{category}";
+<!--            let label = xAxis.renderer.labels.template;-->
+<!--            label.wrap = true;-->
+<!--            //label.truncate = true;-->
+<!--            label.maxWidth = 100;-->
+<!--            //label.tooltipText = "{category}";-->
 
-            let max = fn_getMax(chartData, 'cVal');
-            var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
-            yAxis.min = 0;
-            if (max) {
-                yAxis.max = max * 1.1;
-            }
+<!--            let max = fn_getMax(chartData, 'cVal');-->
+<!--            var yAxis = chart.yAxes.push(new am4charts.ValueAxis());-->
+<!--            yAxis.min = 0;-->
+<!--            if (max) {-->
+<!--                yAxis.max = max * 1.1;-->
+<!--            }-->
 
-            var series = chart.series.push(new am4charts.ColumnSeries())
-            series.dataFields.valueY = 'cVal'
-            series.dataFields.categoryX = 'category'
-            series.name = '건수'
+<!--            var series = chart.series.push(new am4charts.ColumnSeries())-->
+<!--            series.dataFields.valueY = 'cVal'-->
+<!--            series.dataFields.categoryX = 'category'-->
+<!--            series.name = '건수'-->
 
-            series.columns.template.tooltipText = "[#fff font-size: 15px]{categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]"
-            series.columns.template.propertyFields.fillOpacity = "fillOpacity";
-            series.columns.template.propertyFields.stroke = "stroke";
-            series.columns.template.propertyFields.strokeWidth = "strokeWidth";
-            series.columns.template.propertyFields.strokeDasharray = "columnDash";
-            series.columns.template.width = am4core.percent(70);
-            series.tooltip.label.textAlign = "middle";
+<!--            series.columns.template.tooltipText = "[#fff font-size: 15px]{categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]"-->
+<!--            series.columns.template.propertyFields.fillOpacity = "fillOpacity";-->
+<!--            series.columns.template.propertyFields.stroke = "stroke";-->
+<!--            series.columns.template.propertyFields.strokeWidth = "strokeWidth";-->
+<!--            series.columns.template.propertyFields.strokeDasharray = "columnDash";-->
+<!--            series.columns.template.width = am4core.percent(70);-->
+<!--            series.tooltip.label.textAlign = "middle";-->
 
-            /*series.events.on("hidden", arrangeColumns);
-            series.events.on("shown", arrangeColumns);*/
+<!--            /*series.events.on("hidden", arrangeColumns);-->
+<!--            series.events.on("shown", arrangeColumns);*/-->
 
-            var bullet = series.bullets.push(new am4charts.LabelBullet())
-            bullet.interactionsEnabled = false
-            bullet.dy = - 10;
-            bullet.label.text = '{valueY}'
-            bullet.label.fill = am4core.color('#000000')
+<!--            var bullet = series.bullets.push(new am4charts.LabelBullet())-->
+<!--            bullet.interactionsEnabled = false-->
+<!--            bullet.dy = - 10;-->
+<!--            bullet.label.text = '{valueY}'-->
+<!--            bullet.label.fill = am4core.color('#000000')-->
 
-        }
+<!--        }-->
 
-        function fn_getMax(list, col) {
-            let max = 0;
-            if (list && col) {
-                $.each(list, function(index, item) {
-                    if (item[col] > max) {
-                        max = item[col];
-                    }
-                });
-            }
-            return max;
-        }
-    </script>
+<!--        function fn_getMax(list, col) {-->
+<!--            let max = 0;-->
+<!--            if (list && col) {-->
+<!--                $.each(list, function(index, item) {-->
+<!--                    if (item[col] > max) {-->
+<!--                        max = item[col];-->
+<!--                    }-->
+<!--                });-->
+<!--            }-->
+<!--            return max;-->
+<!--        }-->
+<!--    </script>-->
     <style>
         #memberMonthGbn{width:100%;height:300px}
         #memberTypeGbn_2{width:100%;height:300px}
@@ -566,360 +566,7 @@
     <th:block th:include="fragments/admin/menu"></th:block>
 
     <div id="container">
-        <div class="container_box">
-            <div class="contents">
 
-                <ul class="breadcrumb">
-                    <li><i class="material-icons">home</i></li>
-                    <li>DashBoard</li>
-                </ul>
-
-                <div class="board_detail clearfix">
-                    <div class="board_top fn">
-                        <h4 class="sec_tit">회원현황</h4>
-                    </div>
-                    <div class="chart_wrap">
-                        <div class="chartBox pl0">
-                            <p>성별</p>
-                            <div id="memberSexGbn" class="chart"></div>
-                            <!-- 회원현황(성별) 파이차트 영역 -->
-                        </div>
-
-                        <div class="chartBox">
-                            <p>연령대</p>
-                            <div id="memberAgeGbn" class="chart"></div>
-                            <!-- 회원현황(연령대) 파이차트 영역 -->
-                        </div>
-
-                        <div class="chartBox">
-                            <p>구분별</p>
-                            <div id="memberTypeGbn" class="chart"></div>
-                            <!-- 회원현황(구분별) 파이차트 영역 -->
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="board_detail bdt0">
-                    <div class="board_top fn">
-                        <h4 class="sec_tit">월별가입자수</h4>
-                    </div>
-                    <div>
-                        <dl class="sub_sec">
-                            <dt>월별가입자수
-                                <select id="srchYear" onchange="fn_monthResult()" class="ml10" style="margin-top:-5px">
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                </select>
-                            </dt>
-                            <dd>
-                                <div class="cont h350">
-                                    <div class="graph_img_area">
-                                        <div id="memberMonthGbn" class="chart"></div>
-                                        <!-- 월별가입자현황 막대차트 영역 -->
-                                    </div>
-                                </div>
-                                <!--<p>월별가입자현황(건)</p>-->
-                                <table class="tbl_list">
-                                    <caption>목록</caption>
-                                    <thead>
-                                    <tr id="thead_monthJoin">
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr id="tbody_monthJoin">
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </dd>
-                        </dl>
-                    </div>
-
-                </div>
-
-                <div class="board_detail bdt0">
-                    <div class="board_top fn">
-                        <h4 class="sec_tit">회원구분별 가입수</h4>
-                    </div>
-                    <div>
-                        <dl class="sub_sec">
-                            <dd>
-                                <div class="cont h350">
-                                    <div class="graph_img_area">
-                                        <div id="memberTypeGbn_2" class="chart"></div>
-                                        <!-- 회원구분별현황 막대차트 영역 -->
-                                    </div>
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-
-                <div class="board_detail bdt0">
-                    <div class="board_top">
-                        <h4 class="sec_tit">접속현황</h4>
-                    </div>
-                    <div>
-                        <dl class="sub_sec">
-                            <dt>월별 접속현황
-                                <select id="srchYear2" onchange="fn_monthConnectResult()" class="ml10" style="margin-top:-5px">
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                </select>
-                            </dt>
-                            <dd>
-                                <div class="cont h350">
-                                    <div class="graph_img_area">
-                                        <div id="memberMonthConnect" class="chart"></div>
-                                        <!-- 접속현황(월별) 막대차트 영역 -->
-                                    </div>
-                                </div>
-                                <table class="tbl_list">
-                                    <caption>목록</caption>
-                                    <thead>
-                                    <tr id="thead_monthConnect">
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr id="tbody_monthConnect">
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </dd>
-                        </dl>
-                        <dl class="sub_sec">
-                            <dt>일별 접속현황</dt>
-                            <dd>
-                                <div class="cont h350">
-                                    <div class="graph_img_area">
-                                        <div id="memberDayConnect" class="chart"></div>
-                                        <!-- 접속현황(일별) 막대차트 영역 -->
-                                    </div>
-                                </div>
-
-                                <p style="text-align:right;color:red">※ 월별 그래프 클릭시 확인 가능</p>
-                                <table class="tbl_list">
-                                    <caption>목록</caption>
-                                    <thead>
-                                    <tr id="thead_dayConnect">
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr id="tbody_dayConnect">
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-
-                <div class="board_detail bdt0">
-                    <div class="board_top">
-                        <h4 class="sec_tit">대상자별 상담 신청건수</h4>
-                    </div>
-                    <div>
-                        <dl class="sub_sec">
-                            <dt>
-                                <div class="term_form">
-                                    <input type="text" class="form_date" id="adviceSrchStDt" th:value="${defaultSrchStDt}" readonly autocomplete="off"/>
-                                    <span class="swung">~</span>
-                                    <input type="text" class="form_date" id="adviceSrchEdDt" th:value="${defaultSrchEdDt}" readonly autocomplete="off"/>
-                                </div>
-                                <!--<select id="adviceDvTy">
-                                    <option value="">전체</option>
-                                    <option th:each="tp : ${T(kr.or.btf.web.domain.web.enums.AdviceReservationDvType).values()}"
-                                            th:value="${tp}"
-                                            th:text="${tp.getName()}"></option>
-                                </select>-->
-                                <div class="term_form mt5">
-                                    <select id="adviceAreaCode">
-                                        <option value="">전체</option>
-                                        <option th:each="code: ${areaCodeList}" th:value="${code.id}" th:text="${code.codeNm}"></option>
-                                    </select>
-                                </div>
-                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_adviceSearch()">
-                                    <i class="material-icons">search</i>조회
-                                </button>
-                            </dt>
-                            <dd>
-                                <div class="cont h350">
-                                    <div class="graph_img_area">
-                                        <div id="memberToAdvice" class="chart"></div>
-                                    </div>
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-
-                <div class="board_detail bdt0">
-                    <div class="board_top">
-                        <h4 class="sec_tit">대상자별 교육 신청건수</h4>
-                    </div>
-                    <div>
-                        <dl class="sub_sec">
-                            <dt>
-                                <div class="term_form">
-                                    <input type="text" class="form_date" id="courseSrchStDt" th:value="${defaultSrchStDt}" readonly autocomplete="off"/>
-                                    <span class="swung">~</span>
-                                    <input type="text" class="form_date" id="courseSrchEdDt" th:value="${defaultSrchEdDt}" readonly autocomplete="off"/>
-                                </div>
-                                <div class="term_form mt5">
-                                    <select id="courseAreaNm" class="w150">
-                                        <option value="">전체</option>
-                                        <option th:each="str: ${courseAreaNmList}" th:value="${str}" th:text="${str}"></option>
-                                    </select>
-                                </div>
-                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_courseSearch()">
-                                    <i class="material-icons">search</i>조회
-                                </button>
-                            </dt>
-                            <dd>
-                                <div class="cont h350">
-                                    <div class="graph_img_area">
-                                        <div id="memberToCourse" class="chart"></div>
-                                    </div>
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-
-                <div class="board_detail bdt0">
-                    <div class="board_top">
-                        <h4 class="sec_tit">학교별 교육현황</h4>
-                    </div>
-                    <div>
-                        <dl class="sub_sec">
-                            <dt>
-                                <div class="term_form">
-                                    <input type="text" class="form_date" id="courseStateSrchStDt" th:value="${defaultSrchStDt}" readonly autocomplete="off"/>
-                                    <span class="swung">~</span>
-                                    <input type="text" class="form_date" id="courseStateSrchEdDt" th:value="${defaultSrchEdDt}" readonly autocomplete="off"/>
-                                </div>
-                                <div class="term_form mt5">
-                                    <select id="courseStateSn">
-                                        <option th:value="${T(kr.or.btf.web.common.Constants).satisfSvySn}">전체</option>
-                                        <option th:value="${T(kr.or.btf.web.common.Constants).priorCrsSn}">사전</option>
-                                        <option th:value="${T(kr.or.btf.web.common.Constants).fieldCrsSn}">현장</option>
-                                        <option th:value="${T(kr.or.btf.web.common.Constants).afterCrsSn}">사후</option>
-                                    </select>
-                                </div>
-                            </dt>
-                            <dt class="mt5">
-                                <div class="term_form mt5">
-                                    <select class="w150 mr5" id="courseStateAreaNm" onchange="fn_groupByCourseRequest(1, '학교', 'courseStateSchlNm')">
-                                        <option value="">지역</option>
-                                        <option th:each="str: ${courseAreaNmList}" th:value="${str}" th:text="${str}"></option>
-                                    </select>
-                                    <select class="w150 mr5" id="courseStateSchlNm" onchange="fn_groupByCourseRequest(2, '학년', 'courseStateGrade')">
-                                        <option value="">학교</option>
-                                    </select>
-                                    <select class="mr5" id="courseStateGrade" onchange="fn_groupByCourseRequest(3, '반', 'courseStateBan')">
-                                        <option value="">학년</option>
-                                    </select>
-                                    <select class="mr5" id="courseStateBan" onchange="fn_groupByCourseRequest(4, '번', 'courseStateNo')">
-                                        <option value="">반</option>
-                                    </select>
-                                    <select id="courseStateNo">
-                                        <option value="">번</option>
-                                    </select>
-                                </div>
-                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_courseStateSearch()">
-                                    <i class="material-icons">search</i>조회
-                                </button>
-                            </dt>
-                            <dd>
-                                <div class="cont h350">
-                                    <div class="graph_img_area">
-                                        <div id="courseCompleteStatus" class="chart"></div>
-                                    </div>
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-
-                <div class="board_detail bdt0">
-                    <div class="board_top">
-                        <h4 class="sec_tit">연구현황</h4>
-                    </div>
-                    <div>
-                        <dl class="sub_sec">
-                            <dt>
-                                <div class="term_form">
-                                    <input type="text" class="form_date" id="surveySrchStDt" th:value="${defaultSrchStDt}" readonly autocomplete="off"/>
-                                    <span class="swung">~</span>
-                                    <input type="text" class="form_date" id="surveySrchEdDt" th:value="${defaultSrchEdDt}" readonly autocomplete="off"/>
-                                </div>
-                                <div class="term_form mt5">
-                                    <select id="surveyDvType" class="w150 mr5">
-                                        <option th:each="tp,idx : ${T(kr.or.btf.web.domain.web.enums.SurveyDvType).values()}"
-                                                th:if="${idx.index < 2}"
-                                                th:value="${tp}"
-                                                th:text="${tp.getName()}"></option>
-                                    </select>
-                                    <select id="surveyUserRollType" class="w150">
-                                        <option value="">전체</option>
-                                        <option th:each="tp,idx : ${T(kr.co.team.res.domain.enums.UserRollType.UserRollType).values()}"
-                                                th:if="${idx.index > 1}"
-                                                th:value="${tp}"
-                                                th:text="${tp.getName()}"></option>
-                                    </select>
-                                </div>
-                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_surveySearch()">
-                                    <i class="material-icons">search</i>조회
-                                </button>
-                            </dt>
-                            <dd>
-                                <div class="cont h350">
-                                    <div class="graph_img_area">
-                                        <div id="surveyResult" class="chart"></div>
-                                    </div>
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-
-                <div class="board_detail bdt0">
-                    <div class="board_top">
-                        <h4 class="sec_tit">메뉴별현황</h4>
-                    </div>
-                    <div>
-                        <dl class="sub_sec">
-                            <dt>
-                                <div class="term_form">
-                                    <input type="text" class="form_date" id="menuSrchStDt" th:value="${defaultSrchStDt}" readonly autocomplete="off"/>
-                                    <span class="swung">~</span>
-                                    <input type="text" class="form_date" id="menuSrchEdDt" th:value="${defaultSrchEdDt}" readonly autocomplete="off"/>
-                                </div>
-                                <div class="term_form mt5">
-                                    <select id="userRollType" class="w150">
-                                        <option value="">전체</option>
-                                        <option th:each="tp,idx : ${T(kr.co.team.res.domain.enums.UserRollType.UserRollType).values()}"
-                                                th:if="${idx.index > 1}"
-                                                th:value="${tp}"
-                                                th:text="${tp.getName()}"></option>
-                                    </select>
-                                </div>
-                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_menuSearch()">
-                                    <i class="material-icons">search</i>조회
-                                </button>
-                            </dt>
-                            <dd>
-                                <div class="cont h350">
-                                    <div class="graph_img_area">
-                                        <div id="menuResult" class="chart"></div>
-                                    </div>
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <th:block th:replace="fragments/admin/footer"></th:block>
 </div>
