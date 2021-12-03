@@ -5,43 +5,74 @@
     <script src="/data/admin/system/menuList.js"></script>
 </head>
 <body>
-<div class="container-scroller">
-    <th:block th:include="fragments/admin/tnb"></th:block>
-    <div class="container-fluid page-body-wrapper">
-        <th:block th:include="fragments/admin/settings-panel"></th:block>
-        <th:block th:include="fragments/admin/rnb"></th:block>
-        <th:block th:include="fragments/admin/lnb"></th:block>
-        <div class="main-panel">
+<div id="wrap">
+    <th:block th:include="fragments/admin/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
             <form id="form1" name="form1" method="post" th:object="${form}">
-            <div class="content-wrapper">
-                <div class="row">
-                    <input type="hidden" id="id" name="id"/>
-                    <div class="col-lg-8 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title float-left">목록</h4>
-                                <button class="btn btn-info btn-sm btn-icon-text float-right" onclick="fn_resetForm()">
-                                    <i class="ti-plus btn-icon-prepend"></i>
-                                    추가
-                                </button>
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
+                <input type="hidden" id="id" name="id"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>시스템관리</li>
+                        <li>메뉴관리</li>
+                    </ul>
+
+                    <div class="search_area clearfix">
+                        <!--
+                        <div class="col">
+                            <select th:field="*{skey}" class="w120">
+                                <option value="1" selected>전체</option>
+                                <option value="2">사업명</option>
+                                <option value="3">요청부서</option>
+                                <option value="4">요청자</option>
+                                <option value="5">감사인</option>
+                            </select>
+                            <input type="text" th:field="*{sword}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()"><i class="material-icons">search</i>조회</button>
+                        </div>
+                        -->
+                    </div>
+
+                    <div class="board_list">
+                        <div class="board_detail clearfix line_l70">
+                            <div class="fl w70p">
+                                <div class="sec">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">목록</h4>
+                                    </div>
+                                    <div class="fr">
+                                        <button type="button" class="btn btn_sm btn_blue" onclick="fn_resetForm()">
+                                            <i class="material-icons">add</i>메뉴추가
+                                        </button>
+                                    </div>
+                                    <table class="tbl_list" id="resultList">
+                                        <colgroup>
+                                            <col style="width:60px"/>
+                                            <col style="width:220px"/>
+                                            <col style="width:60px"/>
+                                            <col style="width:250px"/>
+                                            <col style="width:auto"/>
+                                        </colgroup>
                                         <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>
-                                                <select th:field="*{srchMnGbnCdPid}">
+                                            <th scope="col">No</th>
+                                            <th scope="col">
+                                                <select th:field="*{srchMnGbnCdPid}" class="w140">
                                                     <option value="">전체</option>
                                                     <option th:each="item:${menuGroupCodes}" th:text="${item.codeNm}"
                                                             th:value="${item.id}"></option>
                                                 </select>
                                             </th>
-                                            <th>순번</th>
-                                            <th>메뉴명</th>
-                                            <th>경로</th>
+                                            <th scope="col">순번</th>
+                                            <th scope="col">메뉴명</th>
+                                            <th scope="col">경로</th>
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        <!-- 등록된 데이터가 없을 때만 노출 : s -->
                                         <tr th:if="${mngMenus == null or mngMenus.isEmpty()}">
                                             <td colspan="5">등록된 정보 없습니다.</td>
                                         </tr>
@@ -58,61 +89,79 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                    <!--<th:block th:replace="fragments/paging :: pagingbody(list=${list}, link='/pages/systemMenu/menuMst', formId='form1')"></th:block>-->
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">상세정보</h4>
-                                <p class="card-description" id="menu_desc">
+                            <div class="fr w30p">
+                                <div class="sec">
+                                    <div class="board_top clearfix">
+                                        <div class="fl">
+                                            <h4 class="sec_tit">상세정보</h4>
+                                        </div>
+                                    </div>
+                                    <table class="tbl_write">
+                                        <colgroup>
+                                            <col style="width:120px"/>
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row"><label for="menuGroupCdPid">메뉴구분*</label></th>
+                                            <td>
+                                                <select id="menuGroupCdPid" name="menuGroupCdPid">
+                                                    <option value="">선택</option>
+                                                    <option th:each="item:${menuGroupCodes}" th:text="${item.codeNm}"
+                                                            th:value="${item.id}"></option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="menuNm">메뉴명*</label></th>
+                                            <td>
+                                                <input type="text" id="menuNm" name="menuNm"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="menuUrl">메뉴경로*</label></th>
+                                            <td>
+                                                <input type="text" id="menuUrl" name="menuUrl"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="newwinAt">메뉴타켓*</label></th>
+                                            <td>
+                                                <select id="newwinAt" name="newwinAt">
+                                                    <option value="N">_self</option>
+                                                    <option value="Y">_blank</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="menuSn">메뉴순번*</label></th>
+                                            <td>
+                                                <input type="number" id="menuSn" name="menuSn"/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
 
-                                </p>
-                                <table class="table">
-                                    <tbody>
-                                    <input type="hidden" id="newwinAt" name="newwinAt" value="N">
-                                    <tr>
-                                        <th scope="row"><label for="menuGroupCdPid">메뉴구분*</label></th>
-                                        <td>
-                                            <select id="menuGroupCdPid" name="menuGroupCdPid">
-                                                <option value="">선택</option>
-                                                <option th:each="item:${menuGroupCodes}" th:text="${item.codeNm}"
-                                                        th:value="${item.id}"></option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">메뉴명</th>
-                                        <td>
-                                            <input type="text" class="form-control form-control-sm" id="menuNm" name="menuNm" placeholder="메뉴명을 입력하세요.">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">메뉴경로</th>
-                                        <td><input type="text" class="form-control form-control-sm" id="menuUrl" name="menuUrl" placeholder="메뉴경로를 입력하세요."></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">순번</th>
-                                        <td><input class="form-control form-control-sm" type="number" id="menuSn" name="menuSn" placeholder="0"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div class="btn-group float-right" role="group">
-                                    <button id="btnDelete" class="btn btn-outline-secondary btn-sm" type="button">삭제
-                                    </button>
-                                    <button id="btnSave" class="btn btn-outline-secondary btn-sm" type="button">저장
-                                    </button>
+                                    <div class="btn_area">
+                                        <button id="btnDelete" class="btn btn_sm btn_red" type="button">
+                                            <i class="material-icons">delete</i>삭제
+                                        </button>
+                                        <button id="btnSave" class="btn btn_sm btn_blue" type="button">
+                                            <i class="material-icons fz17">done</i>저장
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
-            </div>
-        </form>
-            <th:block th:include="fragments/admin/footer"></th:block>
+            </form>
         </div>
     </div>
+    <th:block th:replace="fragments/admin/footer"></th:block>
 </div>
 </body>
 </html>

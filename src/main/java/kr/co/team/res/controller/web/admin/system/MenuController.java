@@ -127,7 +127,7 @@ public class MenuController extends BaseCont {
     }
 
     @ResponseBody
-    @PostMapping("/api/menu/lnb")
+    @PostMapping("/api/admin/menu/lnb")
     public List<Map<String, Object>> lnb(Model model,
                                          @CurrentUser Account account,
                                          HttpServletResponse response,

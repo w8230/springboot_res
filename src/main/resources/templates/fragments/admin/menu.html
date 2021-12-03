@@ -1,0 +1,103 @@
+<div id="header">
+    <h1 class="logo"><a href="/"><img src="/ui/admin/images/common/logo.png" alt="RES" /></a></h1>
+    <a href="javascript:;" class="btn_menu"><span></span></a>
+    <!--<a href="/app/appDown" class="btn btn_sm btn_app" target="_blank"><i class="material-icons">get_app</i>APP 다운로드</a>-->
+</div>
+
+<div id="lnb" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="user_area">
+        <div class="user_info">
+            <i class="material-icons">account_circle</i>
+<!--            <p><th:block sec:authentication="principal.account.loginId"></th:block>-->
+<!--                <span><th:block sec:authentication="principal.account.ncnm"></th:block>님</span>의 권한은<br />-->
+<!--                <b th:text="${T(kr.co.team.res.domain.enums.UserRollType).valueOf(#authentication.principal.account.mberDvTy).getName()}"></b>입니다.-->
+<!--            </p>-->
+        </div>
+        <ul class="user_menu clearfix">
+            <li><a href="/admin/dashboard"><i class="material-icons">home</i></a></li>
+            <li><a href="/"><i class="material-icons">settings</i></a></li>
+            <li><a href="/logout"><i class="material-icons">power_settings_new</i></a></li>
+        </ul>
+    </div>
+    <ul class="lnb">
+        <!--menu html-->
+    </ul>
+</div>
+
+<script type="application/javascript">
+    $(function () {
+        fn_makeMenu();
+    });
+
+    function fn_makeMenu() {
+        var jsonData = {
+        };
+
+        $.ajax({
+            type: 'post',
+            url: '/api/admin/menu/lnb',
+            contentType: false,
+            processData: false,
+            //enctype: 'multipart/form-data',
+            data: jsonData,
+            datatype: 'json',
+            success: function (data) {
+                var menuHtml = '';
+                for (var i = 0; i < data.length; i++) {
+
+                    menuHtml += '<li>\n' +
+                        '   <a href="#">' +data[i].menuNm+ '</a>\n' +
+                        '   <ul class="depth">\n';
+
+                    $.each(data[i].lnbs, function (index, lnb){
+                        menuHtml += '                <li><a href="' + lnb.menuUrl+ '">' +lnb.menuNm+ '</a></li>\n';
+                    });
+                    //'                <li><a href="#">TO-DO 리스트</a></li>\n' +
+
+                    menuHtml += '    </ul>\n';
+                    menuHtml += '</li>';
+                }
+
+                $('.lnb').html(menuHtml);
+                //$('#gnb').eq(0).addClass('active');
+
+                //lnb
+                $('.lnb > li').each(function(){
+                    var li = $(this);
+                    li.children('a').on('click',function(e){
+                        if($(this).attr('href') == '#'){
+                            e.preventDefault();
+                        }
+                        li.toggleClass('active').children('.depth').stop().slideToggle()
+                        li.siblings().removeClass('active').children('.depth').stop().slideUp()
+                    })
+                    if(li.hasClass('active')){
+                        li.children('.depth').show()
+                    }else{
+                        li.children('.depth').hide()
+                    }
+
+                    li.find('.depth > li').each(function(){
+                        var depthLi = $(this),
+                            href = depthLi.children('a').attr('href'),
+                            pathName = $(location).attr('pathname');
+                        if(href == pathName){
+                            depthLi.addClass('active').parent('.depth').show().parent('li').addClass('active')
+                        }
+                    })
+                })
+
+                //lnb 접기 : 200608 추가
+                $('.btn_menu').on('click',function(){
+                    $(this).parents('#wrap').toggleClass('close')
+                })
+
+            },
+            error: function (error) {
+                //alert('save error!!!');
+                alert('error::' + error.statusText);
+            }
+        });
+    }
+
+</script>

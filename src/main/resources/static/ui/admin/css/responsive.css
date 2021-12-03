@@ -1,0 +1,101 @@
+@charset 'UTF-8';
+
+@media (min-width:1301px){
+    #container{margin-left:240px}
+    .close #lnb{left:-240px}
+    .close #container{margin-left:40px}
+}
+@media (max-width:1600px){
+    .board_detail.clearfix > div{float:none !important;width:100% !important}
+    .board_detail.clearfix > .fl{padding-right:0}
+    .board_detail.clearfix > .fr{margin-top:0;padding-left:0}
+}
+@media (max-width:1300px){
+    #header .logo a img{margin-top:-16px}
+    #lnb{left:-240px;box-shadow:0 0 30px 0 rgba(0, 0, 0, .2)}
+    .active .dim_lnb{position:absolute;top:71px;right:0;bottom:0;left:0;background-color:rgba(0,0,0,.6);z-index:106}
+    .active #header .btn_menu:before{opacity:0}
+    .active #header .btn_menu span:before{transform:translateY(7px) rotate(45deg)}
+    .active #header .btn_menu span:after{transform:translateY(-9px) rotate(-45deg)}
+    .active #lnb{left:0}
+}
+@media (max-width:1000px){
+    .mo_tbl_list thead{display:none}
+    .mo_tbl_list, .mo_tbl_list tbody, .mo_tbl_list tbody tr{display:block;width:100%}
+    .mo_tbl_list tbody tr{padding:20px 0 13px;border:1px solid #d9d9d9;border-top:none}
+    .mo_tbl_list tbody th,
+    .mo_tbl_list tbody td{display:block;height:auto;padding-top:0;text-align:left;border:none}
+    .mo_tbl_list tbody td:first-child{border-left:none}
+    .mo_tbl_list tbody td .th{display:inline-block;margin-right:10px;vertical-align:top}
+    .mo_tbl_list tbody td .th + *{display:inline-block;vertical-align:top}
+    .mo_tbl_list tbody :nth-child(even) td{background:none}
+    .tbl_scroll{overflow-x:auto}
+    .tbl_scroll table{width: 1600px}
+    .tbl_write:not(.not_responsive), .tbl_write:not(.not_responsive) tbody, .tbl_write:not(.not_responsive) tr{display:block;width:100%}
+    .tbl_write:not(.not_responsive) tbody th{display:block;height:auto;padding:15px 0 5px;text-align:left;border:none;background:none}
+    .tbl_write:not(.not_responsive) tbody td{display:block;height:auto;min-height:31px;padding:0;padding-bottom:6px;border-color:#c3cfe5}
+    .tbl_write:not(.not_responsive) tbody td > input[type=hidden]{border:none}
+    .tbl_write:not(.not_responsive) tbody td > input{margin-bottom:-6px;padding:0;border:none}
+    .tbl_write:not(.not_responsive) tbody td > textarea, .tbl_write:not(.not_responsive) tbody td > .nice-select{margin:2px 0 -7px}
+    .tbl_write:not(.not_responsive) tbody td > .nice-select{width:100%;margin:0}
+    .tbl_write:not(.not_responsive) tbody td > .term_form{margin-bottom:-6px}
+    .tbl_write:not(.not_responsive) tbody td > .term_form input{width:105px;border:0;background-color:#fff}
+    .tbl_write:not(.not_responsive) tbody td .form_date{width:105px;padding:0 30px 0 0;background:url(/ui/admin/images/icon/mo_calendar.png) no-repeat 100% 50% !important;background-size:28px !important}
+    .tbl_write:not(.not_responsive) tbody td .inp_btn_form input{padding:0;border:none}
+    .tbl_write:not(.not_responsive) tbody td .address_form{margin-bottom:-7px}
+    .tbl_write:not(.not_responsive) tbody td .address_form > div{border-bottom:1px solid #c3cfe5}
+    .tbl_write:not(.not_responsive) tbody td .address_form > div:nth-child(1){padding-bottom:5px}
+    .tbl_write:not(.not_responsive) tbody td .address_form > div:nth-child(2){margin-top:0 !important}
+    .tbl_write:not(.not_responsive) tbody td .address_form label{display:none}
+    .tbl_write:not(.not_responsive) tbody td .address_form input{padding:0;border:none}
+    .search_area .col > .nice-select{margin-right:10px}
+    .search_area .col > .nice-select + input{margin:0 5px 5px 0}
+    .search_area .col .btn{margin:0 5px 5px 0}
+    .search_area .col .btn:last-of-type{margin:0}
+}
+
+@media (max-width:640px){
+    #header{height:60px;padding:20px 20px 0}
+    #header .logo{text-align:center}
+    #header .logo span{margin-top:5px;font-size:18px}
+    #header .logo a img{width:95px;margin-top:-10px;margin-left:0}
+    #header .btn_menu{top:23px;left:auto;right:20px}
+    #header .btn_app{display:none}
+    #lnb{top:60px}
+    #container{margin:0 20px}
+    .active .dim_lnb{top:60px}
+    .active #lnb{box-shadow:none}
+    .active #container{margin-left:20px}
+
+    .board_top > .fr > *{margin-top:5px}
+    .tab{border-left:1px solid #e6ebf2}
+    .tab > li{height:52px;vertical-align:middle;background-color:#ccd7e8;border-top:1px solid #e6ebf2;border-right:1px solid #e6ebf2}
+    .tab > li.active{background-color:#fff}
+    .tab > li.active a:after{display:none}
+    .tab > li a{line-height:1;border:0}
+    .tab > li:first-child a{border:0}
+    .search_area{padding-bottom:10px}
+    .search_area .col{padding:15px 20px 0}
+    .search_area .col > .nice-select + input{width:calc(100% - 130px) !important;margin-right:0}
+
+    .mycal_area .fl{float:none;width:100%;max-width:250px;padding-right:0}
+    .mycal_area .dhtmlxcalendar_material div.dhtmlxcalendar_month_cont,
+    .mycal_area .dhtmlxcalendar_material div.dhtmlxcalendar_days_cont,
+    .mycal_area .dhtmlxcalendar_material div.dhtmlxcalendar_dates_cont{width:100%}
+    .mycal_area .fr{float:none;width:100%;margin-top:20px}
+}
+@media (max-width:500px) {
+    .search_area .col input[type="text"]{width:100% !important;margin-top:5px;margin-bottom:5px}
+    .search_area .col .term_form input[type="text"]{width:135px !important;margin-top:0}
+}
+@media (max-width:480px){
+    .term_form .swung{margin:2px 8px}
+}
+@media (max-width:375px){
+    #wrap.login_wrap{padding-bottom:108px}
+}
+@media (max-width:360px){
+    .mo_tbl_write, .mo_tbl_write tbody, .mo_tbl_write tbody tr{display:block;width:100%}
+    .mo_tbl_write tbody th{display:block;height:auto;padding:10px 15px;text-align:left}
+    .mo_tbl_write tbody td{display:block;height:auto;padding-top:10px;padding-bottom:10px}
+}

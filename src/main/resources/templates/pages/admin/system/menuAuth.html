@@ -3,86 +3,93 @@
 <head>
     <th:block th:include="fragments/admin/header"></th:block>
     <script src="/data/admin/system/menuAuth.js"></script>
-    <style>
-        .checkbox label:after {
-            border-radius: 2px;
-        }
-        .checkbox label:after, .radio label:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 18px;
-            height: 18px;
-            border: 1px;
-            solid #c3cfe5;
-            background-color: #fff;
-            box-sizing: border-box;
-        }
-    </style>
 </head>
 <body>
-<div class="container-scroller">
-    <th:block th:include="fragments/admin/tnb"></th:block>
-    <div class="container-fluid page-body-wrapper">
-        <th:block th:include="fragments/admin/settings-panel"></th:block>
-        <th:block th:include="fragments/admin/rnb"></th:block>
-        <th:block th:include="fragments/admin/lnb"></th:block>
-        <div class="main-panel">
-            <form id="form1" name="form1" method="post" th:object="${form}">
-            <input type="hidden" id="mberPid" name="mberPid"/>
-            <div class="content-wrapper">
-                <div class="row">
-                    <div class="col-lg-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title float-left">목록</h4>
-                                <button class="btn btn-info btn-sm btn-icon-text float-right" onclick="fn_resetForm()">
-                                    <i class="ti-plus btn-icon-prepend"></i>
-                                    추가
-                                </button>
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">회원ID</th>
-                                            <th scope="col">회원명</th>
-                                            <th scope="col">등록일자</th>
-                                            <th scope="col">사용권한</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:id="|tr_member_${item.id}|" th:each="item:${members}" style="cursor: pointer">
-                                            <td th:text="${item.loginId}"></td>
-                                            <td>
-                                                <a href="#" th:onclick="|fn_select(${item.id})|">
-                                                    <b th:text="${item.nm}"></b>
-                                                </a>
-                                            </td>
-                                            <td th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></td>
-                                            <td th:text="${T(kr.co.team.res.domain.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+<div id="wrap">
+    <th:block th:include="fragments/admin/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post">
+                <input type="hidden" id="mberPid" name="mberPid"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>시스템관리</li>
+                        <li>메뉴권한관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="fl">
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">메뉴권한 그룹 및 사용자</h4>
+                                    </div>
+                                    <div class="fr">
+                                        <!--<a href="javascript:;" class="btn btn_sm btn_lightgray" onclick="fn_openAll(capabilityCodeTree, codeList);"><i class="material-icons">add_circle</i>전체 펼치기</a>
+                                        <a href="javascript:;" class="btn btn_sm btn_lightgray" onclick="fn_closeAll(capabilityCodeTree, codeList);"><i class="material-icons">remove_circle</i>전체 닫기</a>-->
+                                    </div>
                                 </div>
+
+                                <table class="tbl_list tbl_chk">
+                                    <caption>사용자 현황</caption>
+                                    <colgroup>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">회원ID</th>
+                                        <th scope="col">회원명</th>
+                                        <th scope="col">등록일자</th>
+                                        <th scope="col">사용권한</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:id="|tr_member_${item.id}|" th:each="item:${members}" style="cursor: pointer">
+                                        <td th:text="${item.loginId}"></td>
+                                        <td>
+                                            <a href="#" th:onclick="|fn_select(${item.id})|">
+                                                <b th:text="${item.nm}"></b>
+                                            </a>
+                                        </td>
+                                        <td th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></td>
+                                        <td th:text="${T(kr.co.team.res.domain.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">상세정보</h4>
-                                <p class="card-description" id="menu_desc">
-
-                                </p>
-                                <div class="btn-group float-right" role="group">
-                                    <button class="btn btn-outline-secondary btn-sm btn_chk_true" type="button">전체선택
-                                    </button>
-                                    <button class="btn btn-outline-secondary btn-sm btn_chk_false" type="button">선택해제
-                                    </button>
+                        <div class="fr">
+                            <div class="sec">
+                                <h4 class="sec_tit">권한메뉴 현황</h4>
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <div class="total_num">총 <b th:text="${mngMenus eq null ? 0 : mngMenus.size()}">2</b>
+                                            개 메뉴
+                                        </div>
+                                    </div>
+                                    <div class="fr">
+                                        <a href="#" class="btn btn_sm btn_lightgray btn_chk_true">
+                                            <i class="material-icons">check_box</i>전체 선택
+                                        </a>
+                                        <a href="#" class="btn btn_sm btn_lightgray btn_chk_false">
+                                            <i class="material-icons">check_box_outline_blank</i>선택 해제
+                                        </a>
+                                        <!--<a href="javascript:;" class="btn btn_sm btn_blue" onclick="fn_allSave()">
+                                            <i class="material-icons fz17">done</i>메뉴권한 저장
+                                        </a>-->
+                                    </div>
                                 </div>
-                                <table class="table">
-                                    <tbody id="tr_menu">
+                                <table class="tbl_list tbl_chk">
+                                    <caption>권한메뉴 현황</caption>
+                                    <colgroup>
+                                        <!--<col style="width:20%" />
+                                        <col style="width:auto" />
+                                        <col style="width:10%" />
+                                        <col style="width:10%" />-->
+                                    </colgroup>
+                                    <thead>
                                     <tr>
                                         <th scope="col">
                                             <select id="srch_menu_group_id" name="srch_menu_group_id"
@@ -97,9 +104,13 @@
                                         <th scope="col">새창여부</th>
                                         <th scope="col">사용권한</th>
                                     </tr>
+                                    </thead>
+                                    <tbody id="tr_menu">
+                                    <!-- 등록된 데이터가 없을 때만 노출 : s -->
                                     <tr th:if="${mngMenus == null or mngMenus.isEmpty()}">
                                         <td colspan="4">등록된 정보 없습니다.</td>
                                     </tr>
+                                    <!-- 등록된 이벤트가 없을 때만 노출 : e -->
                                     <tr th:each="item:${mngMenus}">
 
                                         <td th:text="${item.menuGroupNm}"></td>
@@ -121,10 +132,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
-            <th:block th:include="fragments/admin/footer"></th:block>
+            </form>
         </div>
+        <th:block th:replace="fragments/admin/footer"></th:block>
     </div>
 </div>
 </body>
