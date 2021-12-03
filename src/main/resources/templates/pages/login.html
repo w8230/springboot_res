@@ -1,8 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/client/header"></th:block>
 </head>
+<script>
+    var userId;
+    var userPw;
+    var msg;
+    var errormsg;
+    let rsMsg;
+
+    $(function () {
+        rsMsg = '[[${rsMsg}]]';
+        msg = $('#msg');
+
+        /*if(rsMsg){
+            alert(rsMsg);
+            location.href='/logout?dv=n';
+        }
+
+        if (msg.val()) {
+            alert(msg.val());
+        }*/
+
+        errormsg = $('#errormsg');
+        if (errormsg.val()) {
+            alert(errormsg.val());
+        }
+    });
+
+    function fn_chkLogin() {
+        var btnLogin = $("#btnLogin");
+        userId = $("#userId")
+        userPw = $("#userPw")
+
+        var frm = $('#form1');
+        frm.prop("action", "/login");
+        frm.submit();
+
+    }
+</script>
 <th:block th:include="fragments/client/__topNav"></th:block>
 <div class="container" id="container">
     <div class="wcenter">
@@ -10,14 +47,16 @@
             <a href="index" class="login_logo m-t-10 m-b-40"><img src="resources/assets/main/img/import/img/logo.png"></a>
             <div class="login_form">
 
-                <form action="login" method="post">
+                <form name="form1" id="form1" method="post">
+                    <input type="hidden" id="msg" th:value="${msg}"/>
+                    <input type="hidden" id="errormsg" th:value="${errormsg}"/>
                     <!--<input type="hidden" id="msg" value="" >-->
                     <input type="text" name="userId" class="form-control-basic" placeholder="아이디를 입력하세요">
                     <input type="password" name="userPw" class="form-control-basic m-t-10 m-b-10" placeholder="비밀번호를 입력하세요">
                     <div class="txt_right m-b-10">
                         <a href="find_info_page" class="txt1-1"><i class="fas fa-lock"></i> 아이디 / 비밀번호 찾기</a>
                     </div>
-                    <button type="submit" class="btn bg_green btn-sm nsdow">로그인</button>
+                    <button id="btnLogin" type="submit" class="btn bg_green btn-sm nsdow" onclick="fn_chkLogin()">로그인</button>
                 </form>
 
             </div>

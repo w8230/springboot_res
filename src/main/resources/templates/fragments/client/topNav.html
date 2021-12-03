@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <script src="resources/data-components/search/search.js"></script>
 
 <!-- 헤더 [s] -->
@@ -10,11 +10,14 @@
 				<div class="row align-items-center">
 					<div class="col-md-12 d-none d-md-block">
 						<div class="social_wrap d-flex align-items-center justify-content-end">
+							<th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
 								<a href="my_page1" class="top-a-tag">내정보</a>
 								<a href="logout" class="top-a-tag">로그아웃</a>
-								<a href="notice_page" class="top-a-tag">고객센터</a>
+							</th:block>
+							<th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
 								<a href="login_page" class="top-a-tag sp_active">로그인</a>
 								<a href="choice_sign_up" class="top-a-tag">회원가입</a>
+							</th:block>
 								<a href="notice_page" class="top-a-tag">고객센터</a>
 						</div>
 					</div>
@@ -30,7 +33,7 @@
 						<div class="col-xl-2 col-lg-2">
 							<div class="logo">
 								<a href="index">
-									<img src="resources/assets/main/img/import/img/logo.png" alt="게하모 로고" class="bg_logo">
+									<img src="/ui/client/img/logo/res.png" alt="로고" class="bg_logo">
 								</a>
 							</div>
 						</div>

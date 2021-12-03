@@ -22,6 +22,9 @@ public class MemberController extends BaseCont {
     @RequestMapping("/pages/choiceregister")
     public String registerchoice(){ return "pages/choice_register"; }
 
+    @RequestMapping("/pages/mypage/info")
+    public String mypage(){ return "pages/member/mypage/my_info_modify"; }
+
     @RequestMapping("/member/register")
     public String memberjoinpage(Model model){ return "pages/member/member_register"; }
 
