@@ -34,6 +34,7 @@ public class MemberController extends BaseCont {
 
         if(memberVO.getAuthMobileChk() == 2) {
             if(memberVO.getAuthMobileChk() == 2){
+                result = true;
                 log.info("나이스 인증 임시처리 됨");
                 memberVO.setMobileAttcAt("Y");
                 memberVO.setEmailAttcAt("N");
@@ -41,6 +42,7 @@ public class MemberController extends BaseCont {
                 memberService.insert(memberVO);
 
             } else if (memberVO.getAuthEmailChk() == 2) {
+                result = true;
                 log.info("나이스 인증 임시처리 됨");
                 memberVO.setEmailAttcAt("Y");
                 memberVO.setMobileAttcAt("N");
