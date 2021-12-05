@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script src="/data/admin/system/boardModify.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="fragments/admin/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>시스템관리</li>
+                        <li>게시판마스터</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${message}">
+                                <strong><input type="text" th:field="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>말머리구분</label></th>
+                                    <td>
+                                        <input type="text" th:field="*{sntncHead}" placeholder=",로 구분해주세요.">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>게시판타입<span class="aster">*</span></label></th>
+                                    <td>
+                                        <select th:field="*{bbsTy}">
+                                            <option th:each="tp:${T(kr.co.team.res.domain.enums.BoardType).values()}"
+                                                    th:text="${tp.getName()}" th:value="${tp}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>게시판명<span class="aster">*</span></label></th>
+                                    <td><input type="text" th:field="*{bbsNm}" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>게시판상단<span class="aster">*</span></label></th>
+                                    <td>
+                                        <textarea th:field="*{bbsUpendCn}" style="width: 100%; height: 120px;"></textarea>
+                                        <script>
+                                            makeFck('bbsUpendCn',setEditor);
+                                        </script>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <button id="btnDelete" class="btn btn_sm btn_red" type="button">
+                                    <i class="material-icons">delete</i>삭제
+                                </button>
+                                <button id="btnSave" class="btn btn_sm btn_blue" type="button">
+                                    <i class="material-icons fz17">done</i>저장
+                                </button>
+                                <a class="btn btn_sm btn_lightgray" href="/admin/system/boardList">
+                                    <i class="material-icons">list</i>목록
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/admin/footer"></th:block>
+</div>
+</body>
+</html>

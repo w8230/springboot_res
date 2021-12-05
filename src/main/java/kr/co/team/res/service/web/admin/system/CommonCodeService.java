@@ -1,4 +1,4 @@
-package kr.co.team.res.service.web.admin;
+package kr.co.team.res.service.web.admin.system;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.OrderSpecifier;

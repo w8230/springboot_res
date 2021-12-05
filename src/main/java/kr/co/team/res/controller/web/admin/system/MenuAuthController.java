@@ -1,6 +1,5 @@
 package kr.co.team.res.controller.web.admin.system;
 
-import kr.co.team.res.common.Base;
 import kr.co.team.res.common.annotation.CurrentUser;
 import kr.co.team.res.controller.web.BaseCont;
 import kr.co.team.res.domain.entity.Account;
@@ -10,9 +9,9 @@ import kr.co.team.res.domain.entity.MenuAuth;
 import kr.co.team.res.domain.vo.admin.MenuAuthVO;
 import kr.co.team.res.domain.vo.admin.MenuVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
-import kr.co.team.res.service.web.admin.CommonCodeService;
-import kr.co.team.res.service.web.admin.MenuAuthService;
-import kr.co.team.res.service.web.admin.MenuService;
+import kr.co.team.res.service.web.admin.system.CommonCodeService;
+import kr.co.team.res.service.web.admin.system.MenuAuthService;
+import kr.co.team.res.service.web.admin.system.MenuService;
 import kr.co.team.res.service.web.user.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

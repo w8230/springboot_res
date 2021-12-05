@@ -1,0 +1,31 @@
+<div class="pagination_area" xmlns:th="http://www.thymeleaf.org" th:fragment="pagingbody(list, link, formId)">
+    <div class="pagination"
+         th:with="start=${T(Math).floor(list.number/10)*10 + 1}, last=(${start + 9 < list.totalPages ? start + 9 : (list.totalPages == 0 ? 1 : list.totalPages)})">
+        <a href="javascript:;" th:onclick="'fnPage(1)'" class="arr mostprev"><span class="blind">처음</span></a>
+        <a href="javascript:;" th:onclick="'fnPage('+${!list.first ? list.number : list.number + 1}+')'"
+           class="arr prev"><span class="blind">이전</span></a>
+        <th:block th:each="page: ${#numbers.sequence(start, last)}">
+            <a th:text="${page}" href="javascript:;" th:onclick="'fnPage('+${page}+')'"
+               th:class="${page == (list.number + 1)} ? 'active'"></a>
+        </th:block>
+        <a href="javascript:;" th:onclick="'fnPage('+${(!list.last ? list.number + 2 : list.number + 1)}+')'"
+           class="arr next"><span class="blind">다음</span></a>
+        <a href="javascript:;" th:onclick="'fnPage('+${list.totalPages}+')'" class="arr mostnext"><span class="blind">마지막</span></a>
+    </div>
+    <script type="text/javascript" th:inline="javascript">
+        /* <![CDATA[ */
+        function fnPage(page) {
+            var link = /*[[ ${link} ]]*/;
+            var formId = /*[[ ${formId} ]]*/;
+
+            if (page) {
+                link = link +'?page='+page;
+            }
+
+            var frm = $('#'+formId);
+            frm.prop('action', link);
+            frm.submit();
+        }
+        /* ]]> */
+    </script>
+</div>
