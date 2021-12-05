@@ -1,14 +1,12 @@
 package kr.co.team.res.controller.web.admin.system;
 
-import kr.co.team.res.common.Base;
 import kr.co.team.res.common.annotation.CurrentUser;
 import kr.co.team.res.controller.web.BaseCont;
 import kr.co.team.res.domain.entity.Account;
 import kr.co.team.res.domain.entity.CommonCode;
 import kr.co.team.res.domain.vo.admin.CommonCodeVO;
-import kr.co.team.res.service.web.admin.CommonCodeService;
+import kr.co.team.res.service.web.admin.system.CommonCodeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,9 +66,9 @@ public class CommonCodeController extends BaseCont {
                        @RequestBody CommonCodeVO commonCodeForm,
                        RedirectAttributes redirectAttributes) {
 
-        commonCodeForm.setRegPsId("master");
+        commonCodeForm.setRegPsId(account.getLoginId());
         commonCodeForm.setRegDtm(LocalDateTime.now());
-        commonCodeForm.setUpdPsId("master");
+        commonCodeForm.setUpdPsId(account.getLoginId());
         commonCodeForm.setUpdDtm(LocalDateTime.now());
         commonCodeForm.setDelAt("N");
 
@@ -98,7 +96,7 @@ public class CommonCodeController extends BaseCont {
             return "redirect:" + "/admin/system/commoncode";
         }
 
-        vo.setUpdPsId("master");
+        vo.setUpdPsId(account.getLoginId());
         vo.setUpdDtm(LocalDateTime.now());
         vo.setDelAt("Y");
 

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script src="/data/admin/system/boardRegister.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="fragments/admin/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" id="id" name="id"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>시스템관리</li>
+                        <li>게시판마스터</li>
+                    </ul>
+
+                    <div class="search_area clearfix">
+                        <dl class="col">
+                            <dt>게시판타입</dt>
+                            <dd>
+                                <select th:field="*{srchGbn}">
+                                    <option value="">전체</option>
+                                    <option th:each="tp : ${T(kr.co.team.res.domain.enums.BoardType).values()}"
+                                            th:value="${tp}"
+                                            th:text="${tp.getName()}"></option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <dl class="col">
+                            <dt>게시판명</dt>
+                            <dd>
+                                <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                            </dd>
+                        </dl>
+                        <div class="col">
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+                                <i class="material-icons">search</i>조회
+                            </button>
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()()">
+                                <i class="material-icons">refresh</i>초기화
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="board_list">
+                        <h4 class="sec_tit">게시판 현황</h4>
+                        <div class="board_top clearfix">
+                            <div class="fl">
+                                <div class="total_num">총 <b th:text="${#numbers.formatInteger(boardMasters.totalElements, 0, 'COMMA')}">2</b>
+                                    건
+                                </div>
+                            </div>
+                            <div class="fr">
+                                <a href="/admin/system/boardRegister" class="btn btn_sm btn_blue"><i class="material-icons mt0">add</i>신규등록</a>
+                            </div>
+                        </div>
+                        <div class="board_detail clearfix">
+                            <table class="tbl_list" id="resultList">
+                                <colgroup>
+                                    <col style="width: 60px"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+
+                                    <th>게시판타입</th>
+                                    <th>게시판명</th>
+                                    <th>등록일시</th>
+                                    <th>등록자ID</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                                <tr th:if="${boardMasters == null or boardMasters.isEmpty()}">
+                                    <td colspan="5">등록된 정보 없습니다.</td>
+                                </tr>
+                                <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                                <tr th:each="item,idx:${boardMasters}">
+                                    <td th:text="${boardMasters.totalElements - boardMasters.pageable.pageSize * boardMasters.pageable.pageNumber - idx.index}"></td>
+
+                                    <td th:text="${T(kr.co.team.res.domain.enums.BoardType).valueOf(item.bbsTy).getName()}"></td>
+                                    <td>
+                                        <a th:href="|/admin/system/detail/${item.id}|">
+                                            <b th:text="${item.bbsNm}"></b>
+                                        </a>
+                                    </td>
+                                    <td th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></td>
+                                    <td th:text="${item.regPsNm}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <th:block th:replace="/fragments/admin/paging :: pagingbody(list=${boardMasters},
+                                            link='/admin/system/boardList', formId='form1')"></th:block>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/admin/footer"></th:block>
+</div>
+</body>
+</html>
