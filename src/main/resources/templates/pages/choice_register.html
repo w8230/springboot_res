@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="fragments/client/header"></th:block>
+</head>
+<th:block th:include="fragments/client/nosrchbar_topNav"></th:block>
 <div class="container w1100">
     <div class="join_basic_bx">
         <h2>회원가입</h2>
-
         <div class="join_btn">
             <h3>일반회원으로 가입하기</h3>
             <a href="/member/register" class="icon btn-gehamo nhover">
-                <i class="fas fa-home"></i>
+                <i class="fas fa-user"></i>
                 RES 회원가입
             </a>
 
             <h3>파트너로 가입하기</h3>
             <a href="/partners/register" class="icon btn-partner nhover">
-                <i class="fas fa-handshake"></i>
+                <i class="fas fa-user-friends"></i>
                 파트너 회원가입
             </a>
         </div>
     </div>
 </div>
+<th:block th:include="fragments/client/footer"></th:block>
+</html>

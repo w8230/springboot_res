@@ -1,6 +1,7 @@
 package kr.co.team.res.controller.web.user;
 
 import kr.co.team.res.controller.web.BaseCont;
+import kr.co.team.res.domain.enums.UserRollType;
 import kr.co.team.res.domain.vo.user.MemberVO;
 import kr.co.team.res.service.web.user.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,53 +20,53 @@ import java.time.LocalDateTime;
 public class MemberController extends BaseCont {
     private final MemberService memberService;
 
-    @RequestMapping("/pages/choiceregister")
+    @RequestMapping("/pages/register")
     public String registerchoice(){ return "pages/choice_register"; }
-
-    @RequestMapping("/pages/mypage/info")
-    public String mypage(){ return "pages/member/mypage/my_info_modify"; }
 
     @RequestMapping("/member/register")
     public String memberjoinpage(Model model){ return "pages/member/member_register"; }
 
     //회원가입 컨트롤러
-    @PostMapping("/api/member/insert")
-    public ResponseEntity insert(MemberVO memberVO ,
-                                 Errors errors ,
-                                 BindingResult bindingResult) {
-
+    @PostMapping(value = "/api/member/insert")
+    public String insert(MemberVO memberVO ,
+                         Model model) {
         boolean result = false;
-        String msg = "";
-        //스크립트 조합값 확인.
-        log.info(memberVO.getBrthdy());
-        //hidden 값 잘 받아냄.
 
         if(memberVO.getAuthMobileChk() == 2) {
             if(memberVO.getAuthMobileChk() == 2){
-                log.info("val moble 2");
+                log.info("나이스 인증 임시처리 됨");
                 memberVO.setMobileAttcAt("Y");
                 memberVO.setEmailAttcAt("N");
                 memberVO.setMobileAttcDtm(LocalDateTime.now());
-                System.out.println(memberVO.getZip());
-                System.out.println(memberVO.getBzip());
                 memberService.insert(memberVO);
 
             } else if (memberVO.getAuthEmailChk() == 2) {
-                log.info("val email 2");
+                log.info("나이스 인증 임시처리 됨");
                 memberVO.setEmailAttcAt("Y");
                 memberVO.setMobileAttcAt("N");
                 memberVO.setEmailAttcDtm(LocalDateTime.now());
                 memberService.insert(memberVO);
             }
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+        } else if(memberVO.getAuthMobileChk() != 2 || memberVO.getAuthEmailChk() != 2){
+            if(memberVO.getMberDvTy().equals(UserRollType.NORMAL)){
+                model.addAttribute("altmsg" , "본인인증에 실패했습니다. RES에 문의 해주세요.");
+                model.addAttribute("locurl" , "/pages/member/member_register");
+                return "/message";
+            } else if(memberVO.getMberDvTy().equals(UserRollType.PARTNERS)) {
+                model.addAttribute("altmsg" , "본인인증에 실패했습니다. RES에 문의 해주세요.");
+                model.addAttribute("locurl" , "/pages/partners/partners_register");
+                return "/message";
+            }
         }
 
         if(result){
-            msg = "회원가입이 완료되었습니다.";
-            return ResponseEntity.ok(msg);
+            model.addAttribute("altmsg" , "회원가입이 완료되었습니다.");
+            model.addAttribute("locurl" , "/pages/login");
+            return "/message";
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+            model.addAttribute("altmsg" , "회원가입에 실패하였습니다. RES에 문의해주세요.");
+            model.addAttribute("locurl" , "/");
+            return "/message";
         }
     }
 

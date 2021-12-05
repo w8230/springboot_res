@@ -76,6 +76,7 @@ public class MemberService extends _BaseService {
                 memberRepository.save(account);
                 memberRoll.setMberPid(account.getId());
                 memberRollRepository.save(memberRoll);
+
             } else if(memberVO.getMberDvTy().equals(UserRollType.PARTNERS)){
                 Partners partners = new Partners();
 

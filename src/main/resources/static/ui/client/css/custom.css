@@ -1,4 +1,4 @@
-.bg_logo{width:200px !important;}
+.bg_logo{width:45px !important;}
 #top-sticky-header{
   border-bottom: 1px solid #eee !important;
 }
@@ -49,13 +49,13 @@ a, button, input, textarea {
     transition: none !important;
 }
 .header-area .main-header-area .main-menu ul li a:hover{
-	color:#ff4a52 !important;
+	color:#80cf86 !important;
 }
 .top-a-tag{padding-left: 15px !important;}
 .index-a-tag{padding-right: 15px !important;}
 #mid-nav-wd{max-width: 1200px !important;}
 a:hover{color:#80cf86 !important;}
-.a-active{color:#ff4a52; font-weight:500;}
+.a-active{color:#80cf86; font-weight:500;}
 .banner_places_area {
     padding-top: 80px;
     padding-bottom: 80px;

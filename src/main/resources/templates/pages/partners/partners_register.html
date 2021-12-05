@@ -3,7 +3,10 @@
 <head>
     <th:block th:include="fragments/client/header"></th:block>
 </head>
-<th:block th:include="fragments/client/__topNav"></th:block>
+<!--register-->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/ui/client/data-components/sign_up/sign_up.js"></script>
+<th:block th:include="fragments/client/nosrchbar_topNav"></th:block>
 <div id="container" class="container">
     <div class="w1100">
         <div class="sub_hd">
@@ -14,12 +17,14 @@
 
         <form class="join_frm" id="form1" name="form1" action="/api/member/insert" method="post">
 
+
+            <input type="hidden" id="mberDvTy" name="mberDvTy" value="PARTNERS">
+            <input type="hidden" id="authMobileChk" name="authMobileChk" value="2">
+
             <div class="term_hd">
                 <h3 class="sub_title">기본정보 입력</h3>
             </div>
 
-            <input type="hidden" id="mberDvTy" name="mberDvTy" value="PARTNERS">
-            <input type="hidden" id="authMobileChk" name="authMobileChk" value="2">
 
             <p class="m-t-35 m-b-15">
                 <b class="color_red">*</b> 표시는 필수 입력항목입니다.
@@ -202,7 +207,7 @@
                         사업장 주소 <b class="color_red">*</b>
                     </th>
                     <td>
-                        <input name="badres" id="badres" class="form-control-input wid-mid m-b-10 bg-gray" placeholder="주소를 검색해주세요." readonly onclick="fn_openBMap()">
+                        <input name="badres" id="badres" class="form-control-input wid-mid m-b-10 bg-gray" placeholder="주소를 검색해주세요." readonly onclick="fn_openBmap()">
                         <button type="button" class="info-manage__btn-id email_btn" onclick="fn_openBmap()">주소 검색</button>
                         <br>
                         <input name="bdtlAdres" id="bdtlAdres" class="form-control-input wid-lg" placeholder="상세 주소를 입력해주세요.">

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Message</title>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+<input type="hidden" id="altmsg" th:value="${altmsg}"/>
+<input type="hidden" id="locurl" th:value="${locurl}"/>
+<input type="hidden" id="back" th:value="${back}"/>
+
+<script>
+    alert($('#altmsg').val());
+    var locurl = $('#locurl').val();
+
+    if(locurl == 'parentReload'){
+        //alert(locurl);
+        window.opener.location.reload();
+        window.close();
+    }else if(locurl == 'selfClose'){
+        window.close();
+    }else {
+        document.location.href = locurl;
+    }
+    if($('#back').val() != ""){
+        history.back();
+    }
+</script>
+
+</body>
+</html>

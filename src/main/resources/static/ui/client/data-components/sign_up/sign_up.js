@@ -417,20 +417,26 @@ window.addEventListener('message', function (e) {
 
 $(function (){
 
+	let form1;
+	form1 = $('#form1');
+
+	console.log("run sign up script")
 	$('#btnSave').on('click',function () {
 		$('#btnSave').prop('disabled', true);
-
+		console.log("fn chks")
 		if(!fn_chkField()){
+			console.log("if chk")
 			$('#btnSave').prop('disabled', false);
 			return false;
 		} else {
-			var frm = $('#form1');
+			var frm = form1;
+			console.log("else chk")
+			console.log("insert submit run");
 			frm.prop('action' , '/api/member/insert')
 			frm.submit();
-			alert('RES 회원가입이 완료되었습니다.');
+			/*alert('RES 회원가입이 완료되었습니다.');
+			location.href = "/pages/login";*/
 		}
 	});
 	appendYear();
-
-
 })
