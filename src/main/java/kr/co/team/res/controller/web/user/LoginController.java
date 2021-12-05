@@ -57,9 +57,6 @@ public class LoginController extends BaseCont {
                         @CurrentUser Account account,
                         HttpSession session) throws UnsupportedEncodingException {
 
-        log.info("Run Login");
-
-
         String redirect = "/";
         if (super.isLogined(account)) {
             log.debug("이미로그인됨 메인이동, account:{}", account);

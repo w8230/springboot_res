@@ -3,48 +3,13 @@
 <head>
     <th:block th:include="fragments/client/header"></th:block>
 </head>
-<script>
-    var userId;
-    var userPw;
-    var msg;
-    var errormsg;
-    let rsMsg;
-
-    $(function () {
-        rsMsg = '[[${rsMsg}]]';
-        msg = $('#msg');
-
-        /*if(rsMsg){
-            alert(rsMsg);
-            location.href='/logout?dv=n';
-        }
-
-        if (msg.val()) {
-            alert(msg.val());
-        }*/
-
-        errormsg = $('#errormsg');
-        if (errormsg.val()) {
-            alert(errormsg.val());
-        }
-    });
-
-    function fn_chkLogin() {
-        var btnLogin = $("#btnLogin");
-        userId = $("#userId")
-        userPw = $("#userPw")
-
-        var frm = $('#form1');
-        frm.prop("action", "/login");
-        frm.submit();
-
-    }
-</script>
-<th:block th:include="fragments/client/__topNav"></th:block>
+<script src="/ui/client/data-components/login/login.js"></script>
+<th:block th:include="fragments/client/nosrchbar_topNav"></th:block>
 <div class="container" id="container">
     <div class="wcenter">
         <div class="login_bx">
-            <a href="index" class="login_logo m-t-10 m-b-40"><img src="resources/assets/main/img/import/img/logo.png"></a>
+            <h2>로그인</h2>
+            <!--<a href="index" class="login_logo m-t-10 m-b-40"><img src="resources/assets/main/img/import/img/logo.png"></a>-->
             <div class="login_form">
 
                 <form name="form1" id="form1" method="post">

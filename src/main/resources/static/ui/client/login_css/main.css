@@ -219,6 +219,13 @@ textarea:focus { outline: none; }
 	border: 1px solid #eee;
 	padding: 30px 0;
 }
+.login_bx > h2 {
+	font-size: 30px;
+	font-weight: 400;
+	color: #484848;
+	text-align: center;
+	padding-bottom: 27px;
+}
 
 .login_form {
 	padding: 0px 85px;
@@ -260,7 +267,7 @@ textarea:focus { outline: none; }
 	border: 1px solid #c5c5c5;
 }
 .join_basic_bx > h2 {
-	font-size: 40px;
+	font-size: 30px;
 	font-weight: 400;
 	color: #484848;
 	text-align: center;
@@ -288,7 +295,7 @@ textarea:focus { outline: none; }
 }
 
 .join_btn > .btn-gehamo {
-	background-color: #ff4a52;
+	background-color: #9ce39e;
 }
 
 .join_btn > .btn-partner {
@@ -318,7 +325,7 @@ table {
 
 .sub_hd > h2 {
 	margin: 1em;
-	font-size: 44px;
+	font-size: 34px;
 	text-align: center;
 	color: #9ce39e;
 }

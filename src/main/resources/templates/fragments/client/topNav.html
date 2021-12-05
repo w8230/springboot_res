@@ -11,14 +11,13 @@
 					<div class="col-md-12 d-none d-md-block">
 						<div class="social_wrap d-flex align-items-center justify-content-end">
 							<th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
-								<a href="my_page1" class="top-a-tag">내정보</a>
-								<a href="logout" class="top-a-tag">로그아웃</a>
+								<a href="/pages/mypage/info" class="top-a-tag">내정보</a>
+								<a href="/logout" class="top-a-tag">로그아웃</a>
 							</th:block>
 							<th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
-								<a href="login_page" class="top-a-tag sp_active">로그인</a>
-								<a href="choice_sign_up" class="top-a-tag">회원가입</a>
+								<a href="/pages/login" class="top-a-tag sp_active">로그인</a>
+								<a href="/pages/register" class="top-a-tag">회원가입</a>
 							</th:block>
-								<a href="notice_page" class="top-a-tag">고객센터</a>
 						</div>
 					</div>
 				</div>
@@ -32,7 +31,7 @@
 					<div class="row align-items-center">
 						<div class="col-xl-2 col-lg-2">
 							<div class="logo">
-								<a href="index">
+								<a href="/">
 									<img src="/ui/client/img/logo/res.png" alt="로고" class="bg_logo">
 								</a>
 							</div>
@@ -41,12 +40,10 @@
 							<div class="main-menu  d-none d-lg-block">
 								<nav>
 									<ul id="navigation">
-										<li><a href="gh_list_page">숙소</a></li>
-										<li><a href="#">트립</a></li>
-										<li><a href="#">정보</a></li>
-										<li><a href="#">교통</a></li>
-										<li><a href="#">할인&이벤트</a></li>
-										<li><a href="#">커뮤니티</a></li>
+										<li><a href="#">예약</a></li>
+										<li><a href="#">지역별</a></li>
+										<li><a href="#">이벤트</a></li>
+										<li><a href="#">고객센터</a></li>
 									</ul>
 								</nav>
 							</div>
@@ -69,9 +66,9 @@
 			<div class="row justify-content-left">
 				<div class="col-lg-6 d-md-block"> <!-- d-none -->
 					<div class="section_title text-left mb_70">
-						<a href="javascript:void(0);" class="searchTag sp_active">숙소</a>
-						<a href="javascript:void(0);" class="searchTag">트립</a>
-						<a href="javascript:void(0);" class="searchTag">지역</a>
+						<a href="javascript:void(0);" class="searchTag sp_active">예약</a>
+						<a href="javascript:void(0);" class="searchTag">지역별</a>
+						<a href="javascript:void(0);" class="searchTag">행사</a>
 					</div>
 				</div>
 			</div>

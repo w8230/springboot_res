@@ -3,13 +3,13 @@
 <head>
 	<th:block th:include="fragments/client/header"></th:block>
 </head>
-<th:block th:include="fragments/client/__topNav"></th:block>
+<th:block th:include="fragments/client/nosrchbar_topNav"></th:block>
 <div class="w1100">
 	<div class="sub_hd">
-		<h2>정보 수정</h2>
+		<h2>프로필 수정</h2>
 	</div>
 	
-		<ul class="basic_step">
+		<!--<ul class="basic_step">
 			<li>
 				<a href="my_page1">진행중인 예약</a>
 			</li>
@@ -51,10 +51,10 @@
 			<li class="active">
 				<a href="my_info_modify_page">정보 수정</a>
 			</li>
-		</ul>
+		</ul>-->
 		
 		<div class="term_hd m-b-0i">
-			<h3 class="sub_title">정보 수정</h3>
+			<h3 class="sub_title">아이디 보여줄 것</h3>
 		</div>
 
 	<form class="join_frm" action="info_update" method="post">
@@ -242,7 +242,7 @@
 		</table>
 		
 		<div class="text-center m-t-25 m-b-80">
-			<button class="btn bg_blu btn-lg nsdow" onclick="return form_validation()">회원정보 수정</button>
+			<button class="btn bg_blu btn-lg nsdow" onclick="return form_validation()">수정</button>
 		</div>
 	</form>
 </div>
