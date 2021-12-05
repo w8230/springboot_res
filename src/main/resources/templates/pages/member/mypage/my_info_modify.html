@@ -3,6 +3,10 @@
 <head>
 	<th:block th:include="fragments/client/header"></th:block>
 </head>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/ui/client/data-components/my_page/my_page.js"></script>
+
 <th:block th:include="fragments/client/nosrchbar_topNav"></th:block>
 <div class="w1100">
 	<div class="sub_hd">
@@ -106,28 +110,6 @@
 						</th>
 						<td>
 							<input type="text" name="NICKNAME" id="nickname" class="form-control-input wid-mid" value="${userData.NICKNAME}">
-							<button type="button" class="info-manage__btn-id">중복확인</button>
-							<p id="valid_nickname" class="form-control-p">특수문자 없이 입력해 주세요</p>
-						</td>
-					</tr>
-
-					<tr>
-						<th>
-							파트너명 <b class="color_red">*</b>
-						</th>
-						<td>
-							<input type="text" name="PARTNER_NAME" id="partner_name" class="form-control-input wid-mid" value="${userData.PARTNER_NAME}">
-							<button type="button" class="info-manage__btn-id">중복확인</button>
-							<p id="valid_partner_name" class="form-control-p">특수문자 없이 입력해 주세요</p>
-						</td>
-					</tr>
-					<tr>
-						<th>
-							사업자 번호 <b class="color_red">*</b>
-						</th>
-						<td>
-							<input type="number" name="PARTNER_NUM" id="partner_num" class="form-control-input wid-lg" value="${userData.PARTNER_NUM}">
-							<p id="valid_partner_num" class="form-control-p"></p>
 						</td>
 					</tr>
 
@@ -186,58 +168,79 @@
 						<p id="valid_gender" class="form-control-p"></p>
 					</td>
 				</tr>
-				
-
-					
 					<tr>
 						<th>
-							은행명 <b class="color_red">*</b>
+							주소 <b class="color_red">*</b>
 						</th>
 						<td>
-							<input type="text" name="BANK" id="bank" class="form-control-input wid-mid" value="${userData.BANK}">
-							<p id="valid_bank" class="form-control-p"></p>
-						</td>
-					</tr>
-					<tr>
-						<th>
-							계좌번호 <b class="color_red">*</b>
-						</th>
-						<td>
-							<input type="number" name="ACCOUNT_NUM" id="account_num" class="form-control-input wid-mid" value="${userData.ACCOUNT_NUM}">
-							<p id="valid_account_num" class="form-control-p"></p>
-						</td>
-					</tr>
-					<tr>
-						<th>
-							예금주 <b class="color_red">*</b>
-						</th>
-						<td>
-							<input type="text" name="ACCOUNT_HOLDER" id="account_holder" class="form-control-input wid-mid" value="${userData.ACCOUNT_HOLDER}">
-							<p id="valid_account_holder" class="form-control-p"></p>
+							<input name="adres" id="adres" class="form-control-input wid-mid m-b-10 bg-gray" placeholder="주소를 검색해주세요." readonly onclick="fn_openMap()">
+							<button type="button" class="info-manage__btn-id email_btn" onclick="fn_openMap()">주소 검색</button>
+							<br>
+							<input name="dtlAdres" id="dtlAdres" class="form-control-input wid-lg" placeholder="상세 주소를 입력해주세요.">
+							<input type="hidden" name="zip" id="zip">
+							<p id="search_adres" class="form-control-p"></p>
 						</td>
 					</tr>
 
-
-					
 					<tr>
 						<th>
 							생년월일 <b class="color_red">*</b>
 						</th>
 						<td>
-							<input type="number" name="BIRTH" id="birth" class="form-control-input wid-lg" placeholder="19930519" value="${userData.BIRTH}">
-							<p id="valid_birth" class="form-control-p"></p>
+							<select class="form-control-select wid-sm" name="year" id="year">
+							</select>
+							<select class="form-control-select wid-sm" id="month" name="month">
+								<option value="">월</option>
+								<option value="01">1월</option>
+								<option value="02">2월</option>
+								<option value="03">3월</option>
+								<option value="04">4월</option>
+								<option value="05">5월</option>
+								<option value="06">6월</option>
+								<option value="07">7월</option>
+								<option value="08">8월</option>
+								<option value="09">9월</option>
+								<option value="10">10월</option>
+								<option value="11">11월</option>
+								<option value="12">12월</option>
+							</select>
+							<select class="form-control-select wid-sm" id="day" name="day">
+								<option value="">일</option>
+								<option value="01">1일</option>
+								<option value="02">2일</option>
+								<option value="03">3일</option>
+								<option value="04">4일</option>
+								<option value="05">5일</option>
+								<option value="06">6일</option>
+								<option value="07">7일</option>
+								<option value="08">8일</option>
+								<option value="09">9일</option>
+								<option value="10">10일</option>
+								<option value="11">11일</option>
+								<option value="12">12일</option>
+								<option value="13">13일</option>
+								<option value="14">14일</option>
+								<option value="15">15일</option>
+								<option value="16">16일</option>
+								<option value="17">17일</option>
+								<option value="18">18일</option>
+								<option value="19">19일</option>
+								<option value="20">20일</option>
+								<option value="21">21일</option>
+								<option value="22">22일</option>
+								<option value="23">23일</option>
+								<option value="24">24일</option>
+								<option value="25">25일</option>
+								<option value="26">26일</option>
+								<option value="27">27일</option>
+								<option value="28">28일</option>
+								<option value="29">29일</option>
+								<option value="30">30일</option>
+								<option value="31">31일</option>
+							</select>
+							<input type="hidden" name="brthdy" id="brthdy"/>
 						</td>
 					</tr>
-					
-					<tr>
-						<th>
-							직업 <b class="color_red">*</b>
-						</th>
-						<td>
-							<input type="text" name="USER_JOB" id="user_job" class="form-control-input wid-mid readonly" value="${userData.USER_JOB}" readonly>
-							<p id="valid_user_job" class="form-control-p"></p>
-						</td>
-					</tr>					
 			</tbody>
 		</table>
 		
