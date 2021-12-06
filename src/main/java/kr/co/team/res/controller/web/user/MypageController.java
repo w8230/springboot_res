@@ -28,14 +28,16 @@ public class MypageController extends BaseCont {
 
     @RequestMapping("/pages/mypage/info")
     public String Mypage(Model model ,
-                                @CurrentUser Account account){
+                         @CurrentUser Account account){
+        boolean result = false;
+
         if(account == null) {
             model.addAttribute("altmsg" , "로그인 후 이용 가능 합니다.");
             model.addAttribute("locurl" , "/pages/login");
             return "/message";
         }
-        //List<Account> list = MypageService.list;
 
+        model.addAttribute("mc" , "mypage");
         return "pages/member/mypage/my_info_modify";
     }
 

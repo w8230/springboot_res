@@ -52,7 +52,6 @@ public class MyPageService extends _BaseService {
                 .from(qAccount)
                 .where(builder)
                 .fetchFirst();
-
         return account;
     }
 }

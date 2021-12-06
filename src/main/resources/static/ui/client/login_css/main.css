@@ -662,3 +662,43 @@ div > .top_user_id { color: #ff4a52; }
 }
 
 .float_r { float: right; }
+/*.menu_box_area{
+	display: inline-block;
+	position : static;
+}*/
+.menu_box_area .dept_menu_area {
+	position: static;
+	top :67px;
+	left: 0;
+	right: 0;
+	background: #000000cc;
+	display: block;
+}
+.menu_box_area .dept_menu_area .dept_menu_box {
+	font-size: 0;
+	max-width: 1100px;
+	margin: 0 auto;
+	text-align: center;
+}
+.menu_box_area .dept_menu_area .dept_menu_box .dept_menu {
+	display: inline-block;
+	padding: 14px 10px;
+	margin: 0 10px;
+	font-size: 16px;
+	font-weight: 400;
+	border-bottom: 3px solid transparent;
+	color: #888;
+
+}
+.menu_box_area .dept_menu_area .dept_menu_box .dept_menu :hover {
+	color: #9ce39e !important;
+}
+.menu_box_area .dept_menu_area .dept_menu_box .is_activity {
+	display: inline-block;
+	padding: 14px 10px;
+	margin: 0 10px;
+	font-size: 16px;
+	font-weight: 400;
+	border-bottom: 3px solid #9ce39e;
+	color: #9ce39e;
+}
