@@ -11,65 +11,13 @@
 <th:block th:include="fragments/client/dept_menu"></th:block>
 <div class="w1100">
     <div class="sub_hd">
-        <h2>프로필 수정</h2>
+        <h2>내 정보 수정</h2>
     </div>
-    <!-- 지우셈 -->
-    <!--<ul class="basic_step">
-        <li>
-            <a href="my_page1">진행중인 예약</a>
-        </li>
-        <li>
-            <a href="my_page2">지난 예약</a>
-        </li>
-        <li class="active">
-            <a href="my_info_modify_page">정보 수정</a>
-        </li>
-    </ul>
-
     <div class="term_hd m-b-0i">
-        <h3 class="sub_title">정보 수정</h3>
+        <h3 class="sub_title">개인정보 수정</h3>
     </div>
 
-    <ul class="basic_step">
-        <li>
-            <a href="my_page1">내가 쓴 글 보기</a>
-        </li>
-        <li>
-            <a href="my_page2">예약 내역</a>
-        </li>
-        <li class="active">
-            <a href="my_info_modify_page">정보 수정</a>
-        </li>
-    </ul>
-
-    <div class="term_hd m-b-0i">
-        <h3 class="sub_title">정보 수정</h3>
-    </div>
-
-    <ul class="basic_step">
-        <li>
-            <a href="my_page1">관리자 페이지</a>
-        </li>
-        <li>
-            <a href="my_page2">관리자 페이지</a>
-        </li>
-        <li class="active">
-            <a href="my_info_modify_page">정보 수정</a>
-        </li>
-    </ul>-->
-
-    <div class="term_hd m-b-0i">
-        <h3 class="sub_title">아이디 보여줄 것</h3>
-    </div>
-
-    <form class="join_frm" action="info_update" method="post">
-        <input type="hidden" id="partner_validation" value="1"/>
-        <input type="hidden" id="nickname_validation" value="1"/>
-        <input type="hidden" name="USER_ID" value="${userData.USER_ID}">
-        <input type="hidden" name="STATUS" id="status" value="${userData.STATUS}">
-        <input type="hidden" id="nickname2" value="${userData.NICKNAME}">
-        <input type="hidden" id="partner_name2" value="${userData.PARTNER_NAME}">
-
+    <form class="join_frm" name="form1" id="form1" method="post" th:object="${userData}">
         <table class="tb_frm">
             <colgroup>
                 <col style="width:155px">
@@ -79,10 +27,11 @@
             <tbody>
             <tr>
                 <th>
-                    아이디 <b class="color_red">*</b>
+                    아이디 <b class="color_red"></b>
                 </th>
                 <td>
-                    <p class="m-r-6 m-l-6 p-t-7 p-b-7">${userData.USER_ID}</p>
+                    <p class="m-r-6 m-l-6 p-t-7 p-b-7" th:text="${userData.loginId}"></p>
+
                 </td>
             </tr>
 
@@ -91,10 +40,9 @@
                     비밀번호<b class="color_red">*</b>
                 </th>
                 <td>
-                    <input type="password" name="USER_PW" id="user_pw" class="form-control-input wid-lg m-b-10"
-                           maxlength="32" placeholder="신규 비밀번호">
-                    <p id="valid_password" class="form-control-p">특수문자 포함 8자이상 16자 이하로 입력해 주세요.</p><br>
-                    <input type="password" id="user_pwchk" class="form-control-input wid-lg" maxlength="32"
+                    <input type="password" name="pwd" id="pwd" class="form-control-input wid-lg m-b-10" maxlength="32" placeholder="특수문자를 포함하여 8자 이상 16자 이하">
+                    <br>
+                    <input type="password" id="pwdChk" name="pwdChk" class="form-control-input wid-lg" maxlength="32"
                            placeholder="비밀번호 확인">
                     <p id="valid_password2" class="form-control-p"></p>
                 </td>
@@ -109,32 +57,32 @@
             </colgroup>
 
             <tbody>
-            <tr>
-                <th>
-                    닉네임 <b class="color_red">*</b>
-                </th>
-                <td>
-                    <input type="text" name="NICKNAME" id="nickname" class="form-control-input wid-mid"
-                           value="${userData.NICKNAME}">
-                </td>
-            </tr>
 
             <tr>
                 <th>
                     이름 <b class="color_red">*</b>
                 </th>
                 <td>
-                    <input type="text" name="NAME" id="name" class="form-control-input wid-lg">
+                    <input type="text" name="nm" id="nm" class="form-control-input wid-lg" th:value="${userData.nm}">
                     <p id="valid_name" class="form-control-p">특수문자 없이 입력해 주세요.</p>
                 </td>
             </tr>
+
+            <tr>
+                <th>
+                    닉네임 <b class="color_red">*</b>
+                </th>
+                <td>
+                    <input type="text" name="ncnm" id="ncnm" class="form-control-input wid-lg" th:value="${userData.ncnm}">
+                </td>
+            </tr>
+
             <tr>
                 <th>
                     핸드폰 번호 <b class="color_red">*</b>
                 </th>
                 <td>
-                    <input type="number" name="PHONE_NUM" id="phone_num" class="form-control-input wid-lg"
-                           placeholder="예)01012345678" value="${userData.PHONE_NUM}">
+                    <input type="number" name="moblphon" id="moblphon" class="form-control-input wid-lg" placeholder="예)01012345678" th:value="${userData.moblphon}">
                     <p id="valid_phone_num" class="form-control-p"></p>
                 </td>
             </tr>
@@ -143,8 +91,7 @@
                     이메일 <b class="color_red">*</b>
                 </th>
                 <td>
-                    <input type="text" name="EMAIL" id="email" class="form-control-input wid-lg"
-                           value="${userData.EMAIL}">
+                    <input type="text" name="email" id="email" class="form-control-input wid-lg" th:value="${userData.email}">
                     <p id="valid_email" class="form-control-p"></p>
                 </td>
             </tr>
@@ -154,13 +101,19 @@
                     성별 <b class="color_red">*</b>
                 </th>
                 <td>
-                    <select name="GENDER" id="gender" class="form-control-select wid-mid">
-                        <option value="${userData.GENDER}">${userData.GENDER }</option>
-                        <option value="여자">여자</option>
-                        <option value="${userData.GENDER}">${userData.GENDER }</option>
-                        <option value="남자">남자</option>
+                    <th:block th:if="${userData.sexPrTy eq 'MALE'}">
+                        <select name="sexPrTy" id="sexPrTy" class="form-control-select wid-sm">
+                            <option value="MALE">남자</option>
+                            <option value="FEMALE">여자</option>
+                        </select>
+                    </th:block>
+                    <th:block th:if="${userData.sexPrTy eq 'FEMALE'}">
+                        <select name="sexPrTy" id="sexPrTy" class="form-control-select wid-sm">
+                            <option value="FEMALE">여자</option>
+                            <option value="MALE">남자</option>
+                        </select>
+                    </th:block>
 
-                    </select>
                     <p id="valid_gender" class="form-control-p"></p>
                 </td>
             </tr>
@@ -170,11 +123,11 @@
                 </th>
                 <td>
                     <input name="adres" id="adres" class="form-control-input wid-mid m-b-10 bg-gray"
-                           placeholder="주소를 검색해주세요." readonly onclick="fn_openMap()">
+                           placeholder="주소를 검색해주세요." readonly onclick="fn_openMap()" th:value="${userData.adres}">
                     <button type="button" class="info-manage__btn-id email_btn" onclick="fn_openMap()">주소 검색</button>
                     <br>
-                    <input name="dtlAdres" id="dtlAdres" class="form-control-input wid-lg" placeholder="상세 주소를 입력해주세요.">
-                    <input type="hidden" name="zip" id="zip">
+                    <input name="dtlAdres" id="dtlAdres" class="form-control-input wid-lg" placeholder="상세 주소를 입력해주세요." th:value="${userData.dtlAdres}">
+                    <input type="hidden" name="zip" id="zip" th:value="${userData.zip}">
                     <p id="search_adres" class="form-control-p"></p>
                 </td>
             </tr>
@@ -242,7 +195,7 @@
         </table>
 
         <div class="text-center m-t-25 m-b-80">
-            <button class="btn bg_blu btn-lg nsdow" onclick="return form_validation()">수정</button>
+            <button id="btnSave" class="btn bg_blu btn-lg nsdow">수정</button>
         </div>
     </form>
 </div>

@@ -2,6 +2,7 @@ package kr.co.team.res.config;
 
 import kr.co.team.res.common.handlers.CustomLoginFailureHandler;
 import kr.co.team.res.common.handlers.CustomLoginSuccessHandler;
+import kr.co.team.res.domain.enums.UserRollType;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -68,11 +69,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 수정중 김재일 인증강사 추가
         http.authorizeRequests()
-                .mvcMatchers("/pages/mypage/**").permitAll()
-                //.mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL")
+                .mvcMatchers("/pages/mypage/**").hasAnyRole("NORMAL,PARTNERS")
+                //.mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL")aa
                 .mvcMatchers("/ui/**","/data/**","/node_modules/**","/loginFailure","/message","/error","/fragments/**","/popup/**","/","/index","/login","/api/common/download").permitAll()
                 .mvcMatchers("/pages/**","/api/member/**","/api/nice/**","/api/commonCode/**","/api/menu/**","/api/openData/**","/upload/**","/member/**" , "/partners/**"  ,
-                        "/api/partners/**").permitAll()
+                        "/api/partners/**"  , "/api/mypage/**").permitAll()
                 //.mvcMatchers("/pages/admin/**","/admin/**").permitAll()
                 .mvcMatchers("/admin/**","/api/admin/**","/pages/admin/**").hasAnyRole("MASTER,ADMIN,PARTNERS")
                 .anyRequest().authenticated();

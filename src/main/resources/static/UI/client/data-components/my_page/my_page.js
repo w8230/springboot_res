@@ -70,7 +70,7 @@ function fn_chkField(){
 	tel = $('#tel');
 	thumnail = $('#thumnail');
 
-	if(mberDvTy.val() == 'PARTNERS') {
+	/*if(mberDvTy.val() == 'PARTNERS') {
 		if(!bnm.val()){
 			alert('사업장 이름을 입력해주세요.')
 			bnm.focus();
@@ -91,7 +91,7 @@ function fn_chkField(){
 			tel.focus();
 			return false;
 		}
-	}
+	}*/
 
 	if (!ncnm.val()) {
 		alert('닉네임을 입력하세요');
@@ -114,8 +114,10 @@ function fn_chkField(){
 		pwdChk.focus();
 		return false;
 	}*/
-	if(!fn_chkPwdDup()){
-		return false;
+	if(pwd.val() != "") {
+		if(!fn_chkPwdDup()){
+			return false;
+		}
 	}
 	if(!email.val()){
 		alert('이메일을 입력해주세요.')
@@ -153,7 +155,7 @@ function fn_chkField(){
 		brthdyStr += $.trim(month.val());
 	}else{
 		//alert('생년월일을 선택하세요');
-		alert('생년월일을 선택해주세요..');
+		alert('생년월일을 선택해주세요.');
 		month.focus();
 		return false;
 	}
@@ -162,7 +164,7 @@ function fn_chkField(){
 		brthdyStr += $.trim(day.val());
 	}else{
 		//alert('생년월일을 선택하세요');
-		alert('생년월일을 선택해주세요..');
+		alert('생년월일을 선택해주세요.');
 		day.focus();
 		return false;
 	}
@@ -340,19 +342,14 @@ $(function (){
 	let form1;
 	form1 = $('#form1');
 
-	console.log("run sign up script")
 	$('#btnSave').on('click',function () {
 		$('#btnSave').prop('disabled', true);
-		console.log("fn chks")
 		if(!fn_chkField()){
-			console.log("if chk")
 			$('#btnSave').prop('disabled', false);
 			return false;
 		} else {
 			var frm = form1;
-			console.log("else chk")
-			console.log("insert submit run");
-			frm.prop('action' , '/api/member/insert')
+			frm.prop('action' , '/api/mypage/update')
 			frm.submit();
 			/*alert('RES 회원가입이 완료되었습니다.');
 			location.href = "/pages/login";*/

@@ -6,11 +6,16 @@ import kr.co.team.res.domain.entity.Account;
 import kr.co.team.res.domain.repository.MemberRepository;
 import kr.co.team.res.domain.repository.MenuRepository;
 import kr.co.team.res.domain.repository.PartnersRepository;
+import kr.co.team.res.domain.vo.user.MemberVO;
+import kr.co.team.res.domain.vo.user.PartnersVO;
+import kr.co.team.res.service.web.user.MemberService;
+import kr.co.team.res.service.web.user.MyPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelExtensionsKt;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -23,29 +28,80 @@ public class MypageController extends BaseCont {
     private final MemberRepository memberRepository;
     private final PartnersRepository partnersRepository;
     private final MenuRepository menuRepository;
-
-    //12.05 만들거 기본정보 뽑기 , 페이지 이동(예외처리까지) , 업데이트 로직
+    private final MemberService memberService;
+    private final MyPageService myPageService;
 
     @RequestMapping("/pages/mypage/info")
-    public String Mypage(Model model ,
-                         @CurrentUser Account account){
-        boolean result = false;
+    public String infoPage(Model model,
+                           @CurrentUser Account account) {
 
-        if(account == null) {
-            model.addAttribute("altmsg" , "로그인 후 이용 가능 합니다.");
-            model.addAttribute("locurl" , "/pages/login");
+        if (account == null) {
+            model.addAttribute("altmsg", "로그인 후 이용 가능 합니다.");
+            model.addAttribute("locurl", "/pages/login");
             return "/message";
         }
 
-        model.addAttribute("mc" , "mypage");
+        Account load = myPageService.MemberInfo(account.getId());
+        //Account load = memberService.load(account.getId());
+        Account form = new Account();
+        form.setMberDvTy(load.getMberDvTy());
+        form.setLoginId(load.getLoginId());
+        form.setNcnm(load.getNcnm());
+        form.setNm(load.getNm());
+        form.setMoblphon(load.getMoblphon());
+        form.setEmail(load.getEmail());
+        form.setSexPrTy(load.getSexPrTy());
+        form.setAdres(load.getAdres());
+        form.setDtlAdres(load.getDtlAdres());
+        form.setBrthdy(load.getBrthdy());
+
+
+        model.addAttribute("userData", form);
+        model.addAttribute("mc", "mypage");
         return "pages/member/mypage/my_info_modify";
     }
 
     @RequestMapping("/api/mypage/update")
-    public Account update(Model model,
-                         @CurrentUser Account account) {
+    public String infoModify(Model model,
+                             @CurrentUser Account account,
+                             @ModelAttribute MemberVO memberVO,
+                             @ModelAttribute PartnersVO partnersVO) {
+        boolean result = false;
 
-        return account;
+        if (account == null) {
+            model.addAttribute("altmsg", "로그인 후 이용 가능 합니다.");
+            model.addAttribute("locurl", "/pages/login");
+            return "/message";
+        }
+
+        memberVO.setId(account.getId());
+        result = myPageService.infoModify(memberVO);
+
+        if (result) {
+            model.addAttribute("altmsg", "내 정보를 수정하였습니다.");
+            model.addAttribute("locurl", "/");
+            return "/message";
+        } else {
+            model.addAttribute("altmsg", "내 정보 수정에 실패하였습니다. 관리자에게 문의하세요");
+            model.addAttribute("locurl", "/pages/member/mypage/my_info_modify");
+            return "/message";
+        }
     }
+
+    /*@ResponseBody
+    @PostMapping("/api/mypage/checkPwd")
+    public String checkPwd(Model model ,
+                           @RequestBody Account inputAccount ,
+                           @CurrentUser Account account) {
+        boolean result = false;
+        result = myPageService.checkPwd(account.getId() , inputAccount.getPwd());
+        String msg = "";
+        if(result) {
+            msg = "ok";
+        } else {
+            msg = "fail";
+        }
+        return msg;
+    }*/
 
 }

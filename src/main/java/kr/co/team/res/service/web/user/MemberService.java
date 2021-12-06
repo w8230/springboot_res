@@ -43,7 +43,6 @@ public class MemberService extends _BaseService {
             verifyDuplicateLoginId(memberVO.getLoginId());
             Account account = modelMapper.map(memberVO, Account.class);
             account.setDelAt("N");
-            account.setApproval("Y");
             account.setRegDtm(LocalDateTime.now());
             account.setLoginId(memberVO.getLoginId());
             account.setPwd(passwordEncoder.encode(memberVO.getPwd()));
@@ -68,6 +67,7 @@ public class MemberService extends _BaseService {
             }
 
             if(memberVO.getMberDvTy().equals(UserRollType.NORMAL)){
+                account.setApproval("Y");
                 account.setId(account.getId());
                 account.setMberDvTy(UserRollType.NORMAL);
                 MemberRoll memberRoll = new MemberRoll();
@@ -91,6 +91,7 @@ public class MemberService extends _BaseService {
                 partners.setDelAt("N");
                 partners.setApproval("Y");
                 partners.setId(partners.getId());
+                account.setApproval("W");
                 account.setMberDvTy(UserRollType.PARTNERS);
                 Account result = memberRepository.save(account);
                 partners.setMberPid(result.getId());
