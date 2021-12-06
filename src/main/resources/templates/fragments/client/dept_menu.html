@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="menu_box_area">
+    <th:block th:if="${mc eq 'mypage'}">
+        <div class="dept_menu_area">
+            <ul class="dept_menu_box">
+                <a id="info" href="/pages/mypage/info" class="is_activity">내 정보 수정</a>
+                <a id="ing" href="#" class="dept_menu">진행 중인 예약</a>
+                <a id="done" href="#" class="dept_menu">종료된 예약</a>
+                <a id="review" href="#" class="dept_menu">작성한 리뷰</a>
+                <a id="question" href="#" class="dept_menu">문의내역</a>
+            </ul>
+        </div>
+    </th:block>
+</div>
+</html>
