@@ -1,5 +1,6 @@
 package kr.co.team.res.domain.vo.common;
 
+import kr.co.team.res.domain.enums.BanDvTy;
 import kr.co.team.res.domain.enums.UserRollType;
 import lombok.Getter;
 import lombok.Setter;
@@ -100,5 +101,8 @@ public class SearchVO {
     private List<String> srchWordArr;
     private Long srchGbnParent;
     private Long srchGbnChild;
+
+    @Enumerated(EnumType.STRING)
+    private BanDvTy banDvTy;
 
 }

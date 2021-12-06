@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script src="/data/admin/system/bannerDetail.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="fragments/admin/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>운영관리</li>
+                        <li>배너 관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">배너 상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                                 th:if="${message}">
+                                <strong th:text="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>배너제목</label></th>
+                                    <td th:text="*{banNm}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>배너설명</label></th>
+                                    <td>
+                                        <div class="scrollbar h100 editor"
+                                             th:utext="*{#strings.replace(dsc, T(System).getProperty('line.separator'), '&lt;br /&gt;')}">
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>배너기간</label></th>
+                                    <td th:text="|*{#temporals.format(stYmd,'yyyy-MM-dd')} ~ *{#temporals.format(edYmd,'yyyy-MM-dd')}|"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>배너이미지</label></th>
+                                    <td>
+                                        <div class="file_form" th:if="${fileList != null and !fileList.isEmpty()}">
+                                            <th:block th:each="item: ${fileList}">
+                                                <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).PC.name() eq item.dvTy}">
+                                                    <span th:text="${item.flNm}"></span>
+                                                    <a th:href="${filePath+'/'+item.chgFlNm}" class="btn_down" download><span class="blind">다운로드</span></a>
+                                                </p>
+                                            </th:block>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>배너모바일 이미지</label></th>
+                                    <td>
+                                        <div class="file_form" th:if="${fileList != null and !fileList.isEmpty()}">
+                                            <th:block th:each="item: ${fileList}">
+                                                <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).MOBILE.name() eq item.dvTy}">
+                                                    <span th:text="${item.flNm}"></span>
+                                                    <a th:href="${filePath+'/'+item.chgFlNm}" class="btn_down" download><span class="blind">다운로드</span></a>
+                                                </p>
+                                            </th:block>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>배너링크</label></th>
+                                    <td th:text="*{banLink}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>새창여부</label></th>
+                                    <td th:text="*{linkTrgtTy eq T(kr.or.btf.web.domain.web.enums.LinkTargetType).SELF ? 'N' : 'Y'}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>사용여부</label></th>
+                                    <td th:text="*{useAt}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <a class="btn btn_sm btn_blue"th:href="|/soulGod/banner/modify/*{id}|">
+                                    <i class="material-icons fz17">done</i>수정
+                                </a>
+                                <button id="btnDelete" class="btn btn_sm btn_red" type="button">
+                                    <i class="material-icons">delete</i>삭제
+                                </button>
+                                <a class="btn btn_sm btn_lightgray" href="/soulGod/banner/list">
+                                    <i class="material-icons">list</i>목록
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/admin/footer"></th:block>
+</div>
+</body>
+</html>

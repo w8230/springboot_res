@@ -1,0 +1,139 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="fragments/admin/header"></th:block>
+	<script src="/data/admin/system/bannerList.js"></script>
+</head>
+<body>
+<div id="wrap">
+	<th:block th:include="fragments/admin/menu"></th:block>
+
+	<div id="container">
+		<div class="container_box">
+    		<form id="form1" name="form1" method="post" th:object="${form}">
+
+				<ul class="breadcrumb">
+					<li><i class="material-icons">home</i></li>
+					<li>운영관리</li>
+					<li>배너 관리</li>
+				</ul>
+
+				<div class="contents">
+
+					<!--<ul class="tab">
+						<li th:classappend="${banDvTy eq T(kr.or.btf.web.domain.web.enums.BanDvTy).MAIN ? 'active' : ''}"><a th:href="|/soulGod/banner/list/${T(kr.or.btf.web.domain.web.enums.BanDvTy).MAIN.name()}|">메인배너</a></li>
+						<li th:classappend="${banDvTy eq T(kr.or.btf.web.domain.web.enums.BanDvTy).CARD ? 'active' : ''}"><a th:href="|/soulGod/banner/list/${T(kr.or.btf.web.domain.web.enums.BanDvTy).CARD.name()}|">카드뉴스</a></li>
+					</ul>-->
+
+					<div class="search_area clearfix">
+						<dl class="col">
+							<dt>배너구분</dt>
+							<dd>
+								<select th:field="*{banDvTy}">
+									<option value="">전체</option>
+									<option th:each="tp : ${T(kr.co.team.res.domain.enums.BanDvTy).values()}"
+											th:value="${tp}"
+											th:text="${tp.getName()}"></option>
+								</select>
+							</dd>
+						</dl>
+						<dl class="col">
+							<dt>사용여부</dt>
+							<dd>
+								<select th:field="*{useAt}">
+									<option value="">전체</option>
+									<option value="Y" >사용</option>
+									<option value="N" >미사용</option>
+								</select>
+							</dd>
+						</dl>
+						<dl class="col">
+							<dt>제목</dt>
+							<dd>
+								<input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:400px" />
+								<button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+									<i class="material-icons">search</i>조회
+								</button>
+								<button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+									<i class="material-icons">refresh</i>초기화
+								</button>
+							</dd>
+						</dl>
+					</div>
+
+					<div class="board_list">
+						<div class="board_top clearfix">
+							<div class="fl">
+								<div class="total_num">총 <b th:text="${#numbers.formatInteger(banners.totalElements, 0, 'COMMA')}">2</b></div>
+							</div>
+							<div class="fr">
+								<a href="/soulGod/banner/register" class="btn btn_sm btn_blue">
+									<i class="material-icons">library_add</i>배너 추가
+								</a>
+							</div>
+						</div>
+
+						<table class="tbl_list mo_tbl_list">
+							<colgroup>
+								<col style="width:5%" />
+								<col style="width:10%" />
+								<col style="width:auto" />
+								<col style="width:20%" />
+								<col style="width:10%" />
+								<col style="width:12%" />
+								<col style="width:8%" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">No</th>
+									<th scope="col">배너구분</th>
+									<th scope="col">배너제목</th>
+									<th scope="col">배너기간</th>
+									<th scope="col">등록자</th>
+									<th scope="col">등록일</th>
+									<th scope="col">사용여부</th>
+								</tr>
+							</thead>
+							<tbody>
+							<!-- 등록된 데이터가 없을 때만 노출 : s -->
+							<tr th:if="${banners == null or banners.isEmpty()}">
+								<td colspan="7">등록된 정보 없습니다.</td>
+							</tr>
+							<!-- 등록된 이벤트가 없을 때만 노출 : e -->
+							<tr th:each="item,idx : ${banners}">
+								<td th:text="${banners.totalElements - banners.pageable.pageSize * banners.pageable.pageNumber - idx.index}"></td>
+								<td th:text="${item.banDvTy.getName()}"></td>
+								<td>
+									<b>
+										<a th:href="|/admin/banner/detail/${item.id}|"  th:text="${item.banNm}"></a>
+									</b>
+								</td>
+								<td>
+									<strong class="th">배너기간</strong>
+									<div th:text="|${#temporals.format(item.stYmd,'yyyy-MM-dd')} ~ ${#temporals.format(item.edYmd,'yyyy-MM-dd')}|"></div>
+								</td>
+								<td>
+									<strong class="th">등록자</strong>
+									<div th:text="${item.regPsNm}"></div>
+								</td>
+								<td>
+									<strong class="th">등록일</strong>
+									<div th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></div>
+								</td>
+								<td>
+									<strong class="th">사용여부</strong>
+									<div th:text="${item.useAt}"></div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<th:block th:replace="/fragments/admin/paging :: pagingbody(list=${banners},
+                                            link='/admin/banner/list/' + ${bannerForm.banDvTy}, formId='form1')"></th:block>
+					</div>
+				</div>
+			</form>
+		</div>
+		<th:block th:replace="fragments/admin/footer"></th:block>
+	</div>
+</div>
+</body>
+</html>

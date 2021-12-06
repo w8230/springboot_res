@@ -1,0 +1,163 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="fragments/admin/header"></th:block>
+	<script src="/data/admin/system/bannerModify.js"></script>
+</head>
+<body>
+<div id="wrap">
+	<th:block th:include="fragments/admin/menu"></th:block>
+
+	<div id="container">
+		<div class="container_box">
+			<form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+				<input type="hidden" th:field="*{id}" />
+				<div class="contents">
+
+					<ul class="breadcrumb">
+						<li><i class="material-icons">home</i></li>
+						<li>운영관리</li>
+						<li>배너 관리</li>
+					</ul>
+
+					<div class="board_detail">
+						<div class="sec">
+							<div class="board_top clearfix">
+								<div class="fl">
+									<h4 class="sec_tit">배너 상세정보</h4>
+								</div>
+							</div>
+							<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${message}">
+								<strong><input type="text" th:field="${message}">message!</strong>
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<table class="tbl_write">
+								<caption>배너상세 정보</caption>
+								<colgroup>
+									<col style="width:140px" />
+									<col style="width:calc(50% - 140px)" />
+								</colgroup>
+								<tbody>
+								<tr>
+									<th scope="row">배너 구분<span class="aster">*</span></th>
+									<td>
+										<div class="radio txt" th:each="tp,idx : ${T(kr.co.team.res.domain.enums.BanDvTy).values()}">
+											<input type="radio" name="banDvTy" th:id="|banDvTy_${tp.name()}|" th:value="${tp.name()}"/>
+											<label th:for="|banDvTy_${tp.name()}|" th:text="${tp.getName()}">메인</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">배너제목<span class="aster">*</span></th>
+									<td><input type="text" th:field="*{banNm}"/></td>
+								</tr>
+								<tr>
+									<th scope="row">배너설명<span class="aster">*</span></th>
+									<td>
+										<textarea th:field="*{dsc}"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">배너링크</th>
+									<td><input type="text" th:field="*{banLink}"/></td>
+								</tr>
+								<tr>
+									<th scope="row">배너기간<span class="aster">*</span></th>
+									<td>
+										<div class="term_form">
+											<input type="text" class="form_date" id="stYmd" name="stYmd" th:value="*{#temporals.format(stYmd,'yyyy-MM-dd')}" readonly autocomplete="off"/>
+											<span class="swung">~</span>
+											<input type="text" class="form_date" id="edYmd" name="edYmd" th:value="*{#temporals.format(edYmd,'yyyy-MM-dd')}" readonly autocomplete="off"/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row"><label>
+										배너이미지<br/>(<span id="pcBanWidth"></span>)
+										<span class="aster">*</span>
+									</label></th>
+									<td>
+										<div class="file_form">
+											<div th:if="${fileList != null and !fileList.isEmpty()}">
+												<th:block th:each="item: ${fileList}">
+													<p class="file" th:if="${T(kr.co.team.res.domain.enums.FileDvType).PC.name() eq item.dvTy}">
+														<span th:text="${item.flNm}">첨부파일.txt</span>
+														<input type="hidden" id="imgFl" th:value="${item.flNm}" />
+														<a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+															<span class="blind">삭제</span>
+														</a>
+													</p>
+												</th:block>
+											</div>
+											<input type="file" name="attachImgFl" id="attachImgFl" class="multi" maxlength="1" th:accept="${imageAccept}" />
+											<label for="attachImgFl">파일찾기</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row"><label>배너모바일 이미지<br/>(<span id="mobileBanWidth"></span>)</label></th>
+									<td>
+										<div class="file_form">
+											<div th:if="${fileList != null and !fileList.isEmpty()}">
+												<th:block th:each="item: ${fileList}">
+													<p class="file" th:if="${T(kr.co.team.res.domain.enums.FileDvType).MOBILE.name() eq item.dvTy}">
+														<span th:text="${item.flNm}">첨부파일.txt</span>
+														<input type="hidden" id="mobileImgFl" th:value="${item.flNm}" />
+														<a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+															<span class="blind">삭제</span>
+														</a>
+													</p>
+												</th:block>
+											</div>
+											<input type="file" name="attachMoImgFl" id="attachMoImgFl" class="multi" maxlength="1" th:accept="${imageAccept}" />
+											<label for="attachMoImgFl">파일찾기</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">새창여부<span class="aster">*</span></th>
+									<td>
+										<div class="radio txt">
+											<input type="radio" name="linkTrgtTy" id="self" th:value="${T(kr.co.team.res.domain.enums.LinkTargetType).SELF}" th:checked="*{linkTrgtTy eq T(kr.or.btf.web.domain.web.enums.LinkTargetType).SELF ? true : ''}"/>
+											<label for="self">N</label>
+										</div>
+										<div class="radio txt">
+											<input type="radio" name="linkTrgtTy" id="blank" th:value="${T(kr.co.team.res.domain.enums.LinkTargetType).BLANK}" th:checked="*{linkTrgtTy eq T(kr.or.btf.web.domain.web.enums.LinkTargetType).BLANK}"/>
+											<label for="blank">Y</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">사용여부<span class="aster">*</span></th>
+									<td>
+										<div class="radio txt">
+											<input type="radio" name="useAt" id="useY" value="Y" th:checked="*{useAt eq 'Y'}" />
+											<label for="useY">사용</label>
+										</div>
+										<div class="radio txt">
+											<input type="radio" name="useAt" id="useN" value="N" th:checked="*{useAt eq 'N'}" />
+											<label for="useN">미사용</label>
+										</div>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<div class="btn_area">
+								<button id="btnSave" class="btn btn_sm btn_blue" type="button">
+									<i class="material-icons fz17">done</i>저장
+								</button>
+								<a href="/admin/banner/list" class="btn btn_sm btn_lightgray">
+									<i class="material-icons mr1 fz19">subject</i>배너목록
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<th:block th:replace="fragments/admin/footer"></th:block>
+	</div>
+</div>
+</body>
+</html>

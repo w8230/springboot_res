@@ -61,11 +61,6 @@ dependencies {
 
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
 
-    // ** apache commons-io
-    implementation group: 'commons-io', name: 'commons-io', version: '2.4'
-
-    // ** apache http components
-    implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.13'
 
     // ** lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'
@@ -94,6 +89,15 @@ dependencies {
     implementation 'org.webjars:font-awesome:5.10.1'
     implementation 'org.webjars:webjars-locator-core:0.45'
     implementation 'org.webjars:video-js:7.1.0'
+
+    // ** apache
+    implementation group: 'commons-io', name: 'commons-io', version: '2.4'
+    implementation 'org.apache.commons:commons-lang3:3.0'
+    implementation 'org.apache.poi:poi:4.1.0'
+    implementation 'org.apache.poi:poi-ooxml:4.1.0'
+    implementation 'org.apache.commons:commons-compress:1.19'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.12'
+    implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.13'
 
     // QueryDSL
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
