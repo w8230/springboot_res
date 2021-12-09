@@ -71,10 +71,6 @@ public class SearchVO {
     private String loginId;
     private String myBoard;
 
-    @Enumerated(EnumType.STRING)
-    private UserRollType userRollType;
-
-
     private String srchGbn;
     private Long srchMnGbnCdPid;
     private String srchappOS;
@@ -105,4 +101,6 @@ public class SearchVO {
     @Enumerated(EnumType.STRING)
     private BanDvTy banDvTy;
 
+    @Enumerated(EnumType.STRING)
+    private UserRollType userRollType;
 }

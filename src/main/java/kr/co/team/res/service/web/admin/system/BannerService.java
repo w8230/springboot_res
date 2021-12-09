@@ -117,71 +117,71 @@ public class BannerService extends _BaseService {
 
         return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
     }
-
-    public List<Banner> list(SearchVO searchForm, BannerVO bannerForm) {
-
-        QBanner qbanner = QBanner.banner;
-        QAccount qAccount = QAccount.account;
-        QFileInfo qFileInfo = QFileInfo.fileInfo;
-
-        OrderSpecifier<Long> orderSpecifier = qbanner.id.desc();
-
-        BooleanBuilder builder = new BooleanBuilder();
-        builder.and(qbanner.delAt.eq("N"));
-
-        if (bannerForm.getBanDvTy() != null) {
-            builder.and(qbanner.banDvTy.eq(bannerForm.getBanDvTy()));
-        }
-
-        if (searchForm.getUseAt() != null && !searchForm.getUseAt().isEmpty()) {
-            builder.and(qbanner.useAt.eq(searchForm.getUseAt()));
-        }
-
-        if (searchForm.getSrchWord() != null && !searchForm.getSrchWord().isEmpty()) {
-            builder.and(qbanner.banNm.like("%" + searchForm.getSrchWord() + "%"));
-        }
-
-        if (searchForm.getSrchDt() != null) {
-            builder.and(qbanner.stYmd.loe(searchForm.getSrchDt()));
-            builder.and(qbanner.edYmd.goe(searchForm.getSrchDt()));
-        }
-
-        List<Banner> mngList = queryFactory
-                .select(Projections.fields(Banner.class,
-                        qbanner.id,
-                        qbanner.banNm,
-                        qbanner.dsc,
-                        qbanner.banDvTy,
-                        qbanner.banLink,
-                        qbanner.linkTrgtTy,
-                        qbanner.stYmd,
-                        qbanner.edYmd,
-                        qbanner.regPsId,
-                        qbanner.regDtm,
-                        qbanner.updPsId,
-                        qbanner.updDtm,
-                        qbanner.delAt,
-                        qbanner.useAt,
-                        qAccount.nm.as("regPsNm"),
-                        ExpressionUtils.as(
-                                JPAExpressions.select(qFileInfo.chgFlNm)
-                                        .from(qFileInfo)
-                                        .where(qFileInfo.dataPid.eq(qbanner.id).and(qFileInfo.tableNm.eq(TableNmType.TBL_BANNER.name()).and(qFileInfo.dvTy.eq(FileDvType.PC.name())))),
-                                "pcFlNm"),
-                        ExpressionUtils.as(
-                                JPAExpressions.select(qFileInfo.chgFlNm)
-                                        .from(qFileInfo)
-                                        .where(qFileInfo.dataPid.eq(qbanner.id).and(qFileInfo.tableNm.eq(TableNmType.TBL_BANNER.name()).and(qFileInfo.dvTy.eq(FileDvType.MOBILE.name())))),
-                                "mobileFlNm")
-                ))
-                .from(qbanner)
-                .innerJoin(qAccount).on(qbanner.regPsId.eq(qAccount.loginId))
-                .where(builder)
-                .orderBy(orderSpecifier)
-                .fetch();
-
-        return mngList;
-    }
+//
+//    public List<Banner> list(SearchVO searchForm, BannerVO bannerForm) {
+//
+//        QBanner qbanner = QBanner.banner;
+//        QAccount qAccount = QAccount.account;
+//        QFileInfo qFileInfo = QFileInfo.fileInfo;
+//
+//        OrderSpecifier<Long> orderSpecifier = qbanner.id.desc();
+//
+//        BooleanBuilder builder = new BooleanBuilder();
+//        builder.and(qbanner.delAt.eq("N"));
+//
+//        if (bannerForm.getBanDvTy() != null) {
+//            builder.and(qbanner.banDvTy.eq(bannerForm.getBanDvTy()));
+//        }
+//
+//        if (searchForm.getUseAt() != null && !searchForm.getUseAt().isEmpty()) {
+//            builder.and(qbanner.useAt.eq(searchForm.getUseAt()));
+//        }
+//
+//        if (searchForm.getSrchWord() != null && !searchForm.getSrchWord().isEmpty()) {
+//            builder.and(qbanner.banNm.like("%" + searchForm.getSrchWord() + "%"));
+//        }
+//
+//        if (searchForm.getSrchDt() != null) {
+//            builder.and(qbanner.stYmd.loe(searchForm.getSrchDt()));
+//            builder.and(qbanner.edYmd.goe(searchForm.getSrchDt()));
+//        }
+//
+//        List<Banner> mngList = queryFactory
+//                .select(Projections.fields(Banner.class,
+//                        qbanner.id,
+//                        qbanner.banNm,
+//                        qbanner.dsc,
+//                        qbanner.banDvTy,
+//                        qbanner.banLink,
+//                        qbanner.linkTrgtTy,
+//                        qbanner.stYmd,
+//                        qbanner.edYmd,
+//                        qbanner.regPsId,
+//                        qbanner.regDtm,
+//                        qbanner.updPsId,
+//                        qbanner.updDtm,
+//                        qbanner.delAt,
+//                        qbanner.useAt,
+//                        qAccount.nm.as("regPsNm"),
+//                        ExpressionUtils.as(
+//                                JPAExpressions.select(qFileInfo.chgFlNm)
+//                                        .from(qFileInfo)
+//                                        .where(qFileInfo.dataPid.eq(qbanner.id).and(qFileInfo.tableNm.eq(TableNmType.TBL_BANNER.name()).and(qFileInfo.dvTy.eq(FileDvType.PC.name())))),
+//                                "pcFlNm"),
+//                        ExpressionUtils.as(
+//                                JPAExpressions.select(qFileInfo.chgFlNm)
+//                                        .from(qFileInfo)
+//                                        .where(qFileInfo.dataPid.eq(qbanner.id).and(qFileInfo.tableNm.eq(TableNmType.TBL_BANNER.name()).and(qFileInfo.dvTy.eq(FileDvType.MOBILE.name())))),
+//                                "mobileFlNm")
+//                ))
+//                .from(qbanner)
+//                .innerJoin(qAccount).on(qbanner.regPsId.eq(qAccount.loginId))
+//                .where(builder)
+//                .orderBy(orderSpecifier)
+//                .fetch();
+//
+//        return mngList;
+//    }
 
     public Banner load(Long id) {
         Banner banner = bannerRepository.findById(id).orElseGet(Banner::new);

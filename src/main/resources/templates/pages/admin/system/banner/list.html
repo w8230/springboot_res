@@ -66,7 +66,7 @@
 								<div class="total_num">총 <b th:text="${#numbers.formatInteger(banners.totalElements, 0, 'COMMA')}">2</b></div>
 							</div>
 							<div class="fr">
-								<a href="/soulGod/banner/register" class="btn btn_sm btn_blue">
+								<a href="/admin/banner/register" class="btn btn_sm btn_blue">
 									<i class="material-icons">library_add</i>배너 추가
 								</a>
 							</div>
@@ -127,7 +127,7 @@
 							</tbody>
 						</table>
 						<th:block th:replace="/fragments/admin/paging :: pagingbody(list=${banners},
-                                            link='/admin/banner/list/' + ${bannerForm.banDvTy}, formId='form1')"></th:block>
+                                            link='/admin/banner/list/' + ${bannerVO.banDvTy}, formId='form1')"></th:block>
 					</div>
 				</div>
 			</form>
