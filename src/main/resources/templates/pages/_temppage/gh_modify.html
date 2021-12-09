@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/client/header"></th:block>
+</head>
+<th:block th:include="fragments/client/topNav"></th:block>
+<body>
+<div id="container_wrap">
+    <div class="container">
+        <div class="">
+            <div class="tit-wrap">
+                <h2 class="tit">게스트하우스</h2>
+                <h3 class="tit-split">정보 입력</h3>
+            </div>
+
+            <form action="gh_modify" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="USER_ID" id="user_id" value="${userData.USER_ID}">
+
+                <div class="tit-wrap">
+                    <h4 class="sub-tit">기본 정보</h4>
+                    <div class="tit-right">
+                        <p class="p-txt"><b class="color_red">*</b>필수입력표시는 필수 입력 정보입니다. 반드시 입력해주세요.</p>
+                    </div>
+                </div>
+
+                <table class="table-list">
+                    <tbody class="table-body">
+                    <tr class="table-row">
+                        <th class="table-col table-col-tit">숙소명&nbsp;&nbsp;<b class="color_red">*</b></th>
+                        <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="PARTNER_NAME" id="partner_name" value="${gh_info.PARTNER_NAME}">
+								</span>
+                            <p class="text_alert" id="warning_partner_name"></p>
+                        </td>
+
+                        <th class="table-col table-col-tit">우편번호&nbsp;&nbsp;<b class="color_red">*</b></th>
+                        <td class="table-col">
+								<span class="input-group input-group__id">
+									<span class="input-wrap">
+										<input type="text" name="POST_CODE" id="post_code" value="${gh_info.POST_CODE}" readonly>
+									</span>
+									<button type="button" class="info-manage__btn-id" id="test12" onclick="search_Postcode()">주소 찾기</button>
+								</span>
+                            <p class="text_alert" id="warning_post_code"></p>
+                        </td>
+                    </tr>
+
+                    <tr class="table-row">
+                        <th class="table-col table-col-tit">주소&nbsp;&nbsp;<b class="color_red">*</b></th>
+                        <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="ADDR" id="addr" value="${gh_info.ADDR}" readonly>
+								</span>
+                            <p class="text_alert" id="warning_addr"></p>
+                        </td>
+
+                        <th class="table-col table-col-tit">상세주소&nbsp;&nbsp;<b class="color_red">*</b></th>
+                        <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="DETAIL_ADDR" id="detail_addr" value="${gh_info.DETAIL_ADDR}">
+								</span>
+                            <p class="text_alert" id="warning_detail_addr"></p>
+                        </td>
+                    </tr>
+
+                    <tr class="table-row">
+                        <th class="table-col table-col-tit">숙소 소개&nbsp;&nbsp;<b class="color_red">*</b></th>
+                        <td class="table-col" colspan="3">
+								<textarea class="input-wrap" rows="10" name="INTRODUCE" id="introduce" placeholder="숙소를 소개해주세요."
+                                          style="font-size:12px; padding: 5px;">${gh_info.INTRODUCE}</textarea>
+                            <p class="text_alert" id="warning_introduce"></p>
+                        </td>
+                    </tr>
+
+                    <tr class="table-row">
+                        <th class="table-col table-col-tit">체크인&nbsp;&nbsp;<b class="color_red">*</b></th>
+                        <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="CHECK_IN" id="check_in" value="${gh_info.CHECK_IN}">
+								</span>
+                            <p class="text_alert" id="warning_check_in"></p>
+                        </td>
+
+                        <th class="table-col table-col-tit">체크아웃&nbsp;&nbsp;<b class="color_red">*</b></th>
+                        <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="CHECK_OUT" id="check_out" value="${gh_info.CHECK_OUT}">
+								</span>
+                            <p class="text_alert" id="warning_check_out"></p>
+                        </td>
+                    </tr>
+
+                    <tr class="table-row">
+                        <th class="table-col table-col-tit">소등시간&nbsp;&nbsp;<b class="color_red">*</b></th>
+                        <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="LIGHTS_OUT_TIME" id="lights_out_time" value="${gh_info.LIGHTS_OUT_TIME}">
+								</span>
+                            <p class="text_alert" id="warning_lights_out_time"></p>
+                        </td>
+
+                        <th class="table-col table-col-tit">썸네일 및 외부사진&nbsp;&nbsp;<b class="color_red">*</b></th>
+                        <td class="table-col">
+								<span class="input-group input-group__id">
+									<span class="input-wrap">
+										<input type="file" name="THUMBNAIL" id="thumbnail" style="display: none">
+										<input type="text" id="thumbnail_name" value="${gh_info.THUMBNAIL}" readonly>
+									</span>
+									<label class="info-manage__btn-id" for="thumbnail" style="margin-bottom: 0">파일 선택</label>
+								</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="tit-wrap">
+                    <h4 class="sub-tit">객실 정보</h4>
+                    <a class="add_del" onclick="del_Room_info()">삭제</a>
+                    <a class="add_del" onclick="add_Room_info()">추가</a>
+                </div>
+
+                <table class="table-list">
+                    <tbody class="table-body" id="room_info">
+                        <tr class="table-row" id="room_info1">
+                            <th class="table-col table-col-tit">객실&nbsp;&nbsp;<b class="color_red">*</b></th>
+                            <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="ROOMS" id="rooms${status.count}" onkeydown="keyevent(this.id);" value="${gh_room_info.ROOMS}">
+								</span>
+                                <p class="text_alert" id="warning_rooms${status.count}"></p>
+                            </td>
+                            <th class="table-col table-col-tit">1박 단가&nbsp;&nbsp;<b class="color_red">*</b></th>
+                            <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="PRICE" id="price${status.count}" onkeydown="keyevent(this.id);" value="${gh_room_info.PRICE}">
+								</span>
+                                <p class="text_alert" id="warning_price${status.count}"></p>
+                            </td>
+                        </tr>
+
+                        <tr class="table-row" id="room_info2">
+                            <th class="table-col table-col-tit">남&nbsp;&nbsp;/&nbsp;&nbsp;여&nbsp;&nbsp;<b class="color_red">*</b></th>
+                            <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="ROOM_GENDER" id="room_gender${status.count}" onkeydown="keyevent(this.id);" value="${gh_room_info.ROOM_GENDER}">
+								</span>
+                                <p class="text_alert" id="warning_room_gender${status.count}"></p>
+                            </td>
+                            <th class="table-col table-col-tit">정원&nbsp;&nbsp;<b class="color_red">*</b></th>
+                            <td class="table-col">
+								<span class="input-wrap">
+									<input type="text" name="PERSONNEL" id="personnel${status.count}" onkeydown="keyevent(this.id);" value="${gh_room_info.PERSONNEL}">
+								</span>
+                                <p class="text_alert" id="warning_personnel${status.count}"></p>
+                            </td>
+                        </tr>
+
+                        <tr class="table-row" id="room_info3">
+                            <th class="table-col table-col-tit">객실 사진&nbsp;&nbsp;<b class="color_red">*</b></th>
+                            <td class="table-col">
+								<span class="input-group input-group__id">
+									<span class="input-wrap">
+										<input type="file" name="ROOMS_IMG" id="room_img${status.count}" onclick="btn_click(this)" style="display: none">
+										<input type="text" id="room_img_name${status.count}" value="${gh_room_info.ROOMS_IMG}" readonly>
+									</span>
+									<label class="info-manage__btn-id" for="room_img${status.count}" style="margin-bottom: 0">파일 선택</label>
+								</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tit-wrap">
+                    <h4 class="sub-tit">부가시설 및 서비스</h4>
+                </div>
+                <div class="table-list introduce1">
+                    <div class="room_service">
+                        <ul class="room_service_list">
+                            <li>
+                                <h5>공용시설</h5>
+                                <ul class="chk_list">
+                                            <li>
+                                                <label id="test124" for="chk_box${status.count}">
+                                                    <input type="checkbox" id="chk_box${status.count}" checked>
+                                                    <input type="hidden" name="PUBLIC_FACILITY" id="chk${status.count}" value="${public_list}">
+                                                    ${public_change[status.index]}
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label id="test123" for="chk_box${status.count}">
+                                                    <input type="checkbox" id="chk_box${status.count}1">
+                                                    <input type="hidden" name="PUBLIC_FACILITY" id="chk${status.count}2" value="${public_list}">
+                                                    ${public_change[status.index]}
+                                                </label>
+                                            </li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul class="chk_list m-t-45">
+                                            <li>
+                                                <label id="test121" for="chk_box${status.count + 14}">
+                                                    <input type="checkbox" id="chk_box${status.count + 14}2" checked>
+                                                    <input type="hidden" name="PUBLIC_FACILITY" id="chk${status.count + 14}3" value="${public_list}">
+                                                    ${public_change[status.index]}
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label id="test125" for="chk_box${status.count + 14}">
+                                                    <input type="checkbox" id="chk_box${status.count + 14}">
+                                                    <input type="hidden" name="PUBLIC_FACILITY" id="chk${status.count + 14}4" value="${public_list}">
+                                                    ${public_change[status.index]}
+                                                </label>
+                                            </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <h5>욕실</h5>
+                                <ul class="chk_list">
+                                            <li>
+                                                <label id="test126" for="chk_box${status.count + 21}">
+                                                    <input type="checkbox" id="chk_box${status.count + 21}1" checked>
+                                                    <input type="hidden" name="BATHROOM" id="chk${status.count + 21}2" value="${batroom_list}">
+                                                    ${batroom_change[status.index]}
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label id="test127" for="chk_box${status.count + 21}">
+                                                    <input type="checkbox" id="chk_box${status.count + 21}">
+                                                    <input type="hidden" name="BATHROOM" id="chk${status.count + 21}" value="${batroom_list}">
+                                                    ${batroom_change[status.index]}
+                                                </label>
+                                            </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>기타서비스</h5>
+                                <ul class="chk_list">
+                                            <li>
+                                                <label id="test128" for="chk_box${status.count + 30}">
+                                                    <input type="checkbox" id="chk_box${status.count + 30}1" checked>
+                                                    <input type="hidden" name="ETC" id="chk${status.count + 30}2" value="${etc_list}">
+                                                    ${etc_change[status.index]}
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label id="test" for="chk_box${status.count + 30}">
+                                                    <input type="checkbox" id="chk_box${status.count + 30}">
+                                                    <input type="hidden" name="ETC" id="chk${status.count + 30}" value="${etc_list}">
+                                                    ${etc_change[status.index]}
+                                                </label>
+                                            </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="text-center m-t-40">
+                    <button class="btn bg_blu btn-lg nsdow" onclick="return form_validation();">등록</button>
+                    <button class="btn bg_dark_grey btn-lg m-l-5 nsdow" type="button" onclick="cancel();">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
