@@ -70,10 +70,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 수정중 김재일 인증강사 추가
         http.authorizeRequests()
                 .mvcMatchers("/pages/mypage/**").hasAnyRole("NORMAL,PARTNERS")
-                //.mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL")aa
+                //.mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL")
                 .mvcMatchers("/ui/**","/data/**","/node_modules/**","/loginFailure","/message","/error","/fragments/**","/popup/**","/","/index","/login","/api/common/download").permitAll()
                 .mvcMatchers("/pages/**","/api/member/**","/api/nice/**","/api/commonCode/**","/api/menu/**","/api/openData/**","/upload/**","/member/**" , "/partners/**"  ,
-                        "/api/partners/**"  , "/api/mypage/**").permitAll()
+                        "/api/partners/**"  , "/api/mypage/**" , "/_temppage/**").permitAll()
                 //.mvcMatchers("/pages/admin/**","/admin/**").permitAll()
                 .mvcMatchers("/admin/**","/api/admin/**","/pages/admin/**").hasAnyRole("MASTER,ADMIN,PARTNERS")
                 .anyRequest().authenticated();
