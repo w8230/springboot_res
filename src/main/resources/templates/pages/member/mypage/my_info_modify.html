@@ -31,7 +31,6 @@
                 </th>
                 <td>
                     <p class="m-r-6 m-l-6 p-t-7 p-b-7" th:text="${userData.loginId}"></p>
-
                 </td>
             </tr>
 
@@ -63,8 +62,8 @@
                     이름 <b class="color_red">*</b>
                 </th>
                 <td>
-                    <input type="text" name="nm" id="nm" class="form-control-input wid-lg" th:value="${userData.nm}">
-                    <p id="valid_name" class="form-control-p">특수문자 없이 입력해 주세요.</p>
+                    <p class="m-r-6 m-l-6 p-t-7 p-b-7" th:text="${userData.nm}"></p>
+                    <!--<input type="text" name="nm" id="nm" class="form-control-input wid-lg" th:value="${userData.nm}">-->
                 </td>
             </tr>
 
@@ -73,10 +72,33 @@
                     닉네임 <b class="color_red">*</b>
                 </th>
                 <td>
-                    <input type="text" name="ncnm" id="ncnm" class="form-control-input wid-lg" th:value="${userData.ncnm}">
+                    <p class="m-r-6 m-l-6 p-t-7 p-b-7" th:text="${userData.ncnm}"></p>
+                    <!--<input type="text" name="ncnm" id="ncnm" class="form-control-input wid-lg" th:value="${userData.ncnm}">-->
                 </td>
             </tr>
 
+            <tr>
+                <th>
+                    생년월일 <b class="color_red">*</b>
+                </th>
+                <td>
+                    <p class="m-r-6 m-l-6 p-t-7 p-b-7" th:text="|${userData.year}년 ${userData.month}월 ${userData.day}일|"></p>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    성별 <b class="color_red">*</b>
+                </th>
+                <td>
+                    <th:block th:if="${userData.sexPrTy eq 'MALE'}">
+                        <p class="m-r-6 m-l-6 p-t-7 p-b-7">남자</p>
+                    </th:block>
+                    <th:block th:if="${userData.sexPrTy eq 'FEMALE'}">
+                        <p class="m-r-6 m-l-6 p-t-7 p-b-7">여자</p>
+                    </th:block>
+
+                </td>
+            </tr>
             <tr>
                 <th>
                     핸드폰 번호 <b class="color_red">*</b>
@@ -95,28 +117,6 @@
                     <p id="valid_email" class="form-control-p"></p>
                 </td>
             </tr>
-
-            <tr>
-                <th>
-                    성별 <b class="color_red">*</b>
-                </th>
-                <td>
-                    <th:block th:if="${userData.sexPrTy eq 'MALE'}">
-                        <select name="sexPrTy" id="sexPrTy" class="form-control-select wid-sm">
-                            <option value="MALE">남자</option>
-                            <option value="FEMALE">여자</option>
-                        </select>
-                    </th:block>
-                    <th:block th:if="${userData.sexPrTy eq 'FEMALE'}">
-                        <select name="sexPrTy" id="sexPrTy" class="form-control-select wid-sm">
-                            <option value="FEMALE">여자</option>
-                            <option value="MALE">남자</option>
-                        </select>
-                    </th:block>
-
-                    <p id="valid_gender" class="form-control-p"></p>
-                </td>
-            </tr>
             <tr>
                 <th>
                     주소 <b class="color_red">*</b>
@@ -131,69 +131,8 @@
                     <p id="search_adres" class="form-control-p"></p>
                 </td>
             </tr>
-
-            <tr>
-                <th>
-                    생년월일 <b class="color_red">*</b>
-                </th>
-                <td>
-                    <select class="form-control-select wid-sm" name="year" id="year">
-                    </select>
-                    <select class="form-control-select wid-sm" id="month" name="month">
-                        <option value="">월</option>
-                        <option value="01">1월</option>
-                        <option value="02">2월</option>
-                        <option value="03">3월</option>
-                        <option value="04">4월</option>
-                        <option value="05">5월</option>
-                        <option value="06">6월</option>
-                        <option value="07">7월</option>
-                        <option value="08">8월</option>
-                        <option value="09">9월</option>
-                        <option value="10">10월</option>
-                        <option value="11">11월</option>
-                        <option value="12">12월</option>
-                    </select>
-                    <select class="form-control-select wid-sm" id="day" name="day">
-                        <option value="">일</option>
-                        <option value="01">1일</option>
-                        <option value="02">2일</option>
-                        <option value="03">3일</option>
-                        <option value="04">4일</option>
-                        <option value="05">5일</option>
-                        <option value="06">6일</option>
-                        <option value="07">7일</option>
-                        <option value="08">8일</option>
-                        <option value="09">9일</option>
-                        <option value="10">10일</option>
-                        <option value="11">11일</option>
-                        <option value="12">12일</option>
-                        <option value="13">13일</option>
-                        <option value="14">14일</option>
-                        <option value="15">15일</option>
-                        <option value="16">16일</option>
-                        <option value="17">17일</option>
-                        <option value="18">18일</option>
-                        <option value="19">19일</option>
-                        <option value="20">20일</option>
-                        <option value="21">21일</option>
-                        <option value="22">22일</option>
-                        <option value="23">23일</option>
-                        <option value="24">24일</option>
-                        <option value="25">25일</option>
-                        <option value="26">26일</option>
-                        <option value="27">27일</option>
-                        <option value="28">28일</option>
-                        <option value="29">29일</option>
-                        <option value="30">30일</option>
-                        <option value="31">31일</option>
-                    </select>
-                    <input type="hidden" name="brthdy" id="brthdy"/>
-                </td>
-            </tr>
             </tbody>
         </table>
-
         <div class="text-center m-t-25 m-b-80">
             <button id="btnSave" class="btn bg_blu btn-lg nsdow">수정</button>
         </div>

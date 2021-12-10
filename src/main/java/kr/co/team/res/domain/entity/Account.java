@@ -97,6 +97,16 @@ public class Account implements Serializable {
 
     @Transient
     private List<MemberRoll> authorites;
+
+    @Transient
+    private String year;
+
+    @Transient
+    private String month;
+
+    @Transient
+    private String day;
+
     @Builder
     public Account(Long id, String loginId, String nm, String pwd, String ncnm, LocalDateTime regDtm, LocalDateTime updDtm, UserRollType mberDvTy, List<MemberRoll> authorites, String moblphon, String approval) {
 

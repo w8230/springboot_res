@@ -49,6 +49,10 @@ public class MemberVO {
     private LocalDateTime updDtm;
     private String delAt;
 
+    private String year;
+    private String month;
+    private String day;
+
     //partners
     private String bnm;
     private String bno;

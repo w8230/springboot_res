@@ -43,6 +43,7 @@ public class LoginController extends BaseCont {
     private final LoginCnntLogsService loginCnntLogsService;
 
 
+
     //private final ResourceServerTokenServices tokenServices;	//kakao login 2020.03.03  fail
     @RequestMapping("/pages/login")
     public String loginPage() {

@@ -44,6 +44,7 @@ public class MypageController extends BaseCont {
         Account load = myPageService.MemberInfo(account.getId());
         //Account load = memberService.load(account.getId());
         Account form = new Account();
+
         form.setMberDvTy(load.getMberDvTy());
         form.setLoginId(load.getLoginId());
         form.setNcnm(load.getNcnm());
@@ -55,8 +56,19 @@ public class MypageController extends BaseCont {
         form.setDtlAdres(load.getDtlAdres());
         form.setBrthdy(load.getBrthdy());
 
+        String brthdy = load.getBrthdy();
+        String year = brthdy.substring(0,4);
+        String month = brthdy.substring(4,6);
+        String day = brthdy.substring(6,8);
+
+        form.setYear(year);
+        form.setMonth(month);
+        form.setDay(day);
+        //2004 03 17
+        System.out.println("year : " + year + " month : " + month + " day : " + day);
 
         model.addAttribute("userData", form);
+        /*model.addAttribute("brthdylist" , userData);*/
         model.addAttribute("mc", "mypage");
         return "pages/member/mypage/my_info_modify";
     }

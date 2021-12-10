@@ -14,13 +14,6 @@ public class TempPageController extends BaseCont{
     public String search_list() {
         return _tempurl + "search_list";
     }
-
-
-    @RequestMapping("/_temppage/inquiry_details")
-    public String inquiry_details(){
-        return _tempurl + "inquiry_details";
-    }
-
     //게시물 리스트
     @RequestMapping("/_temppage/gh_list")
     public String gh_list() {
@@ -43,5 +36,14 @@ public class TempPageController extends BaseCont{
     @RequestMapping("/_temppage/gh_modify")
     public String gh_modify(){
         return _tempurl + "gh_modify";
+    }
+
+    //고객센터 질문 상세보기
+    @RequestMapping("/_temppage/notice_details")
+    public String notice_details() { return _tempurl + "service_center/detail_page/notice_details"; }
+    //문의 상세보기
+    @RequestMapping("/_temppage/inquiry_details")
+    public String inquiry_details(){
+        return _tempurl + "service_center/detail_page/inquiry_details";
     }
 }

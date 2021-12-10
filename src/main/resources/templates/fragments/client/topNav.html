@@ -11,6 +11,7 @@
 					<div class="col-md-12 d-none d-md-block">
 						<div class="social_wrap d-flex align-items-center justify-content-end">
 							<th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+								<a class="top-a-tag"><th:block sec:authentication="principal.account.ncnm"></th:block>님</a>
 								<a href="/pages/mypage/info" class="top-a-tag">내정보</a>
 								<a href="/logout" class="top-a-tag">로그아웃</a>
 							</th:block>
