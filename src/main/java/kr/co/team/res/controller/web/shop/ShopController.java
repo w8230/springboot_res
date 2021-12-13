@@ -1,12 +1,29 @@
 package kr.co.team.res.controller.web.shop;
 
+import kr.co.team.res.common.annotation.CurrentUser;
+import kr.co.team.res.controller.web.BaseCont;
+import kr.co.team.res.domain.entity.Account;
+import kr.co.team.res.domain.entity.Partners;
+import kr.co.team.res.domain.vo.common.SearchVO;
+import kr.co.team.res.service.web.shop.ShopService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
-public class ShopController {
+public class ShopController extends BaseCont {
+
+    private final ShopService shopService;
 
     String shopurl = "pages/shop/";
 
@@ -33,4 +50,43 @@ public class ShopController {
     public String gh_modify(){
         return shopurl + "modify";
     }
+
+    @RequestMapping("/api/search/shoplist")
+    public String srchShoplist(HttpServletRequest request ,
+                               @PageableDefault Pageable pageable ,
+                               @ModelAttribute SearchVO searchVO,
+                               @CurrentUser Account account ,
+                               Model model) {
+        if(searchVO.getTotalSrchWord() == null
+                || "".equals(searchVO.getTotalSrchWord())
+                || searchVO.getTotalSrchWord().length() < 2) {
+            String referrer = request.getHeader("Referer");
+            model.addAttribute("altmsg" , "검색어를 두 글자 이상 입력해주세요.");
+            model.addAttribute("locurl", "/index");
+            return "/message";
+        }
+
+
+
+        return "/pages/shop/list";
+    }
+
+    @RequestMapping("/api/search/shop")
+    public String shopsrch(SearchVO searchVO ,
+                           Model model,
+                           HttpServletRequest request) {
+        log.info("검색어 Check" , searchVO.getSrchWord());
+        if(searchVO.getTotalSrchWord() == null
+                || "".equals(searchVO.getTotalSrchWord())
+                || searchVO.getTotalSrchWord().length() < 2) {
+            String referrer = request.getHeader("Referer");
+
+            model.addAttribute("altmsg" , "검색어를 두 글자 이상 입력해주세요.");
+            model.addAttribute("locurl", "/index");
+            return "/message";
+        }
+
+        return "/pages/shop/list";
+    }
+
 }
