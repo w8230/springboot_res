@@ -49,7 +49,7 @@
                                 등록된 숙소가 없습니다.
                             </div>
                         </div>
-                        <div class="list_box">
+                        <div class="list_box" th:each="item,idx ${shoplist}">
                             <div class="list_item_link" onclick="location.href='gh_details_page?NO=${list.NO}'" style="cursor:pointer;">
                                 <div class="list_contents-left">
                                     <div class="thumbnail_box">
@@ -58,9 +58,9 @@
                                 </div>
                                 <div class="list_contents-right">
                                     <div class="list_txt_top">
-                                        <div class="translated_name_and_name">${list.PARTNER_NAME}</div>
+                                        <div class="translated_name_and_name"th:text="${item.bnm}"></div>
                                         <div class="added_info">
-                                            <div class="location">${list.ADDR}</div>
+                                            <div class="location"th:text="${item.adres}"></div>
                                         </div>
                                     </div>
                                     <div class="list_txt_bottom">

@@ -12,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -71,19 +68,25 @@ public class ShopController extends BaseCont {
         return "/pages/shop/list";
     }
 
-    @RequestMapping("/api/search/shop")
-    public String shopsrch(SearchVO searchVO ,
-                           Model model,
-                           HttpServletRequest request) {
-        log.info("검색어 Check" , searchVO.getSrchWord());
-        if(searchVO.getTotalSrchWord() == null
-                || "".equals(searchVO.getTotalSrchWord())
-                || searchVO.getTotalSrchWord().length() < 2) {
-            String referrer = request.getHeader("Referer");
+    @GetMapping("/api/search/shop")
+    public String shopsrch(Model model,
+                           HttpServletRequest request,
+                           @PageableDefault Pageable pageable,
+                           @ModelAttribute SearchVO searchVO) {
 
+        log.info("검색어 Check" , searchVO.getSrchWord());
+        //"".equals(searchVO.getTotalSrchWord())
+        //검색어 없음, 검색어 공백, 2자 이하
+
+        if(searchVO.getSrchWord() == null || searchVO.getSrchWord().equals("") || searchVO.getSrchWord().length() < 2) {
+            String referrer = request.getHeader("Referer");
             model.addAttribute("altmsg" , "검색어를 두 글자 이상 입력해주세요.");
-            model.addAttribute("locurl", "/index");
+            model.addAttribute("locurl", referrer);
             return "/message";
+        } else {
+            String srchWord = searchVO.getSrchWord();
+            Page<Partners> shoplist = shopService.searchShoplist(srchWord , pageable);
+            model.addAttribute("shoplist" , shoplist);
         }
 
         return "/pages/shop/list";

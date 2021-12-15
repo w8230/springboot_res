@@ -62,7 +62,7 @@
 
 <!-- 검색 area [s]  -->
 <div class="newletter_area overlay">
-	<form action="search_list_page" method="get">
+	<form action="/api/search/shop" method="get" id="form1" name="form1">
 		<div class="container">
 			<div class="row justify-content-left">
 				<div class="col-lg-6 d-md-block"> <!-- d-none -->
@@ -79,7 +79,6 @@
 						<div class="col-lg-12">
 							<div class="mail_form">
 								<div class="row no-gutters">
-									<form action="/api/search/shop" method="post" id="form1" name="form1">
 										<div class="col-lg-10 col-md-10">
 											<div class="newsletter_field">
 												<input type="hidden" id="search_type" name="SEARCH_TYPE">
@@ -92,7 +91,6 @@
 											</div>
 										</div>
 
-									</form>
 								</div>
 							</div>
 						</div>

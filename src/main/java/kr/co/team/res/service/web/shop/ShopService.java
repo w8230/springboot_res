@@ -1,5 +1,6 @@
 package kr.co.team.res.service.web.shop;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -9,6 +10,7 @@ import kr.co.team.res.common.Constants;
 import kr.co.team.res.domain.entity.Menu;
 import kr.co.team.res.domain.entity.Partners;
 import kr.co.team.res.domain.entity.QPartners;
+import kr.co.team.res.domain.repository.PartnersRepository;
 import kr.co.team.res.domain.vo.common.SearchVO;
 import kr.co.team.res.service.web._BaseService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +31,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShopService extends _BaseService {
     private final JPAQueryFactory queryFactory;
+    private final PartnersRepository partnersRepository;
+
 
     // 샵 검색
     public Page<Partners> srchShoplist(Pageable pageable , SearchVO searchVO) {
@@ -55,8 +60,42 @@ public class ShopService extends _BaseService {
         return new PageImpl<>(mngList.getResults() , pageable , mngList.getTotal());
     }
 
-    public Page<Partners> searchShoplist(String srchWord){
+    public Page<Partners> searchShoplist(String srchWord ,
+                                         Pageable pageable){
 
-        return null;
+        // 반려상태 , 삭제상태가 아닌 파트너사만 조회할 것, booleanbuilder
+        // srchWord로 like로 조회할 것. constants
+        // 페이징 처리 된 상태로 반환할 것. return PageImpl
+        //////////////////////////////
+        // 리스트 페이지 디자인 할 것
+        // 페이징 인디케이터 디자인 할 것.
+        // 페이지로 리턴
+        System.out.println("Run searchShoplist Method");
+
+        int page = (pageable.getPageNumber() == 0 ) ? 0 : (pageable.getPageNumber() -1);
+        pageable = PageRequest.of(page , Constants.DEFAULT_PAGESIZE);
+
+        QPartners qPartners = QPartners.partners;
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qPartners.DelAt.eq("N"));
+        builder.or(qPartners.bnm.contains(srchWord));
+
+        OrderSpecifier<Long> orderSpecifier = qPartners.id.desc();
+        QueryResults<Partners> shoplist = queryFactory
+                .select(Projections.fields(Partners.class,
+                        qPartners.id,
+                        qPartners.bnm,
+                        qPartners.bno,
+                        qPartners.adres,
+                        qPartners.DtlAdres))
+                .from(qPartners)
+                .where(qPartners.bnm.contains(srchWord).and(builder))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .orderBy(orderSpecifier)
+                .fetchResults();
+        System.out.println("searchCheck == " + shoplist.getTotal());
+
+        return new PageImpl<>(shoplist.getResults(), pageable, shoplist.getTotal());
     }
 }
