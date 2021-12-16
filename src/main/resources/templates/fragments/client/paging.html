@@ -1,0 +1,26 @@
+<div class="text-center m-t-30 m-b-60" xmlns:th="http://www.thymeleaf.org" th:fragment="paging(list , link , formId)">
+    <div th:with="start=${}">
+
+    </div>
+    <a href="gh_list_page?page_num=${paging.NOW_PAGE-1}" class="m-r-20">이전</a>
+    <div class="paging_box">
+        <a href="gh_list_page?page_num=${status.count}" class="sp_active">${status.count}</a>
+        <a href="gh_list_page?page_num=${status.count}">${status.count}</a>
+    </div>
+    <a href="gh_list_page?page_num=${paging.NOW_PAGE+1}" class="m-l-20">다음</a>
+
+    <script type="text/javascript" th:inline="javascript">
+        function fnPage(page) {
+            var link = /*[[ ${link} ]]*/;
+            var formId = /*[[ ${formId} ]]*/;
+
+            if (page) {
+                link = link +'?page='+page;
+            }
+
+            var frm = $('#'+formId);
+            frm.prop('action', link);
+            frm.submit();
+        }
+    </script>
+</div>

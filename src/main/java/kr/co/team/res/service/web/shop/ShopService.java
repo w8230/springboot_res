@@ -77,8 +77,10 @@ public class ShopService extends _BaseService {
 
         QPartners qPartners = QPartners.partners;
         BooleanBuilder builder = new BooleanBuilder();
+        //where
         builder.and(qPartners.DelAt.eq("N"));
-        builder.or(qPartners.bnm.contains(srchWord));
+        builder.and(qPartners.approval.eq("Y"));
+        builder.and(qPartners.bnm.contains(srchWord));
 
         OrderSpecifier<Long> orderSpecifier = qPartners.id.desc();
         QueryResults<Partners> shoplist = queryFactory
@@ -86,10 +88,11 @@ public class ShopService extends _BaseService {
                         qPartners.id,
                         qPartners.bnm,
                         qPartners.bno,
+                        qPartners.thumnail,
                         qPartners.adres,
                         qPartners.DtlAdres))
                 .from(qPartners)
-                .where(qPartners.bnm.contains(srchWord).and(builder))
+                .where(builder)
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .orderBy(orderSpecifier)

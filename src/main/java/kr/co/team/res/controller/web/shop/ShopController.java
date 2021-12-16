@@ -74,10 +74,6 @@ public class ShopController extends BaseCont {
                            @PageableDefault Pageable pageable,
                            @ModelAttribute SearchVO searchVO) {
 
-        log.info("검색어 Check" , searchVO.getSrchWord());
-        //"".equals(searchVO.getTotalSrchWord())
-        //검색어 없음, 검색어 공백, 2자 이하
-
         if(searchVO.getSrchWord() == null || searchVO.getSrchWord().equals("") || searchVO.getSrchWord().length() < 2) {
             String referrer = request.getHeader("Referer");
             model.addAttribute("altmsg" , "검색어를 두 글자 이상 입력해주세요.");
