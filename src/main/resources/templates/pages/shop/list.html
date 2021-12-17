@@ -47,7 +47,7 @@
                                 <div class="list_contents-left">
                                     <th:block th:if="${item.thumnail == null or item.thumnail.isEmpty()}">
                                         <div class="thumbnail_box">
-                                            <img src="/ui/client/img/shop/no_tumbnail.jpg">
+                                            <img src="/ui/client/img/shop/no_tumbnail.jpg" th:href="|/pages/shop/list/${item.id}|">
                                         </div>
                                     </th:block>
                                     <th:block th:unless="${item.thumnail == null or item.thumnail.isEmpty()}">
@@ -100,14 +100,14 @@
                     </div>
                 </th:block>
                 <!-- 페이징 [s] -->
-                <div class="text-center m-t-30 m-b-60">
+                <!--<div class="text-center m-t-30 m-b-60">
                         <a th:text="${shoplist.getTotalPages() - 1}" href="gh_list_page?page_num=${paging.NOW_PAGE-1}" class="m-r-20">이전</a>
                     <div class="paging_box">
                                 <a href="gh_list_page?page_num=${status.count}" class="sp_active">${status.count}</a>
                                 <a href="gh_list_page?page_num=${status.count}">${status.count}</a>
                     </div>
                         <a href="gh_list_page?page_num=${paging.NOW_PAGE+1}" class="m-l-20">다음</a>
-                </div>
+                </div>-->
                 <!-- 페이징 [e] -->
             </div>
             <!-- 오른쪽 게스트하우스 리스트 [e] -->

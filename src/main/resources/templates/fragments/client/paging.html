@@ -1,14 +1,16 @@
 <div class="text-center m-t-30 m-b-60" xmlns:th="http://www.thymeleaf.org" th:fragment="paging(list , link , formId)">
-    <div th:with="start=${}">
+    <div th:with="start=${T(Math).floor(list.number/10)*10 + 1}, last=(${start + 9 < list.totalPages ? start + 9 : (list.totalPages == 0 ? 1 : list.totalPages)})">
+
+        <a href="javascript:;" th:onclick="'fnPage('+${!list.first ? list.number : list.number + 1}+')'" class="m-r-20">이전</a>
+
+        <div class="paging_box">
+            <a href="gh_list_page?page_num=${status.count}" class="sp_active">${status.count}</a>
+            <a href="gh_list_page?page_num=${status.count}">${status.count}</a>
+        </div>
+
+        <a href="javascript:;" th:onclick="'fnPage('+${(!list.last ? list.number + 2 : list.number + 1)}+')'" class="m-l-20">다음</a>
 
     </div>
-    <a href="gh_list_page?page_num=${paging.NOW_PAGE-1}" class="m-r-20">이전</a>
-    <div class="paging_box">
-        <a href="gh_list_page?page_num=${status.count}" class="sp_active">${status.count}</a>
-        <a href="gh_list_page?page_num=${status.count}">${status.count}</a>
-    </div>
-    <a href="gh_list_page?page_num=${paging.NOW_PAGE+1}" class="m-l-20">다음</a>
-
     <script type="text/javascript" th:inline="javascript">
         function fnPage(page) {
             var link = /*[[ ${link} ]]*/;

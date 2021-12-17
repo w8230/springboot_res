@@ -48,7 +48,7 @@ public class ShopController extends BaseCont {
         return shopurl + "modify";
     }
 
-    @RequestMapping("/api/search/shoplist")
+    /*@RequestMapping("/api/search/shoplist")
     public String srchShoplist(HttpServletRequest request ,
                                @PageableDefault Pageable pageable ,
                                @ModelAttribute SearchVO searchVO,
@@ -66,7 +66,7 @@ public class ShopController extends BaseCont {
 
 
         return "/pages/shop/list";
-    }
+    }*/
 
     @GetMapping("/api/search/shop")
     public String shopsrch(Model model,
