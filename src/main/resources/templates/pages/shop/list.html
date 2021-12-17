@@ -42,6 +42,20 @@
                 </th:block>
                 <th:block th:if="${shoplist.totalElements} > 0">
                     <div class="post_list">
+                        <ul class="list_module">
+                            <li class="li_list_box" th:each="item : ${shoplist}">
+                                <a class="list_item_link">
+                                    <div class="list_contents-left">
+                                        <div class="thumbnail_box">
+                                            <img src="/ui/client/img/shop/no_tumbnail.jpg" th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;">
+                                        </div>
+                                    </div>
+                                    <div class="list_contents-right">
+
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
                         <div class="list_box" th:each="item : ${shoplist}">
                             <div class="list_item_link" style="cursor:pointer;">
                                 <div class="list_contents-left">
