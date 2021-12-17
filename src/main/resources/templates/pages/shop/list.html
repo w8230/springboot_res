@@ -43,16 +43,16 @@
                 <th:block th:if="${shoplist.totalElements} > 0">
                     <div class="post_list">
                         <div class="list_box" th:each="item : ${shoplist}">
-                            <div class="list_item_link" onclick="location.href='gh_details_page?NO=${list.NO}'" style="cursor:pointer;">
+                            <div class="list_item_link" style="cursor:pointer;">
                                 <div class="list_contents-left">
                                     <th:block th:if="${item.thumnail == null or item.thumnail.isEmpty()}">
                                         <div class="thumbnail_box">
-                                            <img src="/ui/client/img/shop/no_tumbnail.jpg" th:href="|/pages/shop/list/${item.id}|">
+                                            <img src="/ui/client/img/shop/no_tumbnail.jpg" th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;">
                                         </div>
                                     </th:block>
                                     <th:block th:unless="${item.thumnail == null or item.thumnail.isEmpty()}">
                                         <div class="thumbnail_box">
-                                            <img th:href="|/pages/shop/list/${item.id}|">
+                                            <img th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;">
                                         </div>
                                     </th:block>
 
@@ -64,7 +64,9 @@
                                 </div>
                                 <li class="list_box">
                                     <div class="list_txt_top">
-                                        <div class="translated_name_and_name"th:text="${item.bnm}" th:href="|/pages/shop/list/${item.id}|"></div>
+                                        <div class="translated_name_and_name">
+                                            <a th:text="${item.bnm}" th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;"></a>
+                                        </div>
                                         <div class="added_info">
                                             <div class="location"th:text="|${item.adres}(${item.dtlAdres})|"></div>
                                         </div>
@@ -100,6 +102,10 @@
                     </div>
                 </th:block>
                 <!-- 페이징 [s] -->
+                <th:block th:replace="fragments/client/paging :: paging(list=${shoplist}, link='/pages/shop/list' , formId ='form1')">
+                </th:block>
+                <!--<th:block
+                        th:replace="/fragments/client/paging :: pagingbody(list=${shoplist}, link='/pages/shop/list/' + ${shoplist.id}, formId='form1')"></th:block>-->
                 <!--<div class="text-center m-t-30 m-b-60">
                         <a th:text="${shoplist.getTotalPages() - 1}" href="gh_list_page?page_num=${paging.NOW_PAGE-1}" class="m-r-20">이전</a>
                     <div class="paging_box">

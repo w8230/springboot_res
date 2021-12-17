@@ -97,7 +97,6 @@ public class ShopService extends _BaseService {
                 .offset(pageable.getOffset())
                 .orderBy(orderSpecifier)
                 .fetchResults();
-        System.out.println("searchCheck == " + shoplist.getTotal());
 
         return new PageImpl<>(shoplist.getResults(), pageable, shoplist.getTotal());
     }
