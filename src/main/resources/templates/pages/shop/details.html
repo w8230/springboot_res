@@ -52,11 +52,11 @@
                 </div> -->
                 <!-- 썸네일 [e	] -->
             </div>
-            <div class="top_info_box_right">
+            <div class="top_info_box_right" th:each="item : ${shopData}">
 				<span class="top_info_icon">
 						<a class="top_info_icon_heart" style="cursor: pointer;" onclick="gh_like_up_btn()"><i id="heart" class="fas fa-heart fa-2x" style="color: #ff4a52"></i></a>
 				</span>
-                <h2 class="top_info_title" th:text="${shopData.bnm}"></h2>
+                <h2 class="top_info_title" th:text="${item.bnm}"></h2>
 
                     <div class="m-b-10">
                         <a class="modify_delete_button" href="gh_modify_page?NO=${gh_info.NO}">수정</a>
