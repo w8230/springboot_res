@@ -100,4 +100,29 @@ public class ShopService extends _BaseService {
 
         return new PageImpl<>(shoplist.getResults(), pageable, shoplist.getTotal());
     }
+
+    // 샵 상세정보
+    public List<Partners> findShopData(long id){
+
+        QPartners qPartners = QPartners.partners;
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qPartners.id.eq(id));
+
+        List<Partners> shopData = queryFactory
+                .select(Projections.fields(Partners.class,
+                        qPartners.id,
+                        qPartners.bnm,
+                        qPartners.tel,
+                        qPartners.thumnail,
+                        qPartners.adres,
+                        qPartners.DtlAdres))
+                .from(qPartners)
+                .where(builder)
+                .fetch();
+
+        log.debug("Shop Data ===="+shopData);
+
+        return shopData;
+    }
 }

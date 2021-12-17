@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -86,6 +87,21 @@ public class ShopController extends BaseCont {
         }
 
         return "/pages/shop/list";
+    }
+
+    @GetMapping("/pages/shop/list/{id}")
+    public String shopDetail(Model model,
+                              @PathVariable("id") Long id
+                            ){
+        List<Partners> shopData = shopService.findShopData(id);
+
+        if(shopData == null){
+            log.debug("not shop data");
+        }
+        model.addAttribute("id",id);
+        model.addAttribute("shopData",shopData);
+
+        return shopurl + "details";
     }
 
 }
