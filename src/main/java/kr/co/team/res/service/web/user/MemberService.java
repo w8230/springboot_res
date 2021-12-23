@@ -89,7 +89,7 @@ public class MemberService extends _BaseService {
                 partners.setZip(memberVO.getBzip());
                 partners.setRegDtm(LocalDateTime.now());
                 partners.setDelAt("N");
-                partners.setApproval("Y");
+                partners.setApproval("W");
                 partners.setId(partners.getId());
                 account.setApproval("W");
                 account.setMberDvTy(UserRollType.PARTNERS);

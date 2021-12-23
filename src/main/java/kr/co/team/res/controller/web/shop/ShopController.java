@@ -49,27 +49,20 @@ public class ShopController extends BaseCont {
         return shopurl + "modify";
     }
 
-    /*@RequestMapping("/api/search/shoplist")
-    public String srchShoplist(HttpServletRequest request ,
-                               @PageableDefault Pageable pageable ,
-                               @ModelAttribute SearchVO searchVO,
-                               @CurrentUser Account account ,
-                               Model model) {
-        if(searchVO.getTotalSrchWord() == null
-                || "".equals(searchVO.getTotalSrchWord())
-                || searchVO.getTotalSrchWord().length() < 2) {
-            String referrer = request.getHeader("Referer");
-            model.addAttribute("altmsg" , "검색어를 두 글자 이상 입력해주세요.");
-            model.addAttribute("locurl", "/index");
-            return "/message";
+    /*@RequestMapping("/shop/list")
+    public String shoplist(Model model,
+                           @PageableDefault Pageable pageable,
+                           @ModelAttribute SearchVO searchVO) {
+        if(searchVO.getSrchWord() == null || searchVO.getSorting().isEmpty()){
+            searchVO.setSorting("latest");
         }
 
 
 
         return "/pages/shop/list";
     }*/
-
-    @GetMapping("/api/search/shop")
+    //리스트 페이지
+    @PostMapping("/shop/list")
     public String shopsrch(Model model,
                            HttpServletRequest request,
                            @PageableDefault Pageable pageable,
@@ -82,13 +75,14 @@ public class ShopController extends BaseCont {
             return "/message";
         } else {
             String srchWord = searchVO.getSrchWord();
-            Page<Partners> shoplist = shopService.searchShoplist(srchWord , pageable);
+            Page<Partners> shoplist = shopService.searchShoplist(srchWord , pageable , searchVO);
+            model.addAttribute("form" , searchVO);
             model.addAttribute("shoplist" , shoplist);
         }
 
         return "/pages/shop/list";
     }
-
+    //디테일 페이지
     @GetMapping("/pages/shop/list/{id}")
     public String shopDetail(Model model,
                               @PathVariable("id") Long id
@@ -98,6 +92,7 @@ public class ShopController extends BaseCont {
         if(shopData == null){
             log.debug("not shop data");
         }
+
         model.addAttribute("id",id);
         model.addAttribute("shopData",shopData);
 

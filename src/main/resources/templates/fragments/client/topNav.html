@@ -2,6 +2,21 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <script src="resources/data-components/search/search.js"></script>
 
+<script>
+	$(function () {
+		var srchWord = $('#srchWord')
+
+		$('#btnSave').click(function () {
+			console.log("123");
+			console.log("srchWord : " , srchWord)
+
+			var frm = $('#form1');
+			frm.prop('action', '/shop/list');
+			frm.submit();
+		});
+	})
+</script>
+
 <!-- 헤더 [s] -->
 <header>
 	<div id="top-sticky-header" class="top-main-header-area d-none d-md-block">
@@ -62,7 +77,6 @@
 
 <!-- 검색 area [s]  -->
 <div class="newletter_area overlay">
-	<form action="/api/search/shop" method="get" id="form1" name="form1">
 		<div class="container">
 			<div class="row justify-content-left">
 				<div class="col-lg-6 d-md-block"> <!-- d-none -->
@@ -86,7 +100,7 @@
 										</div>
 										<div class="col-lg-2 col-md-2">
 											<div class="newsletter_btn">
-												<button class="boxed-btn4 ">검색</button>
+												<button id="btnSave" name="btnSave" type="submit" class="boxed-btn4 ">검색</button>
 											</div>
 										</div>
 
@@ -97,6 +111,6 @@
 				</div>
 			</div>
 		</div>
-	</form>
+
 </div>
 <!-- 검색 area [e]  -->

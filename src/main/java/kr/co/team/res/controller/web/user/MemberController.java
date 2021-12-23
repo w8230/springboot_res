@@ -62,8 +62,14 @@ public class MemberController extends BaseCont {
         }
 
         if(result){
-            model.addAttribute("altmsg" , "회원가입이 완료되었습니다.");
-            model.addAttribute("locurl" , "/pages/login");
+            if(memberVO.getMberDvTy().equals(UserRollType.NORMAL)) {
+                model.addAttribute("altmsg", "회원가입이 완료되었습니다.");
+                model.addAttribute("locurl", "/pages/login");
+            }
+            if(memberVO.getMberDvTy().equals(UserRollType.PARTNERS)){
+                model.addAttribute("altmsg", "RES파트너 신청을 완료하였습니다. 승인은 가입일 기준 2일이 소요 됩니다. ");
+                model.addAttribute("locurl", "/pages/login");
+            }
             return "/message";
         } else {
             model.addAttribute("altmsg" , "회원가입에 실패하였습니다. RES에 문의해주세요.");

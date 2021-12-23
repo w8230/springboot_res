@@ -41,7 +41,7 @@ public class LoginController extends BaseCont {
     private final SystemService systemService;
     private final PasswordEncoder passwordEncoder;
     private final LoginCnntLogsService loginCnntLogsService;
-
+    private final MemberService memberService;
 
 
     //private final ResourceServerTokenServices tokenServices;	//kakao login 2020.03.03  fail
@@ -59,6 +59,8 @@ public class LoginController extends BaseCont {
                         HttpSession session) throws UnsupportedEncodingException {
 
         String redirect = "/";
+
+
         if (super.isLogined(account)) {
             log.debug("이미로그인됨 메인이동, account:{}", account);
             if(UserRollType.ADMIN.name().equals(account.getMberDvTy().name())
@@ -86,17 +88,22 @@ public class LoginController extends BaseCont {
                                HttpServletRequest request,
                                HttpServletResponse response) throws IOException {
 
-        log.info("== Run LoginSuccess ==");
-        log.info("Success LoginID Get "+ account.getLoginId());
-        //log.debug("==로그인성공 후처리시작");
-
         String redirect = "/";
-
         log.info("가나다라마"+account.getApproval().equals("N"));
+        HttpSession session = request.getSession(false);
+
+        if(account.getApproval().equals("W")){
+            model.addAttribute("altmsg", "승인되지 않은 RES파트너 입니다. 승인은 가입일을 기준으로 2일 소요 됩니다.");
+            model.addAttribute("locurl", "/pages/login");
+            session.invalidate();
+            return "/message";
+        }
+
         if(account.getApproval().equals("N")) {
-            model.addAttribute("mc","memberJoin");
-            model.addAttribute("rsMsg","미승인 계정입니다.");
-            return "/pages/login";
+            model.addAttribute("altmsg", "가입이 거부 된 회원입니다. 고객센터로 문의하세요.");
+            model.addAttribute("locurl", "/pages/login");
+            session.invalidate();
+            return "/message";
         }
         if(UserRollType.ADMIN.name().equals(account.getMberDvTy().name())
                 || UserRollType.MASTER.name().equals(account.getMberDvTy().name())) {
@@ -133,24 +140,16 @@ public class LoginController extends BaseCont {
                                HttpServletRequest request) {
 
         log.info("== Run LoginFailure ==");
-
         //log.debug("==로그인실패 후처리시작");
         String userId = request.getAttribute("userId") != null ? request.getAttribute("userId").toString() : "";
         String msg = request.getAttribute("ERRORMSG") != null ? request.getAttribute("ERRORMSG").toString() : "";
-
         System.out.println("Failure ==" + msg);
-
         model.addAttribute("errormsg", msg);
-
         //rttr.addFlashAttribute("message", "fail");
-
         //로그인기록을 남김.
         //systemService.loginFailAsync(userId, msg, request);
-
         Integer failCnt = 0;
-
         LoginCnntLogs loginCnntLogs = new LoginCnntLogs();
-
         if (userId != null) {
             loginCnntLogs.setCnctId(userId);
             LoginCnntLogs failInfo = loginCnntLogsService.loginFailCnt(loginCnntLogs);

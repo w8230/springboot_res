@@ -973,3 +973,21 @@ div > .top_user_id { color: #ff4a52; }
 	font-size: 16px; 
 	line-height: 30px;
 }
+
+.list_module { font-size: 0px; text-align: left; padding: 0px 0px 20px; }
+.list_module .li_list_box:hover { z-index: 1; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 16px 0px; }
+.list_module .li_list_box.is_active { border: 1px solid rgb(0, 0, 0); box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px; }
+.list_module .li_list_box .list_item_link { display: flex; width: 770px; height: 200px; position: static; border-bottom: 1px solid rgb(238, 238, 238); padding: 20px 0px; margin: 0px auto; font-size: 0px; justify-content: space-between; }
+.list_module .li_list_box.list_item_skeleton_area:first-child { margin-top: 20px; }
+.list_module .li_list_box.list_item_skeleton_area:hover { box-shadow: none; }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap { padding: 20px 0px; margin: 0px 10px; border-bottom: 1px solid rgb(238, 238, 238); }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap .item_left_box { display: inline-block; width: 218px; height: 150px; margin-right: 30px; background: linear-gradient(90deg, rgb(243, 243, 243) 0px, rgba(232, 232, 232, 0.8) 60px, rgb(243, 243, 243) 100px) 0% 0% / 600px; animation: 2s ease-out 0s infinite normal none running shine-avatar; }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap .item_right_box { display: inline-block; width: calc(100% - 248px); vertical-align: top; }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap .item_right_box .line { background: linear-gradient(90deg, rgb(243, 243, 243) 0px, rgba(232, 232, 232, 0.8) 60px, rgb(243, 243, 243) 100px) 0% 0% / 600px; animation: 2s ease-out 0s infinite normal none running shine-lines; }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap .item_right_box .first_line { display: inline-block; width: 214px; height: 20px; margin-bottom: 10px; background-color: rgb(243, 243, 243); }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap .item_right_box .second_line { display: inline-block; width: 340px; height: 24px; margin-bottom: 40px; background-color: rgb(243, 243, 243); }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap .item_right_box .third_line { display: inline-block; width: 186px; height: 20px; margin-bottom: 20px; background-color: rgb(243, 243, 243); }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap .item_right_box .fourth_line { position: relative; }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap .item_right_box .fourth_line .sub_line_first { display: inline-block; width: 210px; height: 20px; background-color: rgb(243, 243, 243); }
+.list_module .li_list_box.list_item_skeleton_area .li_list_box_wrap .item_right_box .fourth_line .sub_line_second { display: inline-block; width: 100px; height: 20px; background-color: rgb(243, 243, 243); position: absolute; right: 0px; }
+

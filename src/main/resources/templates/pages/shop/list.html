@@ -3,136 +3,139 @@
 <head>
     <th:block th:include="fragments/client/header"></th:block>
 </head>
-<th:block th:include="fragments/client/topNav"></th:block>
+<script>
+    $(function () {
+        var srchWord = $('#srchWord')
+
+        $('#btnSave').click(function () {
+            console.log("123");
+            console.log("srchWord : " , srchWord)
+
+            var frm = $('#form1');
+            frm.prop('action', '/shop/list');
+            frm.submit();
+        });
+    })
+</script>
 <body>
-<section class="m-t-20 m-b-20">
-    <div class="container">
-        <div class="title_box m-b-20">
-            <h5>원하는 샵을 찾아보세요.</h5>
-        </div>
-        <div class="row">
-            <!-- 왼쪽 사이드바 [s] -->
-            <div class="tit_and_tab_module col-lg-3 col-md-3">
-                <div class="tab_btn_box_stay_list">
-                    <div class="tab_btn is_active">
-                        <span class="stay_kind_img"><i class="fas fa-home"></i></span>
-                        <span class="stay_kind">샵 이름으로 검색</span>
-                    </div>
-                    <div class="tab_btn">
-                        <span class="stay_kind_img"><i class="fas fa-home"></i></span>
-                        <span class="stay_kind">지역명으로 검색</span>
+<form id="form1" name="form1" method="post" th:object="${form}">
+    <th:block th:include="fragments/client/topNav"></th:block>
+    <section class="m-t-20 m-b-20">
+        <div class="container">
+            <div class="title_box m-b-20">
+                <h5>원하는 샵을 찾아보세요.</h5>
+            </div>
+            <div class="row">
+                <!-- 왼쪽 사이드바 [s] -->
+                <div class="tit_and_tab_module col-lg-3 col-md-3">
+                    <div class="tab_btn_box_stay_list">
+                        <div class="tab_btn is_active">
+                            <span class="stay_kind_img"><i class="fas fa-home"></i></span>
+                            <span class="stay_kind">샵 이름으로 검색</span>
+                        </div>
+                        <div class="tab_btn">
+                            <span class="stay_kind_img"><i class="fas fa-home"></i></span>
+                            <span class="stay_kind">지역명으로 검색</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- 왼쪽 사이드바 [e] -->
+                <!-- 왼쪽 사이드바 [e] -->
 
-            <!-- 오른쪽 게스트하우스 리스트 [s] -->
-            <div class="col-lg-9 col-md-9">
-                <th:block th:if="${shoplist.totalElements} > 0">
-                    <div class="serch_total">
-                        <h6 class="m-b-0">원하는 샵 <strong th:text="${shoplist.totalElements}"></strong>개에서 둘러보세요!</h6>
-                    </div>
-                </th:block>
-                <th:block th:if="${shoplist.totalElements} <= 0">
-                    <div class="no_list_box p-t-180 p-b-180">
-                        <div class="no_list_txt_box">
-                            검색된 샵이 없습니다!
+                <!-- 오른쪽 게스트하우스 리스트 [s] -->
+                <div class="col-lg-9 col-md-9">
+                    <th:block th:if="${shoplist.totalElements} > 0">
+                        <div class="serch_total">
+                            <h6 class="m-b-0">원하는 샵 <strong th:text="${shoplist.totalElements}"></strong>개에서 둘러보세요!</h6>
                         </div>
-                    </div>
-                </th:block>
-                <th:block th:if="${shoplist.totalElements} > 0">
-                    <div class="post_list">
-                        <ul class="list_module">
-                            <li class="li_list_box" th:each="item : ${shoplist}">
-                                <a class="list_item_link">
-                                    <div class="list_contents-left">
-                                        <div class="thumbnail_box">
-                                            <img src="/ui/client/img/shop/no_tumbnail.jpg" th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;">
-                                        </div>
-                                    </div>
-                                    <div class="list_contents-right">
-
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="list_box" th:each="item : ${shoplist}">
-                            <div class="list_item_link" style="cursor:pointer;">
-                                <div class="list_contents-left">
-                                    <th:block th:if="${item.thumnail == null or item.thumnail.isEmpty()}">
-                                        <div class="thumbnail_box">
-                                            <img src="/ui/client/img/shop/no_tumbnail.jpg" th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;">
-                                        </div>
-                                    </th:block>
-                                    <th:block th:unless="${item.thumnail == null or item.thumnail.isEmpty()}">
-                                        <div class="thumbnail_box">
-                                            <img th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;">
-                                        </div>
-                                    </th:block>
-
-                                    <!--<th:block th:if="${!item.thumnail == null or !item.thumnail.isEmpty()}">
-                                        <div class="thumbnail_box">
-                                            <img src="resources/assets/main/gh_img/${list.THUMBNAIL}">
-                                        </div>
-                                    </th:block>-->
-                                </div>
-                                <li class="list_box">
-                                    <div class="list_txt_top">
-                                        <div class="translated_name_and_name">
-                                            <a th:text="${item.bnm}" th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;"></a>
-                                        </div>
-                                        <div class="added_info">
-                                            <div class="location"th:text="|${item.adres}(${item.dtlAdres})|"></div>
-                                        </div>
-                                    </div>
-                                    <!--<div class="list_txt_bottom">
-                                        <div class="added_info-mid">
-                                            <div class="dot_list">즉시예약 · 전액결제</div>
-                                        </div>
-                                        <div class="added_info-last">
-                                            <div class="facilities">${list.PUBLIC_FACILITY}</div>
-                                        </div>
-                                        <div class="essential_info">
-                                            <div class="no_result__review">리뷰 ${list.CNT}</div>
-                                            <div class="wish_total">좋아요 ${list.LIKES}</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="price_box">
-                                        <div class="month_stay_price">
-                                            <div>
-                                                <div class="number_of_nights">1박</div>
-                                            </div>
-                                            <div class="current_price">
-                                                <b style="color: #000000">
-                                                    ${list.PRICE}원
-                                                </b>
-                                            </div>
-                                        </div>
-                                    </div>-->
-                                </li>
+                    </th:block>
+                    <th:block th:if="${shoplist.totalElements} <= 0">
+                        <div class="no_list_box p-t-180 p-b-180">
+                            <div class="no_list_txt_box">
+                                검색된 샵이 없습니다!
                             </div>
                         </div>
-                    </div>
-                </th:block>
-                <!-- 페이징 [s] -->
-                <th:block th:replace="fragments/client/paging :: paging(list=${shoplist}, link='/pages/shop/list' , formId ='form1')">
-                </th:block>
-                <!--<th:block
-                        th:replace="/fragments/client/paging :: pagingbody(list=${shoplist}, link='/pages/shop/list/' + ${shoplist.id}, formId='form1')"></th:block>-->
-                <!--<div class="text-center m-t-30 m-b-60">
-                        <a th:text="${shoplist.getTotalPages() - 1}" href="gh_list_page?page_num=${paging.NOW_PAGE-1}" class="m-r-20">이전</a>
-                    <div class="paging_box">
-                                <a href="gh_list_page?page_num=${status.count}" class="sp_active">${status.count}</a>
-                                <a href="gh_list_page?page_num=${status.count}">${status.count}</a>
-                    </div>
-                        <a href="gh_list_page?page_num=${paging.NOW_PAGE+1}" class="m-l-20">다음</a>
-                </div>-->
-                <!-- 페이징 [e] -->
+                    </th:block>
+                    <th:block th:if="${shoplist.totalElements} > 0">
+                        <div class="post_list">
+                            <div class="list_box" th:each="item : ${shoplist}">
+                                <div class="list_item_link" style="cursor:pointer;">
+                                    <div class="list_contents-left">
+                                        <th:block th:if="${item.thumnail == null or item.thumnail.isEmpty()}">
+                                            <div class="thumbnail_box">
+                                                <img src="/ui/client/img/shop/no_tumbnail.jpg" th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;">
+                                            </div>
+                                        </th:block>
+                                        <th:block th:unless="${item.thumnail == null or item.thumnail.isEmpty()}">
+                                            <div class="thumbnail_box">
+                                                <img th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;">
+                                            </div>
+                                        </th:block>
+
+                                        <!--<th:block th:if="${!item.thumnail == null or !item.thumnail.isEmpty()}">
+                                            <div class="thumbnail_box">
+                                                <img src="resources/assets/main/gh_img/${list.THUMBNAIL}">
+                                            </div>
+                                        </th:block>-->
+                                    </div>
+                                    <li class="list_box">
+                                        <div class="list_txt_top">
+                                            <div class="translated_name_and_name">
+                                                <a th:text="${item.bnm}" th:href="|/pages/shop/list/${item.id}|" style="cursor:pointer;"></a>
+                                            </div>
+                                            <div class="added_info">
+                                                <div class="location"th:text="|${item.adres}(${item.dtlAdres})|"></div>
+                                            </div>
+                                        </div>
+                                        <!--<div class="list_txt_bottom">
+                                            <div class="added_info-mid">
+                                                <div class="dot_list">즉시예약 · 전액결제</div>
+                                            </div>
+                                            <div class="added_info-last">
+                                                <div class="facilities">${list.PUBLIC_FACILITY}</div>
+                                            </div>
+                                            <div class="essential_info">
+                                                <div class="no_result__review">리뷰 ${list.CNT}</div>
+                                                <div class="wish_total">좋아요 ${list.LIKES}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="price_box">
+                                            <div class="month_stay_price">
+                                                <div>
+                                                    <div class="number_of_nights">1박</div>
+                                                </div>
+                                                <div class="current_price">
+                                                    <b style="color: #000000">
+                                                        ${list.PRICE}원
+                                                    </b>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <!-- 페이징 [s] -->
+                    <th:block th:replace="fragments/client/paging :: paging(list=${shoplist}, link='/shop/list' , formId ='form1')">
+                    </th:block>
+                    <!--<th:block
+                            th:replace="/fragments/client/paging :: pagingbody(list=${shoplist}, link='/pages/shop/list/' + ${shoplist.id}, formId='form1')"></th:block>-->
+                    <!--<div class="text-center m-t-30 m-b-60">
+                            <a th:text="${shoplist.getTotalPages() - 1}" href="gh_list_page?page_num=${paging.NOW_PAGE-1}" class="m-r-20">이전</a>
+                        <div class="paging_box">
+                                    <a href="gh_list_page?page_num=${status.count}" class="sp_active">${status.count}</a>
+                                    <a href="gh_list_page?page_num=${status.count}">${status.count}</a>
+                        </div>
+                            <a href="gh_list_page?page_num=${paging.NOW_PAGE+1}" class="m-l-20">다음</a>
+                    </div>-->
+                    <!-- 페이징 [e] -->
+                </div>
+                <!-- 오른쪽 게스트하우스 리스트 [e] -->
             </div>
-            <!-- 오른쪽 게스트하우스 리스트 [e] -->
         </div>
-    </div>
-</section>
+    </section>
+</form>
 </body>
+<th:block th:include="fragments/client/footer"></th:block>
 </html>
