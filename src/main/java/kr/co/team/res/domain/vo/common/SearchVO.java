@@ -59,6 +59,7 @@ public class SearchVO {
     private String delAt;
     private String srchDelAt;
     private String useAt;
+    private String approval;
 
     private Integer nowYear;
     private String nowYearMonth;

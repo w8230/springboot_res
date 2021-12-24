@@ -535,11 +535,12 @@
 
 .no_list_box { text-align: center; }
 
-.column_left { 
-	width: 780px; 
+.column_left {
+	width: 1110px;
 	display: inline-block;
 }
 .review_list {
+	width: 1110px;
 	margin-top: 0;
 	border-top: 1px solid #ccc;
 }
@@ -588,6 +589,7 @@
 }
 
 .comment_box {
+	width: 1110px;
 	margin-top: 20px;
 	padding: 35px 0;
 	background-color: #f9f9f9;

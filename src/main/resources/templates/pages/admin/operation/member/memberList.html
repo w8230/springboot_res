@@ -1,0 +1,163 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script src="/data/admin/system/bannerList.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="fragments/admin/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+
+                <ul class="breadcrumb">
+                    <li><i class="material-icons">home</i></li>
+                    <li>운영관리</li>
+                    <li>회원 관리</li>
+                </ul>
+
+                <div class="contents">
+
+                    <div class="search_area clearfix">
+                        <dl class="col">
+                            <dt>회원구분</dt>
+                            <dd>
+                                <select th:field="*{userRollType}">
+                                    <option value="">전체</option>
+                                    <option th:each="tp : ${T(kr.co.team.res.domain.enums.UserRollType).values()}"
+                                            th:value="${tp}"
+                                            th:text="${tp.getName()}"></option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <dl class="col">
+                            <dt>승인여부</dt>
+                            <dd>
+                                <select th:field="*{approval}">
+                                    <option value="">전체</option>
+                                    <option value="Y" >승인</option>
+                                    <option value="N" >거부</option>
+                                    <option value="W" >대기</option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <dl class="col">
+                            <dt>제목</dt>
+                            <dd>
+                                <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:400px" />
+                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+                                    <i class="material-icons">search</i>조회
+                                </button>
+                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+                                    <i class="material-icons">refresh</i>초기화
+                                </button>
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="board_list">
+                        <div class="board_top clearfix">
+                            <div class="fl">
+                                <div class="total_num">총 <b th:text="${#numbers.formatInteger(list.totalElements, 0, 'COMMA')}">2</b></div>
+                            </div>
+                            <!--<div class="fr">
+                                <a href="/admin/banner/register" class="btn btn_sm btn_blue">
+                                    <i class="material-icons">library_add</i>배너 추가
+                                </a>
+                            </div>-->
+                        </div>
+
+                        <table class="tbl_list mo_tbl_list">
+                            <colgroup>
+                                <col style="width:5%" />
+                                <col style="width:10%" />
+                                <col style="width:auto" />
+                                <col style="width:20%" />
+                                <col style="width:10%" />
+                                <col style="width:12%" />
+                                <col style="width:8%" />
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">성명</th>
+                                <th scope="col">닉네임</th>
+                                <th scope="col">회원구분</th>
+                                <th scope="col">가입일</th>
+                                <th scope="col">승인여부</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                            <tr th:if="${list == null or list.isEmpty()}">
+                                <td colspan="7">등록된 정보 없습니다.</td>
+                            </tr>
+                            <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                            <tr th:each="item,idx : ${list}">
+                                <td th:text="${list.totalElements - list.pageable.pageSize * list.pageable.pageNumber - idx.index}"></td>
+                                <td>
+                                    <b>
+                                        <a th:href="|/admin/user/detail/${item.id}|"  th:text="${item.loginId}"></a>
+                                    </b>
+                                </td>
+                                <td>
+                                    <strong class="th">성명</strong>
+                                    <div th:text="${item.nm}"></div>
+                                </td>
+                                <td>
+                                    <strong class="th">닉네임</strong>
+                                    <div th:text="${item.ncnm}"></div>
+                                </td>
+                                <td>
+                                    <strong class="th">회원구분</strong>
+                                    <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).NORMAL}">
+                                        <script>console.log("1")</script>
+                                        <div>일반회원</div>
+                                    </th:block>
+                                    <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).PARTNERS}">
+                                        <script>console.log("2")</script>
+                                        <div>협력사</div>
+                                    </th:block>
+                                    <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).ADMIN}">
+                                        <script>console.log("3")</script>
+                                        <div>관리자</div>
+                                    </th:block>
+                                    <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).MASTER}">
+                                        <script>console.log("4")</script>
+                                        <div>마스터</div>
+                                    </th:block>
+                                </td>
+                                <td>
+                                    <strong class="th">가입일</strong>
+                                    <div th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></div>
+                                </td>
+                                <td>
+                                    <strong class="th">승인여부</strong>
+                                    <th:block th:if="${item.approval eq 'Y'}">
+                                        <div>승인됨</div>
+                                    </th:block>
+                                    <th:block th:if="${item.approval eq 'N'}">
+                                        <div>거부됨</div>
+                                    </th:block>
+                                    <th:block th:if="${item.approval eq 'W'}">
+                                        <div>대기중</div>
+                                    </th:block>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <th:block th:replace="/fragments/admin/paging :: pagingbody(list=${list},
+                                            link='/admin/user/userList', formId='form1')"> </th:block>
+                        <!--<th:block th:replace="/fragments/admin/paging :: pagingbody(list=${list},
+                                            link='/admin/user/userList' + ${bannerVO.banDvTy}, formId='form1')"></th:block>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+        <th:block th:replace="fragments/admin/footer"></th:block>
+    </div>
+</div>
+</body>
+</html>
