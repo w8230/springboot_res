@@ -84,7 +84,7 @@ public class MenuController extends BaseCont {
         }
 
         redirect.addAttribute("srchMnGbnCdPid", form.getSrchMnGbnCdPid());
-        return "redirect:/admin/system/menu/list";
+        return "redirect:/admin/system/menuList";
     }
 
     @PostMapping("/api/menu/delete")
@@ -103,7 +103,7 @@ public class MenuController extends BaseCont {
         MenuService.delete(menuFormList);
 
         //redirect.addAttribute("srch_menu_group_cd_id", menu.getSrch_menu_group_cd_id());
-        return "redirect:/admin/system/menu/list";
+        return "redirect:/admin/system/menuList";
     }
 
 

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script type="text/javascript">
+        function fn_search() {
+            var frm = $('#form1');
+            frm.prop('action', '?');
+            frm.submit();
+        }
+
+        function fn_reset() {
+            $('#srchGbn').val('').niceSelect('update');
+            $('#srchStDt').val('');
+            $('#srchEdDt').val('');
+            $('#srchField').val('1').niceSelect('update');
+            $('#srchWord').val('');
+
+            fn_search();
+        }
+
+        ////-------- page load
+        $(function () {
+            fn_setDatePicker('#srchStDt', {
+                onShow:function( ct ){
+                    this.setOptions({
+                        maxDate:$('#srchEdDt').val()?$('#srchEdDt').val():false
+                    })
+                }
+            });
+
+            fn_setDatePicker('#srchEdDt', {
+                onShow:function( ct ){
+                    this.setOptions({
+                        minDate:$('#srchStDt').val()?$('#srchStDt').val():false
+                    })
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="fragments/admin/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <script type="text/javascript">
+
+                function fn_resetForm() {
+                    $('#id').val('');
+                    $('#loginId').val('');
+                    $('#pwd').val('');
+                    $('#nm').val('');
+                    $('#sexPrTy').val('');
+                    $('#mberDvTy').val('');
+                    $('#moblphon').val('');
+                    $('#email').val('');
+                    $('#zip').val('');
+                    $('#adres').val('');
+                    $('#dtlAdres').val('');
+                    $('#ncnm').val('');
+                    $('#secsnDtm').val('');
+                    $('#secsnRsn').val('');
+                    $('#sttTy').val('');
+
+                    $('#btnDelete').hide();
+                    //$('#btnModify').hide()
+                }
+
+                $(function () {
+                    fn_resetForm();
+
+                    /*$('#btnDelete').click(function () {
+                        if (!confirm('삭제하시겠습니까?')) {
+                            return;
+                        }
+
+                        var frm = $('#form1');
+                        frm.prop('action', '/api/soulGod/member/delete');
+                        frm.submit();
+                    });*/
+                });
+            </script>
+
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" id="id" name="id"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>운영관리</li>
+                        <li>회원관리</li>
+                    </ul>
+
+                    <div class="search_area clearfix">
+                        <dl class="col">
+                            <dt>구분</dt>
+                            <dd>
+                                <select th:field="*{srchGbn}">
+                                    <option value="">전체</option>
+                                    <option th:each="tp : ${T(kr.co.team.res.domain.enums.UserRollType).values()}"
+                                            th:value="${tp}"
+                                            th:text="${tp.getName()}"></option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <dl class="col">
+                            <dt>가입일</dt>
+                            <dd>
+                                <div class="term_form">
+                                    <input type="text" th:field="*{srchStDt}" class="form_date" readonly />
+                                    <span class="swung">~</span>
+                                    <input type="text" th:field="*{srchEdDt}" class="form_date" readonly />
+                                </div>
+                            </dd>
+                        </dl>
+                        <div class="col">
+                            <select th:field="*{srchField}" class="w120">
+                                <option value="1" selected>전체</option>
+                                <option value="2" selected>이름</option>
+                                <option value="3" selected>아이디</option>
+                                <option value="4" selected>이메일</option>
+                            </select>
+                            <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+                                <i class="material-icons">search</i>조회
+                            </button>
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+                                <i class="material-icons">refresh</i>초기화
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="board_list">
+                        <h4 class="sec_tit">회원 리스트</h4>
+                        <div class="board_top clearfix">
+                            <div class="fl">
+                                <div class="total_num">
+                                    <b>
+                                        회원수: <th:block th:text="${#numbers.formatInteger(members.totalElements, 0, 'COMMA')}">000</th:block>명
+                                    </b>
+                                </div>
+                                <!--<p class="mb20 fz17">
+                                    <b>
+                                        (회원수: <th:block th:text="${#numbers.formatInteger(totCnt, 0, 'COMMA')}">000</th:block>명)
+                                    </b>
+                                </p>-->
+                            </div>
+                            <div class="fr">
+                                <a href="/soulGod/member/groupList" class="btn btn_sm btn_r_blue">
+                                    <i class="material-icons mt0">list</i>단체회원 관리
+                                </a>
+                                <a href="/soulGod/member/register" class="btn btn_sm btn_blue">
+                                    <i class="material-icons mt0">add</i>관리자/푸코강사/상담사 추가
+                                </a>
+                            </div>
+                        </div>
+                        <div class="board_detail clearfix">
+                            <table class="tbl_list">
+                                <colgroup>
+                                    <col style="width: 60px"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>이름</th>
+                                    <th>아이디</th>
+                                    <th>성별</th>
+                                    <th>구분</th>
+
+                                    <th>휴대폰</th>
+                                    <th>이메일</th>
+                                    <th>주소</th>
+                                    <th>가입(탈퇴)일</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                                <tr th:if="${members == null or members.isEmpty()}">
+                                    <td colspan="9">등록된 정보 없습니다.</td>
+                                </tr>
+                                <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                                <tr th:each="item,idx:${members}">
+                                    <td th:text="${members.totalElements - members.pageable.pageSize * members.pageable.pageNumber - idx.index}"></td>
+                                    <td th:text="${item.nm}"></td>
+                                    <td>
+                                        <a th:href="|/admin/member/detail/${item.id}|">
+                                            <b th:text="${item.loginId}"></b>
+                                        </a>
+                                    </td>
+                                    <td th:text="${T(kr.co.team.res.domain.enums.GenderType).valueOf(item.sexPrTy).getName()}"></td>
+                                    <td th:text="${T(kr.co.team.res.domain.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></td>
+                                    <td th:text="${item.moblphon}"></td>
+                                    <td th:text="${item.email}"></td>
+                                    <td th:text="${item.adres}"></td>
+                                    <td>
+                                        <th:block th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></th:block>
+                                        <br/>
+                                        <th:block th:if="${item.secsnDtm ne null}">
+                                            <span style="color: red">(<th:block th:text="${#strings.substring(item.secsnDtm,0,10)}"></th:block>)</span>
+                                        </th:block>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <th:block th:replace="/fragments/admin/paging :: pagingbody(list=${banners},
+                                            link='/admin/member/list/' + ${bannerVO.banDvTy}, formId='form1')"></th:block>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/admin/footer"></th:block>
+</div>
+</body>
+</html>

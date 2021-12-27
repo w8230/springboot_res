@@ -50,6 +50,10 @@
             data: jsonData,
             datatype: 'json',
             success: function (data) {
+                if (data == null) {
+                    alert('로그인이 필요합니다.');
+                    location.href = '/pages/login'
+                }
                 var menuHtml = '';
                 for (var i = 0; i < data.length; i++) {
 
@@ -103,7 +107,8 @@
             },
             error: function (error) {
                 //alert('save error!!!');
-                alert('error::' + error.statusText);
+                alert('로그인이 필요합니다.');
+                location.href = '/pages/login'
             }
         });
     }
