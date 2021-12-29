@@ -54,7 +54,6 @@
                                 </tr>
                                 <tr>
                                     <th scope="row"><label>구분</label></th>
-                                    <td th:text="*{T(kr.co.team.res.domain.enums.UserRollType).valueOf(mberDvTy).getName()}"></td>
                                         <!--<td>
                                             <th:block th:if="${mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).NORMAL}">
                                                 <div>일반회원</div>
@@ -88,7 +87,6 @@
                                                 <a>여성</a>
                                             </th:block>
                                         </td>
-                                    &lt;!&ndash;<td th:text="*{T(kr.co.team.res.domain.enums.UserRollType).getName()}"></td>&ndash;&gt;
                                     <th scope="row"><label>비밀번호</label></th>
                                     <td>
                                         <a href="#" class="btn btn_sm btn_blue" onclick="return refreshPassword()">
@@ -100,7 +98,6 @@
                                     <th scope="row"><label>주소</label></th>
                                     <td colspan="3">
 
-                                        &lt;!&ndash;<th:block th:if="*{zip ne null}" th:text="*{'[' + zip + '] ' + adres + ' ' + dtlAdres}"></th:block>&ndash;&gt;
                                     </td>
                                     <!--<th scope="row"><label>최근접속일자</label></th>
                                     <td></td>
@@ -110,7 +107,7 @@
                             </table>
                         </div>
 
-                        <th:block th:if="*{mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).PARTNERS}">
+                        <th:block th:if="${pt ne null}">
                             <div class="sec">
                                 <div class="board_top clearfix">
                                     <div class="fl">
@@ -130,20 +127,20 @@
                                     </colgroup>
                                     <tbody>
 
-                                    <tr th:each="list : ${partners}">
+                                    <tr>
                                         <th scope="row"><label>사업장명</label></th>
-                                        <td th:text="${list.bnm}"></td>
+                                        <td th:text="${pt.bnm}"></td>
                                         <th scope="row"><label>사업자번호</label></th>
-                                        <th:block th:if="${list.bno eq null}">
+                                        <th:block th:if="${pt.bno eq null}">
                                             <a>사업자번호가 등록 되지 않은 회원 입니다</a>
                                         </th:block>
-                                        <th:block th:>
-                                            <td th:text="${list.bno}"></td>
+                                        <th:block th:if="${pt.bno ne null}">
+                                            <td th:text="${pt.bno}"></td>
                                         </th:block>
                                         <th scope="row"><label>사업자 주소</label></th>
-                                        &lt;!&ndash;<td th:text="|${list.adres}(${list.dtlAdres}) ${list.zip}|"></td>&ndash;&gt;
+                                        <td th:text="|${pt.adres}(${pt.dtlAdres}) ${pt.zip}|"></td>
                                         <th scope="row"><label>사업장 연락처</label></th>
-                                        <td th:text="${list.tel}"></td>
+                                        <td th:text="${pt.tel}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -156,7 +153,7 @@
                                     <a class="btn btn_sm btn_lightgray">
                                         <i class="material-icons">list</i>수정
                                     </a>
-                                    <a class="btn btn_sm btn_lightgray" href="/soulGod/member/list">
+                                    <a class="btn btn_sm btn_lightgray" href="/admin/operation/member/list">
                                         <i class="material-icons">list</i>목록
                                     </a>
                                 </div>

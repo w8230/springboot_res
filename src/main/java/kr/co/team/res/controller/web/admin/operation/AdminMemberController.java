@@ -58,8 +58,8 @@ public class AdminMemberController extends BaseCont {
         if(account.getMberDvTy().equals(UserRollType.PARTNERS)) {
             PartnersVO partnersVO = new PartnersVO();
             partnersVO.setMberPid(account.getId());
-            List<Partners> partnersList = partnersService.list(partnersVO);
-            model.addAttribute("partners" , partnersList);
+            Partners partnersList = partnersService.list(partnersVO);
+            model.addAttribute("pt" , partnersList);
             //개인정보 form / 사업장 정보 partners
         }
 

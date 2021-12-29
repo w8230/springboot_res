@@ -29,7 +29,7 @@ public class PartnersService extends _BaseService {
     private final PartnersRepository partnersRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public List<Partners> list(PartnersVO partnersVO) {
+    public Partners list(PartnersVO partnersVO) {
 
         QPartners qPartners = QPartners.partners;
         OrderSpecifier<Long> orderSpecifier = qPartners.id.desc();
@@ -45,7 +45,7 @@ public class PartnersService extends _BaseService {
         if(partnersVO.getAdres() != null){
 
         }
-        List<Partners> partnersList = queryFactory
+        Partners partnersList = queryFactory
                 .select(Projections.fields(Partners.class,
                         qPartners.id,
                         qPartners.thumnail,
@@ -64,7 +64,7 @@ public class PartnersService extends _BaseService {
                 .from(qPartners)
                 .where(builder)
                 .orderBy(orderSpecifier)
-                .fetch();
+                .fetchFirst();
         return partnersList;
     }
 }
