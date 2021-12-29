@@ -72,9 +72,9 @@
                             <colgroup>
                                 <col style="width:5%" />
                                 <col style="width:10%" />
-                                <col style="width:auto" />
-                                <col style="width:20%" />
-                                <col style="width:10%" />
+                                <col style="width:15%" />
+                                <col style="width:15%" />
+                                <col style="width:15%" />
                                 <col style="width:12%" />
                                 <col style="width:8%" />
                             </colgroup>
@@ -99,7 +99,7 @@
                                 <td th:text="${list.totalElements - list.pageable.pageSize * list.pageable.pageNumber - idx.index}"></td>
                                 <td>
                                     <b>
-                                        <a th:href="|/admin/user/detail/${item.id}|"  th:text="${item.loginId}"></a>
+                                        <a th:href="|/admin/operation/member/detail/${item.id}|"  th:text="${item.loginId}"></a>
                                     </b>
                                 </td>
                                 <td>
@@ -113,19 +113,15 @@
                                 <td>
                                     <strong class="th">회원구분</strong>
                                     <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).NORMAL}">
-                                        <script>console.log("1")</script>
                                         <div>일반회원</div>
                                     </th:block>
                                     <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).PARTNERS}">
-                                        <script>console.log("2")</script>
                                         <div>협력사</div>
                                     </th:block>
                                     <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).ADMIN}">
-                                        <script>console.log("3")</script>
                                         <div>관리자</div>
                                     </th:block>
                                     <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).MASTER}">
-                                        <script>console.log("4")</script>
                                         <div>마스터</div>
                                     </th:block>
                                 </td>
@@ -136,13 +132,13 @@
                                 <td>
                                     <strong class="th">승인여부</strong>
                                     <th:block th:if="${item.approval eq 'Y'}">
-                                        <div>승인됨</div>
+                                        <div style="color: #00aced; font-weight: bold;">승인됨</div>
                                     </th:block>
                                     <th:block th:if="${item.approval eq 'N'}">
-                                        <div>거부됨</div>
+                                        <div style="color: #e81010; font-weight: bold;">거부됨</div>
                                     </th:block>
                                     <th:block th:if="${item.approval eq 'W'}">
-                                        <div>대기중</div>
+                                        <div style="color: #20c997; font-weight: bold;">대기중</div>
                                     </th:block>
                                 </td>
                             </tr>
@@ -150,8 +146,6 @@
                         </table>
                         <th:block th:replace="/fragments/admin/paging :: pagingbody(list=${list},
                                             link='/admin/user/userList', formId='form1')"> </th:block>
-                        <!--<th:block th:replace="/fragments/admin/paging :: pagingbody(list=${list},
-                                            link='/admin/user/userList' + ${bannerVO.banDvTy}, formId='form1')"></th:block>-->
                     </div>
                 </div>
             </form>

@@ -690,9 +690,11 @@ div > .top_user_id { color: #ff4a52; }
 	color: #888;
 
 }
+
 .menu_box_area .dept_menu_area .dept_menu_box .dept_menu :hover {
 	color: #9ce39e !important;
 }
+
 .menu_box_area .dept_menu_area .dept_menu_box .is_activity {
 	display: inline-block;
 	padding: 14px 10px;

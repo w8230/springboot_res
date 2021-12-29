@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <script src="/data/admin/system/bannerDetail.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="fragments/admin/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="contents">
+                    <div></div>
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>운영관리</li>
+                        <li>회원관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:20%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:20%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>회원명</label></th>
+                                    <td th:text="*{nm}"></td>
+                                    <th scope="row"><label>아이디</label></th>
+                                    <td th:text="*{loginId}"></td>
+                                    <th scope="row"><label>닉네임</label></th>
+                                    <td th:text="*{ncnm}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>구분</label></th>
+                                    <td th:text="*{T(kr.co.team.res.domain.enums.UserRollType).valueOf(mberDvTy).getName()}"></td>
+                                        <!--<td>
+                                            <th:block th:if="${mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).NORMAL}">
+                                                <div>일반회원</div>
+                                            </th:block>
+                                            <th:block th:if="${mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).PARTNERS}">
+                                                <div>협력사</div>
+                                            </th:block>
+                                            <th:block th:if="${mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).ADMIN}">
+                                                <div>관리자</div>
+                                            </th:block>
+                                            <th:block th:if="${mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).MASTER}">
+                                                <div>마스터</div>
+                                            </th:block>
+                                        </td>-->
+                                    <th scope="row"><label>휴대폰</label></th>
+                                    <td th:text="*{moblphon}"></td>
+                                    <th scope="row"><label>이메일</label></th>
+                                    <td th:text="*{email}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>가입일</label></th>
+                                    <td>
+                                        <th:block th:text="*{#temporals.format(regDtm, 'yyyy-MM-dd')}"></th:block>
+                                    </td>
+                                    <th scope="row"><label>성별</label></th>
+                                        <td>
+                                            <th:block th:if="*{sexPrTy eq 'MALE'}">
+                                                <a>남성</a>
+                                            </th:block>
+                                            <th:block th:if="*{sexPrTy eq 'FEMALE'}">
+                                                <a>여성</a>
+                                            </th:block>
+                                        </td>
+                                    &lt;!&ndash;<td th:text="*{T(kr.co.team.res.domain.enums.UserRollType).getName()}"></td>&ndash;&gt;
+                                    <th scope="row"><label>비밀번호</label></th>
+                                    <td>
+                                        <a href="#" class="btn btn_sm btn_blue" onclick="return refreshPassword()">
+                                            <i class="material-icons mt0">add</i>초기화
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>주소</label></th>
+                                    <td colspan="3">
+
+                                        &lt;!&ndash;<th:block th:if="*{zip ne null}" th:text="*{'[' + zip + '] ' + adres + ' ' + dtlAdres}"></th:block>&ndash;&gt;
+                                    </td>
+                                    <!--<th scope="row"><label>최근접속일자</label></th>
+                                    <td></td>
+                                    &lt;!&ndash;<td th:text="*{#temporals.format(cnctDtm,'yyyy-MM-dd')}"></td>&ndash;&gt;-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <th:block th:if="*{mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).PARTNERS}">
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit" >사업장 정보</h4>
+                                    </div>
+                                </div>
+                                <table class="tbl_write">
+                                    <colgroup>
+                                        <col style="width:7%"/>
+                                        <col style="width:15%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:15%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:auto"/>
+                                        <col style="width:20%"/>
+                                        <col style="width:15%"/>
+                                    </colgroup>
+                                    <tbody>
+
+                                    <tr th:each="list : ${partners}">
+                                        <th scope="row"><label>사업장명</label></th>
+                                        <td th:text="${list.bnm}"></td>
+                                        <th scope="row"><label>사업자번호</label></th>
+                                        <th:block th:if="${list.bno eq null}">
+                                            <a>사업자번호가 등록 되지 않은 회원 입니다</a>
+                                        </th:block>
+                                        <th:block th:>
+                                            <td th:text="${list.bno}"></td>
+                                        </th:block>
+                                        <th scope="row"><label>사업자 주소</label></th>
+                                        &lt;!&ndash;<td th:text="|${list.adres}(${list.dtlAdres}) ${list.zip}|"></td>&ndash;&gt;
+                                        <th scope="row"><label>사업장 연락처</label></th>
+                                        <td th:text="${list.tel}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </th:block>
+
+                        <div class="fr">
+                            <ul>
+                                <div class="btn_area">
+                                    <a class="btn btn_sm btn_lightgray">
+                                        <i class="material-icons">list</i>수정
+                                    </a>
+                                    <a class="btn btn_sm btn_lightgray" href="/soulGod/member/list">
+                                        <i class="material-icons">list</i>목록
+                                    </a>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/admin/footer"></th:block>
+</div>
+</body>
+</html>

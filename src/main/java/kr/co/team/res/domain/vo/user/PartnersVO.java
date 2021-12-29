@@ -38,6 +38,8 @@ public class PartnersVO {
     @NotNull(message = "성별은 필수 값입니다.")
     @NotBlank(message = "성별은 필수 값입니다.")
     private String sexPrTy;
+
+    private Long MberPid;
     private UserRollType mberDvTy;
     private String moblphon;
     private String email;
@@ -46,6 +48,7 @@ public class PartnersVO {
     private String dtlAdres;
     private LocalDateTime updDtm;
     private String delAt;
+
 
     private LocalDateTime emailAttcDtm;
     private LocalDateTime mobileAttcDtm;

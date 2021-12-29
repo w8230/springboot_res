@@ -31,18 +31,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserService extends _BaseService {
     private final JPAQueryFactory queryFactory;
-    //private final MemberRepository memberRepository;
-    //private final PartnersRepository partnersRepository;
-    //private final ModelMapper modelMapper;
-    //private final FileInfoRepository fileInfoRepository;
 
     public Page<Account> list(Pageable pageable , SearchVO searchVO , MemberVO memberVO ) {
+
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() -1);
         pageable = PageRequest.of(page, (searchVO.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchVO.getPageSize()));
 
         QAccount qAccount = QAccount.account;
-        QPartners qPartners = QPartners.partners;
-
         OrderSpecifier<Long> orderSpecifier = qAccount.id.desc();
 
         BooleanBuilder builder = new BooleanBuilder();
@@ -74,4 +69,47 @@ public class UserService extends _BaseService {
 
         return new PageImpl<>(memberList.getResults() , pageable , memberList.getTotal());
     }
+
+    public Account load(Long id) {
+
+        QAccount qAccount = QAccount.account;
+        QPartners qPartners = QPartners.partners;
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qAccount.id.eq(id));
+
+        Account account = queryFactory.select(Projections.fields(Account.class,
+                qAccount.id,
+                qAccount.loginId,
+                qAccount.pwd,
+                qAccount.nm,
+                qAccount.sexPrTy,
+                qAccount.mberDvTy,
+                qAccount.moblphon,
+                qAccount.email,
+                qAccount.zip,
+                qAccount.adres,
+                qAccount.dtlAdres,
+                qAccount.ncnm,
+                qAccount.brthdy,
+                qAccount.mobileAttcAt,
+                qAccount.mobileAttcDtm,
+                qAccount.emailAttcAt,
+                qAccount.emailAttcDtm,
+                qAccount.secsnDtm,
+                qAccount.secsnRsn,
+                qAccount.regPsId,
+                qAccount.regDtm,
+                qAccount.updPsId,
+                qAccount.updDtm,
+                qAccount.delAt,
+                qAccount.approval))
+                .from(qAccount)
+                .leftJoin(qPartners).on(qPartners.id.eq(qPartners.mberPid))
+                .where(builder)
+                .fetchFirst();
+
+        return account;
+    }
+
 }
