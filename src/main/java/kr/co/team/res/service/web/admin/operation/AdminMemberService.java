@@ -7,6 +7,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.team.res.common.Constants;
 import kr.co.team.res.domain.entity.Account;
+import kr.co.team.res.domain.entity.Partners;
 import kr.co.team.res.domain.entity.QAccount;
 import kr.co.team.res.domain.entity.QPartners;
 import kr.co.team.res.domain.repository.FileInfoRepository;
@@ -33,6 +34,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminMemberService extends _BaseService {
     private final JPAQueryFactory queryFactory;
+    private final MemberRepository memberRepository;
+    private final PartnersRepository partnersRepository;
 
 
     public Page<Account> list(Pageable pageable , SearchVO searchVO , MemberVO memberVO ) {
@@ -114,5 +117,48 @@ public class AdminMemberService extends _BaseService {
                 .fetchFirst();
 
         return account;
+    }
+    public Boolean Updateapproval(Long id , String approval) {
+
+        /*QAccount qAccount = QAccount.account;
+        QPartners qPartners = QPartners.partners;
+
+        BooleanBuilder builder = new BooleanBuilder();*/
+
+        // 넘어온 id로 조회해서
+        log.info("run UpdateApproval");
+        try{
+            log.info("run UpdateApproval try");
+            Account account = memberRepository.findById(id).orElseGet(Account::new);
+            if(approval.equals("Y")) {
+
+                log.info("run UpdateApproval Y if");
+                log.info("chk account" + account.getId());
+                account.setApproval("Y");
+                Partners partners = partnersRepository.findById(id).orElseGet(Partners::new);
+                if(partners != null || !partners.equals("")){
+                    log.info("run UpdateApproval partners if");
+                    log.info("chk account" + partners.getId());
+                    partners.setApproval("Y");
+                    account.setApproval("Y");
+                }
+
+            } else if(approval.equals("N")) {
+
+                log.info("run UpdateApproval N if");
+                account.setApproval("N");
+                Partners partners = partnersRepository.findById(id).orElseGet(Partners::new);
+                if(partners != null || !partners.equals("")){
+                    log.info("run UpdateApproval Y if Partners");
+                    partners.setApproval("N");
+                    account.setApproval("N");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return true;
     }
 }

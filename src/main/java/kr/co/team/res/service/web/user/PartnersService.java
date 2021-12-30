@@ -35,7 +35,6 @@ public class PartnersService extends _BaseService {
         OrderSpecifier<Long> orderSpecifier = qPartners.id.desc();
 
         BooleanBuilder builder = new BooleanBuilder();
-        log.info("Service" + partnersVO.getMberPid());
         if(partnersVO.getMberPid() != null){
             builder.and(qPartners.mberPid.eq(partnersVO.getMberPid()));
         }

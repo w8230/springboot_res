@@ -18,10 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,7 +48,6 @@ public class AdminMemberController extends BaseCont {
                          @PathVariable(name = "id") Long id) {
 
         //Id 값 가져오기 문제 없음.
-        log.info("id :: " + id);
         Account account = adminMemberService.load(id);
         model.addAttribute("form", account);
 
@@ -69,6 +65,15 @@ public class AdminMemberController extends BaseCont {
     @RequestMapping("/modify")
     public String modify(){ return null; }
 
+    @ResponseBody
     @RequestMapping("/api/approval")
-    public String approval() { return null; }
+    public void Updateapproval(@RequestParam(name = "approval" , required = false) String approval ,
+                         @RequestParam(name = "pid" , required = false) Long id) {
+        /* 데이터 잘 넘어옴
+        Long pid = id;
+        pid.toString();
+        System.out.println("approval : " + approval);
+        System.out.println("approval : " + pid);*/
+        adminMemberService.Updateapproval(id , approval);
+    }
 }

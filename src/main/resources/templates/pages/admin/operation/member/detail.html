@@ -2,8 +2,10 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/admin/header"></th:block>
-    <script src="/data/admin/system/bannerDetail.js"></script>
+    <!--<script src="/data/admin/system/bannerDetail.js"></script>-->
+    <script src="/data/admin/system/memberDetail.js"></script>
 </head>
+
 <body>
 <div id="wrap">
     <th:block th:include="fragments/admin/menu"></th:block>
@@ -11,7 +13,7 @@
     <div id="container">
         <div class="container_box">
             <form id="form1" name="form1" method="post" th:object="${form}">
-                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{id}" th:value="*{id}" id="pid"/>
                 <div class="contents">
                     <div></div>
 
@@ -30,79 +32,89 @@
                             </div>
                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
 
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
-                                </button>
+                                </button>-->
                             </div>
                             <table class="tbl_write">
                                 <colgroup>
-                                    <col style="width:10%"/>
-                                    <col style="width:20%"/>
-                                    <col style="width:10%"/>
-                                    <col style="width:20%"/>
-                                    <col style="width:10%"/>
-                                    <col style="width:auto"/>
+                                    <col style="width:15%"/>
+                                    <col style="width:25%"/>
+                                    <col style="width:15%"/>
+                                    <col style="width:25%"/>
+                                    <col style="width:15%"/>
+                                    <col style="width:25%"/>
+                                    <col style="width: auto"/>
                                 </colgroup>
-                                <tbody>
-                                <tr>
-                                    <th scope="row"><label>회원명</label></th>
-                                    <td th:text="*{nm}"></td>
-                                    <th scope="row"><label>아이디</label></th>
-                                    <td th:text="*{loginId}"></td>
-                                    <th scope="row"><label>닉네임</label></th>
-                                    <td th:text="*{ncnm}"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><label>구분</label></th>
-                                        <!--<td>
-                                            <th:block th:if="${mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).NORMAL}">
-                                                <div>일반회원</div>
-                                            </th:block>
-                                            <th:block th:if="${mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).PARTNERS}">
-                                                <div>협력사</div>
-                                            </th:block>
-                                            <th:block th:if="${mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).ADMIN}">
-                                                <div>관리자</div>
-                                            </th:block>
-                                            <th:block th:if="${mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).MASTER}">
-                                                <div>마스터</div>
-                                            </th:block>
-                                        </td>-->
-                                    <th scope="row"><label>휴대폰</label></th>
-                                    <td th:text="*{moblphon}"></td>
-                                    <th scope="row"><label>이메일</label></th>
-                                    <td th:text="*{email}"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><label>가입일</label></th>
-                                    <td>
-                                        <th:block th:text="*{#temporals.format(regDtm, 'yyyy-MM-dd')}"></th:block>
-                                    </td>
-                                    <th scope="row"><label>성별</label></th>
-                                        <td>
-                                            <th:block th:if="*{sexPrTy eq 'MALE'}">
-                                                <a>남성</a>
-                                            </th:block>
-                                            <th:block th:if="*{sexPrTy eq 'FEMALE'}">
-                                                <a>여성</a>
-                                            </th:block>
-                                        </td>
-                                    <th scope="row"><label>비밀번호</label></th>
-                                    <td>
-                                        <a href="#" class="btn btn_sm btn_blue" onclick="return refreshPassword()">
-                                            <i class="material-icons mt0">add</i>초기화
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><label>주소</label></th>
-                                    <td colspan="3">
 
-                                    </td>
-                                    <!--<th scope="row"><label>최근접속일자</label></th>
-                                    <td></td>
-                                    &lt;!&ndash;<td th:text="*{#temporals.format(cnctDtm,'yyyy-MM-dd')}"></td>&ndash;&gt;-->
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"><label>회원명</label></th>
+                                        <td th:text="*{nm}"></td>
+                                        <th scope="row"><label>아이디</label></th>
+                                        <td th:text="*{loginId}"></td>
+                                        <th scope="row"><label>닉네임</label></th>
+                                        <td th:text="*{ncnm}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row"><label>구분</label></th>
+                                            <td>
+                                                <th:block th:if="${form.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).NORMAL}">
+                                                    <div>일반회원</div>
+                                                </th:block>
+                                                <th:block th:if="${form.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).PARTNERS}">
+                                                    <div>협력사</div>
+                                                </th:block>
+                                                <th:block th:if="${form.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).ADMIN}">
+                                                    <div>관리자</div>
+                                                </th:block>
+                                                <th:block th:if="${form.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).MASTER}">
+                                                    <div>마스터</div>
+                                                </th:block>
+                                            </td>
+                                        <th scope="row"><label>휴대폰</label></th>
+                                        <td th:text="*{moblphon}"></td>
+                                        <th scope="row"><label>이메일</label></th>
+                                        <td th:text="*{email}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row"><label>가입일</label></th>
+                                        <td>
+                                            <th:block th:text="*{#temporals.format(regDtm, 'yyyy-MM-dd')}"></th:block>
+                                        </td>
+                                        <th scope="row"><label>성별</label></th>
+                                            <td>
+                                                <th:block th:if="*{sexPrTy eq 'MALE'}">
+                                                    <a>남성</a>
+                                                </th:block>
+                                                <th:block th:if="*{sexPrTy eq 'FEMALE'}">
+                                                    <a>여성</a>
+                                                </th:block>
+                                            </td>
+                                        <th scope="row"><label>비밀번호</label></th>
+                                        <td>
+                                            <a href="#" class="btn btn_sm btn_blue" onclick="return refreshPassword()">
+                                                <i class="material-icons mt0">add</i>초기화
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><label>주소</label></th>
+                                        <td colspan="3" th:text="|*{adres}(*{dtlAdres}) *{zip}|"></td>
+
+                                        <th scope="row"><label>승인여부</label></th>
+                                        <td colspan="3">
+                                            <th:block th:if="${form.approval eq 'Y'}"><a style="color: #00aced; font-weight: bold;">승인됨</a></th:block>
+                                            <th:block th:if="${form.approval eq 'N'}"><a style="color: #e81010; font-weight: bold;">거부됨</a></th:block>
+                                            <th:block th:if="${form.approval eq 'W'}"><a style="color: #20c997; font-weight: bold;">대기중</a></th:block>
+                                            <a href="#" class="btn btn_sm btn_green" onclick="fn_changeApproval('Y')"><i class="material-icons mt0">done</i>승인</a>
+                                            <a href="#" class="btn btn_sm btn_red" onclick="fn_changeApproval('N')"><i class="material-icons mt0">close</i>거부</a>
+                                        </td>
+                                    </tr>
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -116,25 +128,25 @@
                                 </div>
                                 <table class="tbl_write">
                                     <colgroup>
-                                        <col style="width:7%"/>
-                                        <col style="width:15%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:24%"/>
+                                        <col style="width:8%"/>
                                         <col style="width:10%"/>
-                                        <col style="width:15%"/>
-                                        <col style="width:10%"/>
-                                        <col style="width:auto"/>
-                                        <col style="width:20%"/>
-                                        <col style="width:15%"/>
                                     </colgroup>
-                                    <tbody>
 
+                                    <tbody>
                                     <tr>
                                         <th scope="row"><label>사업장명</label></th>
                                         <td th:text="${pt.bnm}"></td>
                                         <th scope="row"><label>사업자번호</label></th>
-                                        <th:block th:if="${pt.bno eq null}">
+                                        <th:block th:if="${pt.bno eq null || pt.bno.isEmpty()}">
                                             <a>사업자번호가 등록 되지 않은 회원 입니다</a>
                                         </th:block>
-                                        <th:block th:if="${pt.bno ne null}">
+                                        <th:block th:if="${pt.bno ne null || !pt.bno.isEmpty()}">
                                             <td th:text="${pt.bno}"></td>
                                         </th:block>
                                         <th scope="row"><label>사업자 주소</label></th>
@@ -150,9 +162,6 @@
                         <div class="fr">
                             <ul>
                                 <div class="btn_area">
-                                    <a class="btn btn_sm btn_lightgray">
-                                        <i class="material-icons">list</i>수정
-                                    </a>
                                     <a class="btn btn_sm btn_lightgray" href="/admin/operation/member/list">
                                         <i class="material-icons">list</i>목록
                                     </a>
