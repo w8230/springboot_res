@@ -128,37 +128,32 @@ public class AdminMemberService extends _BaseService {
         // 넘어온 id로 조회해서
         log.info("run UpdateApproval");
         try{
-            log.info("run UpdateApproval try");
             Account account = memberRepository.findById(id).orElseGet(Account::new);
             if(approval.equals("Y")) {
 
-                log.info("run UpdateApproval Y if");
-                log.info("chk account" + account.getId());
-                account.setApproval("Y");
-                Partners partners = partnersRepository.findById(id).orElseGet(Partners::new);
+                /*account.setApproval("Y");*/
+                memberRepository.setApproval(id , approval);
+                Partners partners = partnersRepository.findByMberPid(id).orElseGet(Partners::new);
                 if(partners != null || !partners.equals("")){
-                    log.info("run UpdateApproval partners if");
-                    log.info("chk account" + partners.getId());
-                    partners.setApproval("Y");
-                    account.setApproval("Y");
+                    partnersRepository.setApproval(id, approval);
+                    /*partners.setApproval("Y");
+                    account.setApproval("Y");*/
                 }
 
             } else if(approval.equals("N")) {
 
-                log.info("run UpdateApproval N if");
-                account.setApproval("N");
-                Partners partners = partnersRepository.findById(id).orElseGet(Partners::new);
+                /*account.setApproval("N");*/
+                memberRepository.setApproval(id , approval);
+                Partners partners = partnersRepository.findByMberPid(id).orElseGet(Partners::new);
                 if(partners != null || !partners.equals("")){
-                    log.info("run UpdateApproval Y if Partners");
-                    partners.setApproval("N");
-                    account.setApproval("N");
+                    partnersRepository.setApproval(id, approval);
+                    /*partners.setApproval("N");
+                    account.setApproval("N");*/
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return true;
     }
 }

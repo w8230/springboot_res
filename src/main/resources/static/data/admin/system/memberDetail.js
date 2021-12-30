@@ -14,10 +14,10 @@ function fn_changeApproval(approval) {
                 dataType : 'text' ,
                 success : function (data) {
                     alert("승인 되었습니다.");
+                    location.reload();
                 }
 
             });
-            location.reload();
         } else {
             alert("승인처리가 취소 되었습니다.")
         }
@@ -34,11 +34,11 @@ function fn_changeApproval(approval) {
                 dataType : 'text' ,
                 success : function (data) {
                     alert("거부 되었습니다.");
+                    location.reload();
                 }
 
             });
 
-            location.reload();
         } else {
             alert("거부처리가 취소 되었습니다.")
         }

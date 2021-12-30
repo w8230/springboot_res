@@ -106,9 +106,9 @@
 
                                         <th scope="row"><label>승인여부</label></th>
                                         <td colspan="3">
-                                            <th:block th:if="${form.approval eq 'Y'}"><a style="color: #00aced; font-weight: bold;">승인됨</a></th:block>
-                                            <th:block th:if="${form.approval eq 'N'}"><a style="color: #e81010; font-weight: bold;">거부됨</a></th:block>
-                                            <th:block th:if="${form.approval eq 'W'}"><a style="color: #20c997; font-weight: bold;">대기중</a></th:block>
+                                            <th:block th:if="${form.approval eq 'Y'}"><a style="color: #00aced; font-weight: bold; margin-right: 70px;">승인됨</a></th:block>
+                                            <th:block th:if="${form.approval eq 'N'}"><a style="color: #e81010; font-weight: bold; margin-right: 70px">거부됨</a></th:block>
+                                            <th:block th:if="${form.approval eq 'W'}"><a style="color: #20c997; font-weight: bold; margin-right: 70px">대기중</a></th:block>
                                             <a href="#" class="btn btn_sm btn_green" onclick="fn_changeApproval('Y')"><i class="material-icons mt0">done</i>승인</a>
                                             <a href="#" class="btn btn_sm btn_red" onclick="fn_changeApproval('N')"><i class="material-icons mt0">close</i>거부</a>
                                         </td>
