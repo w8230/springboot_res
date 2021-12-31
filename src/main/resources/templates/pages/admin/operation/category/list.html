@@ -19,29 +19,12 @@
 
                 <div class="contents">
 
+                    <!--<ul class="tab">
+                        <li th:classappend="${banDvTy eq T(kr.or.btf.web.domain.web.enums.BanDvTy).MAIN ? 'active' : ''}"><a th:href="|/soulGod/banner/list/${T(kr.or.btf.web.domain.web.enums.BanDvTy).MAIN.name()}|">메인배너</a></li>
+                        <li th:classappend="${banDvTy eq T(kr.or.btf.web.domain.web.enums.BanDvTy).CARD ? 'active' : ''}"><a th:href="|/soulGod/banner/list/${T(kr.or.btf.web.domain.web.enums.BanDvTy).CARD.name()}|">카드뉴스</a></li>
+                    </ul>-->
+
                     <div class="search_area clearfix">
-                        <dl class="col">
-                            <dt>회원구분</dt>
-                            <dd>
-                                <select th:field="*{userRollType}">
-                                    <option value="">전체</option>
-                                    <option th:each="tp : ${T(kr.co.team.res.domain.enums.UserRollType).values()}"
-                                            th:value="${tp}"
-                                            th:text="${tp.getName()}"></option>
-                                </select>
-                            </dd>
-                        </dl>
-                        <dl class="col">
-                            <dt>승인여부</dt>
-                            <dd>
-                                <select th:field="*{approval}">
-                                    <option value="">전체</option>
-                                    <option value="Y" >승인</option>
-                                    <option value="N" >거부</option>
-                                    <option value="W" >대기</option>
-                                </select>
-                            </dd>
-                        </dl>
                         <dl class="col">
                             <dt>제목</dt>
                             <dd>
@@ -61,32 +44,29 @@
                             <div class="fl">
                                 <div class="total_num">총 <b th:text="${#numbers.formatInteger(list.totalElements, 0, 'COMMA')}">2</b></div>
                             </div>
-                            <!--<div class="fr">
-                                <a href="/admin/banner/register" class="btn btn_sm btn_blue">
-                                    <i class="material-icons">library_add</i>배너 추가
+                            <div class="fr">
+                                <a href="/admin/operation/category/register" class="btn btn_sm btn_blue">
+                                    <i class="material-icons">library_add</i>카테고리 추가
                                 </a>
-                            </div>-->
+                            </div>
                         </div>
 
                         <table class="tbl_list mo_tbl_list">
                             <colgroup>
                                 <col style="width:5%" />
                                 <col style="width:10%" />
-                                <col style="width:15%" />
-                                <col style="width:15%" />
-                                <col style="width:15%" />
+                                <col style="width:auto" />
+                                <col style="width:20%" />
+                                <col style="width:10%" />
                                 <col style="width:12%" />
                                 <col style="width:8%" />
                             </colgroup>
                             <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">ID</th>
-                                <th scope="col">성명</th>
-                                <th scope="col">닉네임</th>
-                                <th scope="col">회원구분</th>
-                                <th scope="col">가입일</th>
-                                <th scope="col">승인여부</th>
+                                <th scope="col">카테고리 이름</th>
+                                <th scope="col">등록일</th>
+                                <th scope="col">등록자</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -99,56 +79,22 @@
                                 <td th:text="${list.totalElements - list.pageable.pageSize * list.pageable.pageNumber - idx.index}"></td>
                                 <td>
                                     <b>
-                                        <a th:href="|/admin/operation/member/detail/${item.id}|"  th:text="${item.loginId}"></a>
+                                        <a th:href="|/admin/operation/category/detail/${item.id}|"  th:text="${item.categoryNm}"></a>
                                     </b>
                                 </td>
                                 <td>
-                                    <strong class="th">성명</strong>
-                                    <div th:text="${item.nm}"></div>
+                                    <strong class="th">등록일</strong>
+                                    <div th:text="|${#temporals.format(item.regDtm,'yyyy-MM-dd')}|"></div>
                                 </td>
                                 <td>
-                                    <strong class="th">닉네임</strong>
-                                    <div th:text="${item.ncnm}"></div>
-                                </td>
-                                <td>
-                                    <strong class="th">회원구분</strong>
-                                    <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).NORMAL}">
-                                        <div>일반회원</div>
-                                    </th:block>
-                                    <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).PARTNERS}">
-                                        <div>협력사</div>
-                                    </th:block>
-                                    <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).ADMIN}">
-                                        <div>관리자</div>
-                                    </th:block>
-                                    <th:block th:if="${item.mberDvTy eq T(kr.co.team.res.domain.enums.UserRollType).MASTER}">
-                                        <div>마스터</div>
-                                    </th:block>
-                                </td>
-                                <td>
-                                    <strong class="th">가입일</strong>
-                                    <div th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></div>
-                                </td>
-                                <td>
-                                    <strong class="th">승인여부</strong>
-                                    <th:block th:if="${item.approval eq 'Y'}">
-                                        <div style="color: #00aced; font-weight: bold;">승인됨</div>
-                                    </th:block>
-                                    <th:block th:if="${item.approval eq 'N'}">
-                                        <div style="color: #e81010; font-weight: bold;">거부됨</div>
-                                    </th:block>
-                                    <th:block th:if="${item.approval eq 'W'}">
-                                        <div style="color: #20c997; font-weight: bold;">대기중</div>
-                                    </th:block>
+                                    <strong class="th">등록자</strong>
+                                    <div th:text="${item.regPsid}"></div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn_sm btn_green" onclick="fn_reset()">
-                            <i class="material-icons">refresh</i>초기화
-                        </button>
                         <th:block th:replace="/fragments/admin/paging :: pagingbody(list=${list},
-                                            link='/admin/user/userList', formId='form1')"> </th:block>
+                                            link='/admin/operation/category/list' , formId='form1')"></th:block>
                     </div>
                 </div>
             </form>

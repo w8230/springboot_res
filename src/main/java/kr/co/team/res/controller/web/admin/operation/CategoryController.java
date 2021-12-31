@@ -1,9 +1,12 @@
 package kr.co.team.res.controller.web.admin.operation;
 
+import kr.co.team.res.common.annotation.CurrentUser;
 import kr.co.team.res.controller.web.BaseCont;
+import kr.co.team.res.domain.entity.Account;
 import kr.co.team.res.domain.entity.Category;
 import kr.co.team.res.domain.vo.admin.CategoryVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
+import kr.co.team.res.domain.vo.user.MemberVO;
 import kr.co.team.res.service.web.admin.operation.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -42,9 +45,19 @@ public class CategoryController extends BaseCont {
         return "pages/admin/operation/category/list";
     }
 
-    @RequestMapping("/add")
-    public String add(){
-        return null;
+    @RequestMapping("/register")
+    public String register(Model model ,
+                           @ModelAttribute CategoryVO categoryVO ,
+                           @CurrentUser Account account){
+        if(categoryVO.getCategoryNm().equals("") || categoryVO.getCategoryNm() == null || categoryVO.getCategoryNm().length() < 1) {
+            model.addAttribute("msg" , "카테고리이름을 입력해주세요.");
+            model.addAttribute("locurl" , "/pages/admin/operation/category/register");
+            return "/message";
+        }
+        MemberVO memberVO = new MemberVO();
+        memberVO.setLoginId(account.getLoginId());
+        categoryService.register(categoryVO , memberVO);
+        return "/pages/admin/operation/category/register";
     }
 
     @RequestMapping("/del")
