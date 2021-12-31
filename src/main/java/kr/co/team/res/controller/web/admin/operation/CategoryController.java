@@ -40,8 +40,6 @@ public class CategoryController extends BaseCont {
         //카테고리 데이터 push
         model.addAttribute("list" , categoryList);
 
-
-
         return "pages/admin/operation/category/list";
     }
 
@@ -50,7 +48,13 @@ public class CategoryController extends BaseCont {
                            @ModelAttribute CategoryVO categoryVO ,
                            @CurrentUser Account account){
         if(categoryVO.getCategoryNm().equals("") || categoryVO.getCategoryNm() == null || categoryVO.getCategoryNm().length() < 1) {
-            model.addAttribute("msg" , "카테고리이름을 입력해주세요.");
+            model.addAttribute("altmsg" , "카테고리이름을 입력해주세요.");
+            model.addAttribute("locurl" , "/pages/admin/operation/category/register");
+            return "/message";
+        }
+        //불리언으로 정한 서비스가 false 라면
+        if(!categoryService.verifyDuplicateCategoryNm(categoryVO.getCategoryNm())) {
+            model.addAttribute("altmsg" , "이미 등록된 카테고리 입니다.");
             model.addAttribute("locurl" , "/pages/admin/operation/category/register");
             return "/message";
         }

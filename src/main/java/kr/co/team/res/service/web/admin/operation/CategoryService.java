@@ -86,8 +86,11 @@ public class CategoryService extends _BaseService {
     }
     public boolean verifyDuplicateCategoryNm(String categoryNm) {
         boolean result = false;
+        //isPresent가 true 라면 result는 false;
         if(categoryRepository.findByCategoryNm(categoryNm).isPresent()) {
-            throw new ValidCustomException("이미 존재하는 카테고리 입니다." , "categoryNm");
+            /*throw new ValidCustomException("이미 존재하는 카테고리 입니다." , "categoryNm");*/
+            result = false;
+            //isPresent가 false라면 result는 true;
         } else if(!categoryRepository.findByCategoryNm(categoryNm).isPresent()) {
             result = true;
         }
