@@ -29,10 +29,10 @@
                             <dt>제목</dt>
                             <dd>
                                 <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:400px" />
+
                                 <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
-                                    <i class="material-icons">search</i>조회
-                                </button>
-                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+                                <i class="material-icons">search</i>조회
+                                </button>n" class="btn btn_sm btn_gray" onclick="fn_reset()">
                                     <i class="material-icons">refresh</i>초기화
                                 </button>
                             </dd>
@@ -103,4 +103,20 @@
     </div>
 </div>
 </body>
+
+<!--카테고리 모달창. 모달창 미구현-->
+<div id="category_modal" name="category_modal">
+    <form id="form2" name="form2" action="/admin/operation/category/register">
+        <input id="categoryNm" name="categoryNm">
+        <!--submit btn-->
+        <button type="submit" class="btn btn_sm btn_blue">
+            <i class="material-icons">library_add</i>카테고리 추가
+        </button>
+        <!--close btn-->
+        <a onclick="fn_modal_close()" class="btn btn_sm btn_blue">
+            <i class="material-icons">library_add</i>카테고리 추가
+        </a>
+    </form>
+</div>
+
 </html>

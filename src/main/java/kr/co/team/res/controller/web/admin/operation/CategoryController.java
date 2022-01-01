@@ -33,7 +33,6 @@ public class CategoryController extends BaseCont {
                        @ModelAttribute SearchVO searchVO ,
                        @ModelAttribute CategoryVO categoryVO) {
         //페이징 데이터
-        log.info("run Category List Cont");
         model.addAttribute("form" , searchVO);
         //카테고리 데이터 set
         Page<Category> categoryList = categoryService.list(pageable , searchVO , categoryVO);
@@ -47,19 +46,36 @@ public class CategoryController extends BaseCont {
     public String register(Model model ,
                            @ModelAttribute CategoryVO categoryVO ,
                            @CurrentUser Account account){
+        /*Cont에서 찍은 로그
+            1.Cont Run - getCategoryNm;
+            2.length if - length();
+            3.verification if Run - getCategory Nm
+            4.Call Service - getLoginId
+
+            총 4개
+        */
+        //터진 로그(컨트롤러 실행 확인로그 , 컨트롤러 실행 컨트롤러, 서비스 호출 로그)
+        log.info("categoryNm log , cont :: " , categoryVO.getCategoryNm());
+
         if(categoryVO.getCategoryNm().equals("") || categoryVO.getCategoryNm() == null || categoryVO.getCategoryNm().length() < 1) {
+            log.info("length if run" ,categoryVO.getCategoryNm().length());
             model.addAttribute("altmsg" , "카테고리이름을 입력해주세요.");
             model.addAttribute("locurl" , "/pages/admin/operation/category/register");
             return "/message";
         }
         //불리언으로 정한 서비스가 false 라면
         if(!categoryService.verifyDuplicateCategoryNm(categoryVO.getCategoryNm())) {
+            log.info("if verifycation Run  :: " , categoryVO.getCategoryNm());
+
             model.addAttribute("altmsg" , "이미 등록된 카테고리 입니다.");
             model.addAttribute("locurl" , "/pages/admin/operation/category/register");
             return "/message";
         }
         MemberVO memberVO = new MemberVO();
         memberVO.setLoginId(account.getLoginId());
+
+        log.info("category register Call" , account.getLoginId());
+
         categoryService.register(categoryVO , memberVO);
         return "/pages/admin/operation/category/register";
     }

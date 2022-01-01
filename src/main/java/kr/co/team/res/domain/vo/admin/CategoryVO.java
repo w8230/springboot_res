@@ -18,7 +18,8 @@ public class CategoryVO extends SearchVO {
     private String categoryPid;
     private String categoryNm;
     private String categoryDsc;
-    private String regPsid;
+    //SearchVO를 익스텐드 하여서 관계가 모호해 진 변수
+    //private String regPsid;
     private LocalDateTime regDtm;
     private String updPsId;
     private LocalDateTime updDtm;
