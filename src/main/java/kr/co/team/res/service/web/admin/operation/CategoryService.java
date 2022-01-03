@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -34,6 +35,32 @@ public class CategoryService extends _BaseService {
     private final JPAQueryFactory queryFactory;
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
+
+    //MainCategory List
+    public List<Category> mclist() {
+        QCategory qCategory = QCategory.category;
+        OrderSpecifier<Long> orderSpecifier = qCategory.id.desc();
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qCategory.delAt.eq("N"));
+
+        List<Category> list = queryFactory
+                .select(Projections.fields(Category.class,
+                        qCategory.id,
+                        qCategory.categoryNm,
+                        qCategory.categoryDsc,
+                        qCategory.updDtm,
+                        qCategory.updPsId,
+                        qCategory.delAt,
+                        qCategory.regDtm,
+                        qCategory.regPsid
+                ))
+                .from(qCategory)
+                .where(builder)
+                .orderBy(orderSpecifier)
+                .fetch();
+        return list;
+    }
 
     public Page<Category> list(Pageable pageable, SearchVO searchVO , CategoryVO categoryVO) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() -1);
@@ -66,24 +93,24 @@ public class CategoryService extends _BaseService {
 
         return new PageImpl<>(categoryList.getResults() , pageable , categoryList.getTotal());
     }
+
     public boolean register(CategoryVO categoryVO , MemberVO memberVO)  throws ValidCustomException {
         try{
-
             verifyDuplicateCategoryNm(categoryVO.getCategoryNm());
             Category category = modelMapper.map(categoryVO , Category.class);
             category.setRegDtm(LocalDateTime.now());
             category.setRegPsid(memberVO.getLoginId());
             category.setCategoryNm(categoryVO.getCategoryNm());
             category.setDelAt("N");
+            category.setCateDvTy("MAIN");
             categoryRepository.save(category);
-
         }catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-
         return true;
     }
+
     public boolean verifyDuplicateCategoryNm(String categoryNm) {
         boolean result = false;
         //isPresent가 true 라면 result는 false;

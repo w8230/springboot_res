@@ -1,8 +1,13 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/admin/header"></th:block>
-    <script src="/data/admin/system/bannerList.js"></script>
+    <!--<script src="/data/admin/system/bannerList.js"></script>-->
+    <script src="/data/admin/system/categoryList.js"></script>
+    <link rel="stylesheet" href="/ui/admin/css/modal.css"/>
 </head>
+<script>
+
+</script>
 <body>
 <div id="wrap">
     <th:block th:include="fragments/admin/menu"></th:block>
@@ -30,10 +35,8 @@
                             <dd>
                                 <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:400px" />
 
-                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
-                                <i class="material-icons">search</i>조회
-                                </button>n" class="btn btn_sm btn_gray" onclick="fn_reset()">
-                                    <i class="material-icons">refresh</i>초기화
+                                <button class="btn btn_sm btn_gray" onclick="fn_search()">
+                                    <i class="material-icons">search</i>조회
                                 </button>
                             </dd>
                         </dl>
@@ -45,22 +48,21 @@
                                 <div class="total_num">총 <b th:text="${#numbers.formatInteger(list.totalElements, 0, 'COMMA')}">2</b></div>
                             </div>
                             <div class="fr">
-                                <a href="/admin/operation/category/register" class="btn btn_sm btn_blue">
+                                <a class="btn btn_sm btn_blue" onclick="layerShow('popSchool')">
                                     <i class="material-icons">library_add</i>카테고리 추가
                                 </a>
                             </div>
                         </div>
 
                         <table class="tbl_list mo_tbl_list">
-                            <colgroup>
+                            <!--<colgroup>
                                 <col style="width:5%" />
                                 <col style="width:10%" />
                                 <col style="width:auto" />
                                 <col style="width:20%" />
                                 <col style="width:10%" />
                                 <col style="width:12%" />
-                                <col style="width:8%" />
-                            </colgroup>
+                            </colgroup>-->
                             <thead>
                             <tr>
                                 <th scope="col">No</th>
@@ -69,6 +71,7 @@
                                 <th scope="col">등록자</th>
                             </tr>
                             </thead>
+
                             <tbody>
                             <!-- 등록된 데이터가 없을 때만 노출 : s -->
                             <tr th:if="${list == null or list.isEmpty()}">
@@ -99,24 +102,61 @@
                 </div>
             </form>
         </div>
+
         <th:block th:replace="fragments/admin/footer"></th:block>
     </div>
 </div>
 </body>
-
 <!--카테고리 모달창. 모달창 미구현-->
-<div id="category_modal" name="category_modal">
-    <form id="form2" name="form2" action="/admin/operation/category/register">
-        <input id="categoryNm" name="categoryNm">
-        <!--submit btn-->
-        <button type="submit" class="btn btn_sm btn_blue">
-            <i class="material-icons">library_add</i>카테고리 추가
-        </button>
-        <!--close btn-->
-        <a onclick="fn_modal_close()" class="btn btn_sm btn_blue">
-            <i class="material-icons">library_add</i>카테고리 추가
-        </a>
-    </form>
-</div>
+<!--<div class="modal_bg" id="modal_bg">
+    <div class="category_modal" id="category_modal">
+        <form id="form2" name="form2" action="/admin/operation/category/register">
+            <input id="categoryNm" name="categoryNm" placeholder="추가 할 카테고리명을 입력해주세요. (최소 2자)">
+            &lt;!&ndash;submit btn&ndash;&gt;
+            <button type="submit" class="btn btn_sm btn_green">
+                <i class="material-icons">add</i>등록
+            </button>
+            &lt;!&ndash;close btn&ndash;&gt;
 
+            <a onclick="fn_closeModal()" class="btn btn_sm btn_red">
+                <i class="material-icons">close</i>닫기
+            </a>
+        </form>
+    </div>
+</div>-->
+<div id="popSchool" class="layer_popup">
+    <div class="dim"></div>
+    <div class="popup_area">
+        <div class="popup">
+            <div class="pop_tit">카테고리 등록</div>
+
+                <form id="form2" name="form2" method="get" action="/admin/operation/category/register">
+
+                    <div class="pop_cont">
+                        <ul class="write_form mb20">
+                            <li>
+                                <div class="th">카테고리</div>
+                                <div class="td">
+                                    <div class="email_form clearfix">
+                                        <input type="text" id="srchSchlNm" name="srchSchlNm" placeholder="카테고리명을 입력해주세요. (최소 2자 이상)">
+                                    </div>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="btn_area">
+                        <a class="btn btn_sm btn_green" type="submit">
+                            <i class="material-icons">library_add</i>등록
+                        </a>
+                        <a class="btn btn_sm btn_red" href="javascript:layerHide('popSchool')">
+                            <i class="material-icons">close</i>닫기
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </html>

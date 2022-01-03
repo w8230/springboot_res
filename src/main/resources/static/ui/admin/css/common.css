@@ -539,3 +539,37 @@ body{color:#333;font-size:14px;font-family:'Nanum Gothic',Malgun Gothic,'맑은�
 	.board_prev_next > li dl dt{display:inline-block;position:relative;width:auto;padding:0 20px 0 10px}
 	.board_prev_next > li dl dd{padding:0 10px 15px}
 }
+
+#modal_bg {
+	display: none;
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background-color:rgba(0, 0,0, 0.5);
+	top:0;
+	left: 0;
+	z-index: 1;
+}
+#category_modal {
+	display: none;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	margin: -250px 0 0 -250px;
+	background:#eee;
+	z-index: 2;
+}
+
+.layer_popup {
+	display: none;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 999
+}
+

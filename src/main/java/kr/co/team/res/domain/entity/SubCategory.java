@@ -12,25 +12,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_category")
+@Table(name = "tbl_subcategory")
 @DynamicUpdate
-public class Category {
+public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_pid")
+    @Column(name = "subcategory_pid")
     private Long id;
+
+    @Column(name = "category_pid")
+    private Long categoryPid;
 
     @Column(name = "cate_dv_ty")
     private String cateDvTy;
 
-    @Column(name = "category_nm")
-    private String categoryNm;
-
-    @Column(name = "category_dsc")
-    private String categoryDsc;
-
-    @Column(name = "reg_ps_id")
-    private String regPsid;
+    @Column(name = "subcategory_nm")
+    private String subcategoryNm;
 
     @Column(name = "reg_dtm")
     private LocalDateTime regDtm;
@@ -43,4 +40,6 @@ public class Category {
 
     @Column(name = "del_at")
     private String delAt;
+
+
 }
