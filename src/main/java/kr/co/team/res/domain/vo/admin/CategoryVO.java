@@ -1,5 +1,6 @@
 package kr.co.team.res.domain.vo.admin;
 
+import kr.co.team.res.domain.enums.CateDvTy;
 import kr.co.team.res.domain.vo.common.SearchVO;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 public class CategoryVO extends SearchVO {
 
     private Long id;
-    private String cateDvTy;
+    private CateDvTy cateDvTy;
     private String categoryNm;
     private String categoryDsc;
     //SearchVO를 익스텐드 하여서 관계가 모호해 진 변수

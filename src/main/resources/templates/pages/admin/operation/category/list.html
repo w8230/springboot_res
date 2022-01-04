@@ -48,7 +48,7 @@
                                 <div class="total_num">총 <b th:text="${#numbers.formatInteger(list.totalElements, 0, 'COMMA')}">2</b></div>
                             </div>
                             <div class="fr">
-                                <a class="btn btn_sm btn_blue" onclick="layerShow('popSchool')">
+                                <a class="btn btn_sm btn_blue" href="/admin/operation/category/add">
                                     <i class="material-icons">library_add</i>카테고리 추가
                                 </a>
                             </div>
@@ -67,6 +67,7 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">카테고리 이름</th>
+                                <th scope="col">카테고리 구분</th>
                                 <th scope="col">등록일</th>
                                 <th scope="col">등록자</th>
                             </tr>
@@ -75,7 +76,7 @@
                             <tbody>
                             <!-- 등록된 데이터가 없을 때만 노출 : s -->
                             <tr th:if="${list == null or list.isEmpty()}">
-                                <td colspan="7">등록된 정보 없습니다.</td>
+                                <td colspan="7">등록된 정보가 없습니다.</td>
                             </tr>
                             <!-- 등록된 이벤트가 없을 때만 노출 : e -->
                             <tr th:each="item,idx : ${list}">
@@ -84,6 +85,15 @@
                                     <b>
                                         <a th:href="|/admin/operation/category/detail/${item.id}|"  th:text="${item.categoryNm}"></a>
                                     </b>
+                                </td>
+                                <td>
+                                    <strong class="th">구분</strong>
+                                    <th:block th:if="${item.cateDvTy eq 'MAIN'}">
+                                        <div>메인 카테고리</div>
+                                    </th:block>
+                                    <th:block th:if="${item.cateDvTy eq 'SUB'}">
+                                        <div>서브 카테고리</div>
+                                    </th:block>
                                 </td>
                                 <td>
                                     <strong class="th">등록일</strong>
@@ -124,7 +134,7 @@
         </form>
     </div>
 </div>-->
-<div id="popSchool" class="layer_popup">
+<!--<div id="popSchool" class="layer_popup">
     <div class="dim"></div>
     <div class="popup_area">
         <div class="popup">
@@ -158,5 +168,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 </html>

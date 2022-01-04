@@ -9,8 +9,12 @@ import kr.co.team.res.common.Constants;
 import kr.co.team.res.common.exceptions.ValidCustomException;
 import kr.co.team.res.domain.entity.Category;
 import kr.co.team.res.domain.entity.QCategory;
+import kr.co.team.res.domain.entity.SubCategory;
+import kr.co.team.res.domain.enums.CateDvTy;
 import kr.co.team.res.domain.repository.CategoryRepository;
+import kr.co.team.res.domain.repository.SubCategoryRepository;
 import kr.co.team.res.domain.vo.admin.CategoryVO;
+import kr.co.team.res.domain.vo.admin.SubCategoryVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
 import kr.co.team.res.domain.vo.user.MemberVO;
 import kr.co.team.res.service.web._BaseService;
@@ -34,6 +38,7 @@ import java.util.List;
 public class CategoryService extends _BaseService {
     private final JPAQueryFactory queryFactory;
     private final CategoryRepository categoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
     private final ModelMapper modelMapper;
 
     //MainCategory List
@@ -77,6 +82,7 @@ public class CategoryService extends _BaseService {
                 .select(Projections.fields(Category.class,
                         qCategory.id,
                         qCategory.categoryNm,
+                        qCategory.cateDvTy,
                         qCategory.categoryDsc,
                         qCategory.updDtm,
                         qCategory.updPsId,
@@ -94,16 +100,30 @@ public class CategoryService extends _BaseService {
         return new PageImpl<>(categoryList.getResults() , pageable , categoryList.getTotal());
     }
 
-    public boolean register(CategoryVO categoryVO , MemberVO memberVO)  throws ValidCustomException {
+    public boolean register(CategoryVO categoryVO , MemberVO memberVO , SubCategoryVO subCategoryVO)  throws ValidCustomException {
+
         try{
-            verifyDuplicateCategoryNm(categoryVO.getCategoryNm());
-            Category category = modelMapper.map(categoryVO , Category.class);
-            category.setRegDtm(LocalDateTime.now());
-            category.setRegPsid(memberVO.getLoginId());
-            category.setCategoryNm(categoryVO.getCategoryNm());
-            category.setDelAt("N");
-            category.setCateDvTy("MAIN");
-            categoryRepository.save(category);
+            if(categoryVO.getCateDvTy().equals(CateDvTy.MAIN)){
+                verifyDuplicateCategoryNm(categoryVO.getCategoryNm());
+                Category category = modelMapper.map(categoryVO , Category.class);
+                category.setRegDtm(LocalDateTime.now());
+                category.setRegPsid(memberVO.getLoginId());
+                category.setCategoryNm(categoryVO.getCategoryNm());
+                category.setDelAt("N");
+                category.setCateDvTy("MAIN");
+                categoryRepository.save(category);
+            } else if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)) {
+                verifyDuplicateSubCategoryNm(categoryVO.getCategoryNm());
+                SubCategory subCategory = modelMapper.map(subCategoryVO , SubCategory.class);
+                subCategory.setRegDtm(LocalDateTime.now());
+                subCategory.setCategoryPid(subCategoryVO.getCategoryPid());
+                subCategory.setRegPsId(memberVO.getLoginId());
+                subCategory.setSubcategoryNm(categoryVO.getCategoryNm());
+                subCategory.setDelAt("N");
+                subCategory.setCateDvTy("SUB");
+                subCategoryRepository.save(subCategory);
+            }
+
         }catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -115,11 +135,19 @@ public class CategoryService extends _BaseService {
         boolean result = false;
         //isPresent가 true 라면 result는 false;
         if(categoryRepository.findByCategoryNm(categoryNm).isPresent()) {
-            /*throw new ValidCustomException("이미 존재하는 카테고리 입니다." , "categoryNm");*/
             result = false;
-            //isPresent가 false라면 result는 true;
         } else if(!categoryRepository.findByCategoryNm(categoryNm).isPresent()) {
             result = true;
+        }
+        return result;
+    }
+
+    public boolean verifyDuplicateSubCategoryNm(String subCategoryNm) {
+        boolean result = false;
+        if(subCategoryRepository.findBySubcategoryNm(subCategoryNm).isPresent()){
+            result = false;
+        } else if(!subCategoryRepository.findBySubcategoryNm(subCategoryNm).isPresent()){
+            result =  true;
         }
         return result;
     }

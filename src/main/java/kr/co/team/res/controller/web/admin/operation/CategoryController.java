@@ -43,7 +43,7 @@ public class CategoryController extends BaseCont {
         //카테고리 데이터 push
         model.addAttribute("list" , categoryList);
 
-        return "pages/admin/operation/category/list";
+        return "/pages/admin/operation/category/list";
     }
     @RequestMapping("/add")
     public String add(Model model ,
@@ -52,8 +52,17 @@ public class CategoryController extends BaseCont {
                       @CurrentUser Account account) {
 
 
-        List<Category> list = categoryService.mclist();
-        model.addAttribute("list" , list);
+        List<Category> mclist = categoryService.mclist();
+        model.addAttribute("mclist" , mclist);
+
+        /*for(int i = 0; i < mclist.size(); i++) {
+            System.out.println(mclist.get(i).getCategoryNm());
+            System.out.println(mclist.get(i).getCategoryDsc());
+            System.out.println(mclist.get(i).getCateDvTy());
+            System.out.println(mclist.get(i).getDelAt());
+            System.out.println(mclist.get(i).getRegDtm());
+
+        }*/
 
         return "/pages/admin/operation/category/register";
     }
@@ -61,6 +70,7 @@ public class CategoryController extends BaseCont {
     @RequestMapping("/register")
     public String register(Model model ,
                            @ModelAttribute CategoryVO categoryVO ,
+                           @ModelAttribute SubCategoryVO subCategoryVO,
                            @CurrentUser Account account){
 
         if(categoryVO.getCategoryNm().equals("") || categoryVO.getCategoryNm() == null || categoryVO.getCategoryNm().length() < 1) {
@@ -68,7 +78,6 @@ public class CategoryController extends BaseCont {
             model.addAttribute("locurl" , "/pages/admin/operation/category/register");
             return "/message";
         }
-        //불리언으로 정한 서비스가 false 라면
         if(!categoryService.verifyDuplicateCategoryNm(categoryVO.getCategoryNm())) {
             model.addAttribute("altmsg" , "이미 등록된 카테고리 입니다.");
             model.addAttribute("locurl" , "/pages/admin/operation/category/register");
@@ -76,8 +85,9 @@ public class CategoryController extends BaseCont {
         }
         MemberVO memberVO = new MemberVO();
         memberVO.setLoginId(account.getLoginId());
-        categoryService.register(categoryVO , memberVO);
-        return "/pages/admin/operation/category/register";
+        categoryService.register(categoryVO , memberVO, subCategoryVO);
+
+        return "redirect:/admin/operation/category/list";
     }
 
     @RequestMapping("/del")

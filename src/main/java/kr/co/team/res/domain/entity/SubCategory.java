@@ -32,6 +32,9 @@ public class SubCategory {
     @Column(name = "reg_dtm")
     private LocalDateTime regDtm;
 
+    @Column(name = "reg_ps_id")
+    private String regPsId;
+
     @Column(name = "upd_ps_id")
     private String updPsId;
 
