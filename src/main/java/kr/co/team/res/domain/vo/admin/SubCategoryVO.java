@@ -13,7 +13,7 @@ public class SubCategoryVO extends SearchVO {
     private Long id;
     private Long categoryPid;
     private String cateDvTy;
-    private String categoryNm;
+    private String subcategoryNm;
     private LocalDateTime regDtm;
     private String updPsId;
     private LocalDateTime updDtm;

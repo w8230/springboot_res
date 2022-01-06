@@ -7,9 +7,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.team.res.common.Constants;
 import kr.co.team.res.common.exceptions.ValidCustomException;
-import kr.co.team.res.domain.entity.Category;
-import kr.co.team.res.domain.entity.QCategory;
-import kr.co.team.res.domain.entity.SubCategory;
+import kr.co.team.res.domain.entity.*;
 import kr.co.team.res.domain.enums.CateDvTy;
 import kr.co.team.res.domain.repository.CategoryRepository;
 import kr.co.team.res.domain.repository.SubCategoryRepository;
@@ -71,8 +69,8 @@ public class CategoryService extends _BaseService {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() -1);
         pageable = PageRequest.of(page , searchVO.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchVO.getPageSize());
 
-        QCategory qCategory = QCategory.category;
 
+        QCategory qCategory = QCategory.category;
         OrderSpecifier<Long> orderSpecifier  = qCategory.id.desc();
 
         BooleanBuilder builder = new BooleanBuilder();
@@ -96,6 +94,35 @@ public class CategoryService extends _BaseService {
                 .orderBy(orderSpecifier)
                 .fetchResults();
 
+        return new PageImpl<>(categoryList.getResults() , pageable , categoryList.getTotal());
+    }
+    public Page<Category> sublist(Pageable pageable, SearchVO searchVO , SubCategoryVO SubCategoryVO) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() -1);
+        pageable = PageRequest.of(page , searchVO.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchVO.getPageSize());
+
+
+        QSubCategory qSubCategory = QSubCategory.subCategory;
+        OrderSpecifier<Long> orderSpecifier  = qSubCategory.id.desc();
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qSubCategory.delAt.eq("N"));
+
+        QueryResults<Category> categoryList = queryFactory
+                .select(Projections.fields(Category.class,
+                        qSubCategory.id,
+                        qSubCategory.subcategoryNm,
+                        qSubCategory.cateDvTy,
+                        qSubCategory.updDtm,
+                        qSubCategory.updPsId,
+                        qSubCategory.delAt,
+                        qSubCategory.regDtm,
+                        qSubCategory.regPsId))
+                .from(qSubCategory)
+                .where(builder)
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .orderBy(orderSpecifier)
+                .fetchResults();
 
         return new PageImpl<>(categoryList.getResults() , pageable , categoryList.getTotal());
     }
@@ -111,6 +138,7 @@ public class CategoryService extends _BaseService {
                 category.setCategoryNm(categoryVO.getCategoryNm());
                 category.setDelAt("N");
                 category.setCateDvTy("MAIN");
+                log.info("메인카테고리 네임 값 확인 :: " + categoryVO.getCategoryNm());
                 /*categoryRepository.save(category);*/
             } else if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)) {
                 verifyDuplicateSubCategoryNm(categoryVO.getCategoryNm());
@@ -122,7 +150,7 @@ public class CategoryService extends _BaseService {
                 subCategory.setDelAt("N");
                 subCategory.setCateDvTy("SUB");
                 /*subCategoryRepository.save(subCategory);*/
-                log.info("서브카테고리 네임 값 확인 :: " + categoryVO.getCategoryNm());
+                log.info("서브카테고리 네임 값 확인 :: " + subCategoryVO.getSubcategoryNm());
                 log.info("서브카테고리 pid 값 확인 :: " + subCategoryVO.getCategoryPid());
             }
 

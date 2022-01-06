@@ -5,6 +5,7 @@ import kr.co.team.res.controller.web.BaseCont;
 import kr.co.team.res.domain.entity.Account;
 import kr.co.team.res.domain.entity.Category;
 import kr.co.team.res.domain.entity.SubCategory;
+import kr.co.team.res.domain.enums.CateDvTy;
 import kr.co.team.res.domain.vo.admin.CategoryVO;
 import kr.co.team.res.domain.vo.admin.SubCategoryVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
@@ -36,15 +37,28 @@ public class CategoryController extends BaseCont {
                        @PageableDefault Pageable pageable ,
                        @ModelAttribute SearchVO searchVO ,
                        @ModelAttribute CategoryVO categoryVO) {
-        //페이징 데이터
+
         model.addAttribute("form" , searchVO);
-        //카테고리 데이터 set
         Page<Category> categoryList = categoryService.list(pageable , searchVO , categoryVO);
-        //카테고리 데이터 push
         model.addAttribute("list" , categoryList);
 
         return "/pages/admin/operation/category/list";
     }
+
+    @RequestMapping("/sub/list")
+    public String sublist(Model model ,
+                          @PageableDefault Pageable pageable ,
+                          @ModelAttribute SearchVO searchVO ,
+                          @ModelAttribute SubCategoryVO SubCategoryVO) {
+
+        model.addAttribute("form" , searchVO);
+        Page<Category> subcategoryList = categoryService.sublist(pageable , searchVO , SubCategoryVO);
+        model.addAttribute("list" , subcategoryList);
+
+        return "/pages/admin/operation/category/list";
+    }
+
+
     @RequestMapping("/add")
     public String add(Model model ,
                       @ModelAttribute CategoryVO categoryVO ,
@@ -73,10 +87,19 @@ public class CategoryController extends BaseCont {
                            @ModelAttribute SubCategoryVO subCategoryVO,
                            @CurrentUser Account account){
 
-        if(categoryVO.getCategoryNm().equals("") || categoryVO.getCategoryNm() == null || categoryVO.getCategoryNm().length() < 1) {
-            model.addAttribute("altmsg" , "카테고리이름을 입력해주세요.");
-            model.addAttribute("locurl" , "/pages/admin/operation/category/register");
-            return "/message";
+        if(categoryVO.getCateDvTy().equals(CateDvTy.MAIN)){
+            if(categoryVO.getCategoryNm().equals("") || categoryVO.getCategoryNm() == null) {
+                model.addAttribute("altmsg" , "메인 카테고리이름을 입력해주세요.");
+                model.addAttribute("locurl" , "/pages/admin/operation/category/register");
+                return "/message";
+            }
+        }
+        if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)){
+            if(subCategoryVO.getSubcategoryNm().equals("") || subCategoryVO.getSubcategoryNm() == null) {
+                model.addAttribute("altmsg" , "서브 카테고리이름을 입력해주세요.");
+                model.addAttribute("locurl" , "/pages/admin/operation/category/register");
+                return "/message";
+            }
         }
         if(!categoryService.verifyDuplicateCategoryNm(categoryVO.getCategoryNm())) {
             model.addAttribute("altmsg" , "이미 등록된 카테고리 입니다.");
@@ -86,9 +109,11 @@ public class CategoryController extends BaseCont {
         MemberVO memberVO = new MemberVO();
         memberVO.setLoginId(account.getLoginId());
         categoryService.register(categoryVO , memberVO, subCategoryVO);
-
         return "redirect:/admin/operation/category/list";
     }
+
+    @RequestMapping("/detail")
+    public String detail(){ return null; }
 
     @RequestMapping("/del")
     public String del(){
@@ -100,8 +125,5 @@ public class CategoryController extends BaseCont {
         return null;
     }
 
-    @RequestMapping("/detail")
-    public String detail(){
-        return null;
-    }
+
 }

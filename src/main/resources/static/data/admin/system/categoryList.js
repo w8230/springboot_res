@@ -1,3 +1,9 @@
+var chk
+var categoryNm
+var categoryDsc
+var subcategoryNm
+var categoryPid
+var selectCate
 
 function layerShow(ele) {
     $('#' + ele).addClass('active')
@@ -30,11 +36,12 @@ function fn_hide() {
 }
 function fn_chkField() {
     console.log('fn run')
-    var chk = $('input[name=cateDvTy]:checked').val();
-    var categoryNm = $('#category_nm');
-    var categoryDsc = $('#category_dsc');
-    var subcategoryNm = $('#subcategory_nm');
-    var categoryPid = $('#categoryPid');
+    chk = $('input[name=cateDvTy]:checked').val();
+    categoryNm = $('#category_nm');
+    categoryDsc = $('#category_dsc');
+    subcategoryNm = $('#subcategory_nm');
+    categoryPid = $('#categoryPid');
+    selectCate = $('#selectCate');
 
 
     if( chk === 'MAIN') {
@@ -52,17 +59,22 @@ function fn_chkField() {
     }
 
     if (chk === 'SUB') {
-        /*if(!$('#categoryPid > option:selected').val()){
+
+        categoryPid.val(selectCate.val());
+
+        if(!$.trim(categoryPid.val())){
             alert('반드시 메인카테고리를 선택 하여야 합니다.')
             categoryPid.focus();
             return false
+        }
+        /*if(!$('#categoryPid > option:selected').val()){
+
         }*/
         if(!$.trim(subcategoryNm.val())){
             alert('서브카테고리의 이름을 입력해주세요.')
             subcategoryNm.focus();
             return false
         }
-
     }
     return true;
 }

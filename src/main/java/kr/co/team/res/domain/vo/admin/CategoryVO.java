@@ -17,7 +17,7 @@ public class CategoryVO extends SearchVO {
 
     private Long id;
     private CateDvTy cateDvTy;
-    private String categoryNm;
+    private String categoryNm = "";
     private String categoryDsc;
     //SearchVO를 익스텐드 하여서 관계가 모호해 진 변수
     //private String regPsid;
