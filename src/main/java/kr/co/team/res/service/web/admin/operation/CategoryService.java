@@ -111,7 +111,7 @@ public class CategoryService extends _BaseService {
                 category.setCategoryNm(categoryVO.getCategoryNm());
                 category.setDelAt("N");
                 category.setCateDvTy("MAIN");
-                categoryRepository.save(category);
+                /*categoryRepository.save(category);*/
             } else if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)) {
                 verifyDuplicateSubCategoryNm(categoryVO.getCategoryNm());
                 SubCategory subCategory = modelMapper.map(subCategoryVO , SubCategory.class);
@@ -121,7 +121,9 @@ public class CategoryService extends _BaseService {
                 subCategory.setSubcategoryNm(categoryVO.getCategoryNm());
                 subCategory.setDelAt("N");
                 subCategory.setCateDvTy("SUB");
-                subCategoryRepository.save(subCategory);
+                /*subCategoryRepository.save(subCategory);*/
+                log.info("서브카테고리 네임 값 확인 :: " + categoryVO.getCategoryNm());
+                log.info("서브카테고리 pid 값 확인 :: " + subCategoryVO.getCategoryPid());
             }
 
         }catch (Exception e) {

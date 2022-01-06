@@ -15,8 +15,6 @@ function fn_hide() {
         console.log('main run')
         $('#main_div').show();
         $('#sub_div').hide();
-        $('#test1').hide();
-        $('#test2').show();
 
         /*document.getElementById("main_div").style.display="block";
         document.getElementById("sub_div").style.display="none";*/
@@ -24,8 +22,6 @@ function fn_hide() {
         console.log('sub run')
         $('#main_div').hide();
         $('#sub_div').show();
-        $('#test1').show();
-        $('#test2').hide();
 
         /*document.getElementById("main_div").style.display="none";
         document.getElementById("sub_div").style.display="block";*/
@@ -56,11 +52,11 @@ function fn_chkField() {
     }
 
     if (chk === 'SUB') {
-        if(!$('#categoryPid > option:selected').val()){
+        /*if(!$('#categoryPid > option:selected').val()){
             alert('반드시 메인카테고리를 선택 하여야 합니다.')
             categoryPid.focus();
             return false
-        }
+        }*/
         if(!$.trim(subcategoryNm.val())){
             alert('서브카테고리의 이름을 입력해주세요.')
             subcategoryNm.focus();
@@ -78,6 +74,10 @@ function appendCpid() {
 
 ////-------- page load
 $(function () {
+
+    /*$('.cateDvTyMAIN[value="MAIN"]').prop('checked' ,true);*/
+    $('#cateDvTyMAIN').prop('checked' , true);
+    $('#sub_div').hide();
 
     $('#btnSave').click(function () {
         if (!fn_chkField()) {

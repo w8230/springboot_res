@@ -16,13 +16,10 @@
                         <li>운영관리</li>
                         <li>카테고리 관리</li>
                     </ul>
-
                     <div class="board_detail">
                         <div class="sec">
                             <div class="board_top clearfix">
                                 <div class="fl">
-                                    <div id="test1">test1</div>
-                                    <div id="test2">test2</div>
                                     <h4 class="sec_tit">카테고리 상세정보</h4>
                                 </div>
                             </div>
@@ -31,36 +28,40 @@
                             </div>
                             <table class="tbl_write">
                                 <caption>배너상세 정보</caption>
+
                                 <colgroup>
                                     <col style="width:140px" />
                                     <col style="width:calc(50% - 140px)" />
                                 </colgroup>
+
                                 <tbody>
                                 <tr>
                                     <th scope="row">카테고리 구분<span class="aster">*</span></th>
                                     <td>
                                         <div class="radio txt" th:each="tp,idx : ${T(kr.co.team.res.domain.enums.CateDvTy).values()}">
-                                            <input type="radio" name="cateDvTy" th:id="|cateDvTy${tp.name()}|" th:value="${tp.name()}" onclick="fn_hide()" checked/>
+                                            <input type="radio" name="cateDvTy" th:id="|cateDvTy${tp.name()}|" th:value="${tp.name()}" onclick="fn_hide()"/>
                                             <label th:for="|cateDvTy${tp.name()}|" th:text="${tp.getName()}">메인</label>
                                         </div>
+
                                     </td>
                                 </tr>
 
-                                <div id="main_div" style="display:block;">
+                                <tbody id="main_div">
                                     <tr>
                                         <th scope="row">카테고리 명<span class="aster">*</span></th>
                                         <td><input id="category_nm" name="categoryNm"/></td>
                                     </tr>
+
                                     <tr>
                                         <th scope="row">카테고리 용도<span class="aster">*</span></th>
                                         <td>
                                             <textarea id="category_dsc" name="categoryDsc"></textarea>
                                         </td>
                                     </tr>
-                                </div>
+                                </tbody>
 
-                                <div id="sub_div" style="display:none">
-                                    <tr type="hidden">
+                                <tbody id="sub_div">
+                                    <tr>
                                         <th scope="row">메인 카테고리<span class="aster">*</span></th>
                                         <td>
                                             <select id="selectCate" th:field="${mclist}">
@@ -70,11 +71,11 @@
                                             <input id="categoryPid" name="categoryPid" type="hidden">
                                         </td>
                                     </tr>
-                                    <tr type="hidden">
+                                    <tr>
                                         <th scope="row">카테고리 명<span class="aster">*</span></th>
                                         <td><input id="subcategory_nm" name="categoryNm"/></td>
                                     </tr>
-                                </div>
+                                </tbody>
 
                                 </tbody>
                             </table>
