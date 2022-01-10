@@ -1,32 +1,22 @@
 package kr.co.team.res.controller.web.admin.operation;
 
-import kr.co.team.res.common.Constants;
 import kr.co.team.res.common.annotation.CurrentUser;
 import kr.co.team.res.controller.web.BaseCont;
 import kr.co.team.res.domain.entity.*;
 import kr.co.team.res.domain.enums.CateDvTy;
-import kr.co.team.res.domain.enums.TableNmType;
 import kr.co.team.res.domain.vo.admin.CategoryVO;
 import kr.co.team.res.domain.vo.admin.SubCategoryVO;
-import kr.co.team.res.domain.vo.common.FileInfoVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
 import kr.co.team.res.domain.vo.user.MemberVO;
 import kr.co.team.res.service.web.admin.operation.CategoryService;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.persistence.Access;
+import org.springframework.web.bind.annotation.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -60,18 +50,6 @@ public class CategoryController extends BaseCont {
         model.addAttribute("sub" , list);
         return "/pages/admin/operation/category/detail";
     }
-    /*@RequestMapping("/sub/list")
-    public String sublist(Model model ,
-                          @PageableDefault Pageable pageable ,
-                          @ModelAttribute SearchVO searchVO ,
-                          @ModelAttribute SubCategoryVO SubCategoryVO) {
-        log.info("run sublist");
-        model.addAttribute("form" , searchVO);
-        Page<Category> subcategoryList = categoryService.sublist(pageable , searchVO , SubCategoryVO);
-        model.addAttribute("list" , subcategoryList);
-
-        return "/pages/admin/operation/category/list";
-    }*/
 
 
     @RequestMapping("/add")
@@ -100,7 +78,7 @@ public class CategoryController extends BaseCont {
     public String register(Model model ,
                            @ModelAttribute CategoryVO categoryVO ,
                            @ModelAttribute SubCategoryVO subCategoryVO,
-                           @CurrentUser Account account){
+                           @CurrentUser Account account) {
 
         if(categoryVO.getCateDvTy().equals(CateDvTy.MAIN)){
             if(categoryVO.getCategoryNm().equals("") || categoryVO.getCategoryNm() == null) {
@@ -126,9 +104,45 @@ public class CategoryController extends BaseCont {
         categoryService.register(categoryVO , memberVO, subCategoryVO);
         return "redirect:/admin/operation/category/list";
     }
-    @RequestMapping("/del")
-    public String del(){
-        return null;
+
+    @RequestMapping("/main/delete/{id}")
+    public String delete(Model model,
+                         @ModelAttribute CategoryVO categoryVO,
+                         @PathVariable(name = "id") Long id ,
+                         @CurrentUser Account account) throws Exception {
+        log.info("delete run");
+        System.out.println("id : " + id );
+
+        if(!categoryService.existsBySubCategory(id)) {
+            log.info("run if");
+            model.addAttribute("altmsg" , "서브카테고리가 존재하는 메인카테고리는 삭제할 수 없습니다.");
+            model.addAttribute("locul" , "/pages/admin/operation/category/list");
+            return "/message";
+        } else if(categoryService.existsBySubCategory(id)) {
+            log.info("run else");
+            //service
+            categoryVO.setCateDvTy(CateDvTy.MAIN);
+            categoryVO.setUpdDtm(LocalDateTime.now());
+            categoryVO.setUpdPsId(account.getLoginId());
+            categoryVO.setDelAt("Y");
+            categoryService.delete(categoryVO);
+            model.addAttribute("altmsg" , "메인카테고리가 삭제 되었습니다.");
+            model.addAttribute("locul" , "/pages/admin/operation/category/list");
+            return "/message";
+        }
+         /*if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)) {
+            //service
+            categoryVO.setCateDvTy(CateDvTy.SUB);
+            categoryVO.setUpdDtm(LocalDateTime.now());
+            categoryVO.setUpdPsId(account.getLoginId());
+            categoryVO.setDelAt("Y");
+            categoryService.delete(categoryVO);
+            model.addAttribute("altmsg" , "서브카테고리가 삭제 되었습니다.");
+            model.addAttribute("locul" , "/pages/admin/operation/category/list" + id);
+            return "/message";
+        }*/
+
+        return "/pages/admin/operation/category/list";
     }
 
     @RequestMapping("/modify")

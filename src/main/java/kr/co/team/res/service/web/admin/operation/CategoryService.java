@@ -2,10 +2,8 @@ package kr.co.team.res.service.web.admin.operation;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.team.res.common.Constants;
 import kr.co.team.res.common.exceptions.ValidCustomException;
@@ -27,6 +25,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -66,7 +65,7 @@ public class CategoryService extends _BaseService {
                 .fetch();
         return list;
     }
-
+    //리스트 페이지 조회
     public Page<Category> list(Pageable pageable, SearchVO searchVO , CategoryVO categoryVO) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() -1);
         pageable = PageRequest.of(page , searchVO.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchVO.getPageSize());
@@ -92,6 +91,7 @@ public class CategoryService extends _BaseService {
                 ))
                 .from(qCategory)
                 .limit(pageable.getPageSize())
+                .where(builder)
                 .offset(pageable.getOffset())
                 .orderBy(orderSpecifier)
                 .fetchResults();
@@ -103,6 +103,7 @@ public class CategoryService extends _BaseService {
 
         return new PageImpl<>(categoryList.getResults() , pageable , categoryList.getTotal());
     }
+    //디테일 페이지 메인카테고리 조회
     public Category load(Long id){
         QCategory qCategory = QCategory.category;
 
@@ -126,6 +127,7 @@ public class CategoryService extends _BaseService {
 
         return category;
     }
+    //디테일 페이지 서브카테고리 조회
     public List<SubCategory> subcategoryList(Long id) {
         QSubCategory qSubCategory = QSubCategory.subCategory;
 
@@ -147,6 +149,8 @@ public class CategoryService extends _BaseService {
                 .fetch();
         return list;
     }
+
+
     /*public Page<Category> sublist(Pageable pageable, SearchVO searchVO , SubCategoryVO SubCategoryVO) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() -1);
         pageable = PageRequest.of(page , searchVO.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchVO.getPageSize());
@@ -204,17 +208,61 @@ public class CategoryService extends _BaseService {
                 log.info("서브카테고리 네임 값 확인 :: " + subCategoryVO.getSubcategoryNm());
                 log.info("서브카테고리 pid 값 확인 :: " + subCategoryVO.getCategoryPid());
             }
-
         }catch (Exception e) {
             e.printStackTrace();
             return false;
         }
         return true;
     }
+    public Category getCapid(Long id) {
+        Category category = categoryRepository.findById(id).orElseGet(Category::new);
+        return category;
+    }
+    public SubCategory getSbpid(Long id) {
+        SubCategory subCategory = subCategoryRepository.findById(id).orElseGet(SubCategory::new);
+        return subCategory;
+    }
+
+    public boolean delete(CategoryVO categoryVO) {
+        log.info("run service");
+        if(categoryVO.getCateDvTy().equals(CateDvTy.MAIN)) {
+            log.info("main if");
+            /*Category category = this.getCapid(categoryVO.getId());
+            category.setUpdDtm(LocalDateTime.now());
+            category.setUpdPsId(categoryVO.getUpdPsId());
+            category.setDelAt(categoryVO.getDelAt());*/
+            categoryRepository.setDelAt(categoryVO.getId(), categoryVO.getDelAt(),
+                    categoryVO.getUpdPsId() , LocalDateTime.now());
+
+
+        } else if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)) {
+            SubCategory subCategory = this.getSbpid(categoryVO.getId());
+            subCategory.setUpdDtm(LocalDateTime.now());
+            subCategory.setUpdPsId(categoryVO.getUpdPsId());
+            subCategory.setDelAt(categoryVO.getDelAt());
+            subCategoryRepository.save(subCategory);
+        }
+        return true;
+    }
+
+    public boolean existsBySubCategory(Long id) {
+        boolean result = false;
+
+        if(subCategoryRepository.countByCategoryPid(id) > 0){
+            log.info("조회된 서브 카테고리 있음");
+            result = false;
+
+        } else if(subCategoryRepository.countByCategoryPid(id) == 0
+                || subCategoryRepository.countByCategoryPid(id) < 0){
+            log.info("조회된 서브 카테고리 없음");
+            result = true;
+        }
+        return result;
+    }
 
     public boolean verifyDuplicateCategoryNm(String categoryNm) {
         boolean result = false;
-        //isPresent가 true 라면 result는 false;
+
         if(categoryRepository.findByCategoryNm(categoryNm).isPresent()) {
             result = false;
         } else if(!categoryRepository.findByCategoryNm(categoryNm).isPresent()) {
