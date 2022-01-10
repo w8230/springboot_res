@@ -1,10 +1,143 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <!--<script src="/data/admin/system/bannerDetail.js"></script>-->
+    <script src="/data/admin/system/memberDetail.js"></script>
 </head>
-<body>
 
+<body>
+<div id="wrap">
+    <th:block th:include="fragments/admin/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" th:field="*{id}" th:value="*{id}" id="pid"/>
+                <div class="contents">
+                    <div></div>
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>운영관리</li>
+                        <li>카테고리 관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">메인 카테고리 상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+                                <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>-->
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:15%"/>
+                                    <col style="width:25%"/>
+                                    <col style="width:15%"/>
+                                    <col style="width:25%"/>
+                                    <col style="width:15%"/>
+                                    <col style="width:25%"/>
+                                    <col style="width: auto"/>
+                                </colgroup>
+
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>카테고리명</label></th>
+                                    <td th:text="*{categoryNm}"></td>
+                                    <th scope="row"><label>등록자</label></th>
+                                    <td th:text="*{regPsid}"></td>
+                                    <th scope="row"><label>등록일시</label></th>
+                                    <td th:text="*{#temporals.format(regDtm,'yyyy-MM-dd')}"></td>
+
+                                </tr>
+
+                                <tr>
+                                    <th scope="row"><label>카테고리 용도</label></th>
+                                    <td th:text="*{categoryDsc}"></td>
+                                    <th:block th:if="*{updPsId eq null}">
+                                        <th scope="row"><label>수정자</label></th>
+                                        <td>최근 수정사항 없음</td>
+                                    </th:block>
+                                    <th:block th:if="*{updPsId ne null}">
+                                        <th scope="row"><label>수정자</label></th>
+                                        <td th:text="*{updPsId}"></td>
+                                    </th:block>
+                                    <th:block th:if="*{updDtm eq null}">
+                                        <th scope="row"><label>수정일시</label></th>
+                                        <td>최근 수정사항 없음</td>
+                                    </th:block>
+                                    <th:block th:if="*{updDtm ne null}">
+                                        <th scope="row"><label>수정일시</label></th>
+                                        <td th:text="*{#temporals.format(updDtm,'yyyy-MM-dd')}"></td>
+                                    </th:block>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">서브 카테고리 상세정보</h4>
+                                </div>
+                            </div>
+                            <th:block th:if="${sub ne null}">
+                                <table class="tbl_write">
+                                    <colgroup>
+                                        <col style="width:8%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:24%"/>
+                                        <col style="width:8%"/>
+                                        <col style="width:10%"/>
+                                    </colgroup>
+
+                                    <tbody th:each="item : ${sub}">
+                                        <tr>
+                                            <input type="hidden" th:value="${item.id}">
+                                            <th scope="row"><label>서브 카테고리명</label></th>
+                                            <td th:text="${item.subcategoryNm}"></td>
+                                            <th scope="row"><label>등록자</label></th>
+                                            <td th:text="${item.regPsId}"></td>
+                                            <th scope="row"><label>등록일</label></th>
+                                            <td th:text="|${#temporals.format(item.regDtm,'yyyy-MM-dd')}|"></td>
+                                        </tr>
+                                    </tbody>
+                                    <th:block th:if="${sub.isEmpty()}">
+                                        <tbody>
+                                            등록된 서브 카테고리가 없습니다.
+                                        </tbody>
+                                    </th:block>
+                                </table>
+                            </th:block>
+
+                        </div>
+                        <div class="fr">
+                            <ul>
+                                <div class="btn_area">
+                                    <a class="btn btn_sm btn_lightgray" href="/admin/operation/category/list">
+                                        <i class="material-icons">list</i>목록
+                                    </a>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/admin/footer"></th:block>
+</div>
 </body>
 </html>

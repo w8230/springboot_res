@@ -1,24 +1,29 @@
 package kr.co.team.res.controller.web.admin.operation;
 
+import kr.co.team.res.common.Constants;
 import kr.co.team.res.common.annotation.CurrentUser;
 import kr.co.team.res.controller.web.BaseCont;
-import kr.co.team.res.domain.entity.Account;
-import kr.co.team.res.domain.entity.Category;
-import kr.co.team.res.domain.entity.SubCategory;
+import kr.co.team.res.domain.entity.*;
 import kr.co.team.res.domain.enums.CateDvTy;
+import kr.co.team.res.domain.enums.TableNmType;
 import kr.co.team.res.domain.vo.admin.CategoryVO;
 import kr.co.team.res.domain.vo.admin.SubCategoryVO;
+import kr.co.team.res.domain.vo.common.FileInfoVO;
 import kr.co.team.res.domain.vo.common.SearchVO;
 import kr.co.team.res.domain.vo.user.MemberVO;
 import kr.co.team.res.service.web.admin.operation.CategoryService;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.Access;
@@ -37,26 +42,36 @@ public class CategoryController extends BaseCont {
                        @PageableDefault Pageable pageable ,
                        @ModelAttribute SearchVO searchVO ,
                        @ModelAttribute CategoryVO categoryVO) {
-
+        log.info("run list");
         model.addAttribute("form" , searchVO);
         Page<Category> categoryList = categoryService.list(pageable , searchVO , categoryVO);
         model.addAttribute("list" , categoryList);
 
+
         return "/pages/admin/operation/category/list";
     }
+    @GetMapping("/detail/{id}")
+    public String detail(Model model,
+                         @PathVariable(name = "id") Long id) {
+        Category category = categoryService.load(id);
+        model.addAttribute("form" , category);
 
-    @RequestMapping("/sub/list")
+        List<SubCategory> list = categoryService.subcategoryList(id);
+        model.addAttribute("sub" , list);
+        return "/pages/admin/operation/category/detail";
+    }
+    /*@RequestMapping("/sub/list")
     public String sublist(Model model ,
                           @PageableDefault Pageable pageable ,
                           @ModelAttribute SearchVO searchVO ,
                           @ModelAttribute SubCategoryVO SubCategoryVO) {
-
+        log.info("run sublist");
         model.addAttribute("form" , searchVO);
         Page<Category> subcategoryList = categoryService.sublist(pageable , searchVO , SubCategoryVO);
         model.addAttribute("list" , subcategoryList);
 
         return "/pages/admin/operation/category/list";
-    }
+    }*/
 
 
     @RequestMapping("/add")
@@ -111,10 +126,6 @@ public class CategoryController extends BaseCont {
         categoryService.register(categoryVO , memberVO, subCategoryVO);
         return "redirect:/admin/operation/category/list";
     }
-
-    @RequestMapping("/detail")
-    public String detail(){ return null; }
-
     @RequestMapping("/del")
     public String del(){
         return null;

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class SubCategoryVO extends SearchVO {
 
-    private Long id;
+    private Long subcategoryPid;
     private Long categoryPid;
     private String cateDvTy;
     private String subcategoryNm;

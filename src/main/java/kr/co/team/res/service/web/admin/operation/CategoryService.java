@@ -2,8 +2,10 @@ package kr.co.team.res.service.web.admin.operation;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.team.res.common.Constants;
 import kr.co.team.res.common.exceptions.ValidCustomException;
@@ -68,14 +70,14 @@ public class CategoryService extends _BaseService {
     public Page<Category> list(Pageable pageable, SearchVO searchVO , CategoryVO categoryVO) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() -1);
         pageable = PageRequest.of(page , searchVO.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchVO.getPageSize());
-
+        //네이티브 쿼리로 유니온 사용하여 시도 중
+        /*Page<Category> list = categoryRepository.allcategoryList(pageable);*/
 
         QCategory qCategory = QCategory.category;
         OrderSpecifier<Long> orderSpecifier  = qCategory.id.desc();
 
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(qCategory.delAt.eq("N"));
-
         QueryResults<Category> categoryList = queryFactory
                 .select(Projections.fields(Category.class,
                         qCategory.id,
@@ -86,17 +88,66 @@ public class CategoryService extends _BaseService {
                         qCategory.updPsId,
                         qCategory.delAt,
                         qCategory.regDtm,
-                        qCategory.regPsid))
+                        qCategory.regPsid
+                ))
                 .from(qCategory)
-                .where(builder)
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .orderBy(orderSpecifier)
                 .fetchResults();
 
+        System.out.println(categoryList.getTotal());
+
+        /*System.out.println(categoryList.getResults().get(1).getSubcategoryNm());
+        System.out.println(categoryList.getResults().get(2).getSubcategoryNm());*/
+
         return new PageImpl<>(categoryList.getResults() , pageable , categoryList.getTotal());
     }
-    public Page<Category> sublist(Pageable pageable, SearchVO searchVO , SubCategoryVO SubCategoryVO) {
+    public Category load(Long id){
+        QCategory qCategory = QCategory.category;
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qCategory.id.eq(id));
+
+        Category category = queryFactory
+                .select(Projections.fields(Category.class,
+                qCategory.id,
+                qCategory.categoryNm,
+                qCategory.cateDvTy,
+                qCategory.categoryDsc,
+                qCategory.updDtm,
+                qCategory.updPsId,
+                qCategory.delAt,
+                qCategory.regDtm,
+                qCategory.regPsid))
+                .from(qCategory)
+                .where(builder)
+                .fetchFirst();
+
+        return category;
+    }
+    public List<SubCategory> subcategoryList(Long id) {
+        QSubCategory qSubCategory = QSubCategory.subCategory;
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qSubCategory.categoryPid.eq(id));
+        builder.and(qSubCategory.delAt.eq("N"));
+
+        List<SubCategory> list = queryFactory
+                .select(Projections.fields(SubCategory.class,
+                        qSubCategory.id,
+                        qSubCategory.subcategoryNm,
+                        qSubCategory.cateDvTy,
+                        qSubCategory.regPsId,
+                        qSubCategory.regDtm,
+                        qSubCategory.updDtm,
+                        qSubCategory.updPsId))
+                .from(qSubCategory)
+                .where(builder)
+                .fetch();
+        return list;
+    }
+    /*public Page<Category> sublist(Pageable pageable, SearchVO searchVO , SubCategoryVO SubCategoryVO) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() -1);
         pageable = PageRequest.of(page , searchVO.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchVO.getPageSize());
 
@@ -125,7 +176,7 @@ public class CategoryService extends _BaseService {
                 .fetchResults();
 
         return new PageImpl<>(categoryList.getResults() , pageable , categoryList.getTotal());
-    }
+    }*/
 
     public boolean register(CategoryVO categoryVO , MemberVO memberVO , SubCategoryVO subCategoryVO)  throws ValidCustomException {
 

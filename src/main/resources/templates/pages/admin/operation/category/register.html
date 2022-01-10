@@ -1,7 +1,7 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/admin/header"></th:block>
-    <script src="/data/admin/system/categoryList.js"></script>
+    <script src="/data/admin/system/categoryRegister.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -42,7 +42,6 @@
                                             <input type="radio" name="cateDvTy" th:id="|cateDvTy${tp.name()}|" th:value="${tp.name()}" onclick="fn_hide()"/>
                                             <label th:for="|cateDvTy${tp.name()}|" th:text="${tp.getName()}">메인</label>
                                         </div>
-
                                     </td>
                                 </tr>
 

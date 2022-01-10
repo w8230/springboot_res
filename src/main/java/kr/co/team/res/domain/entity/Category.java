@@ -43,4 +43,15 @@ public class Category {
 
     @Column(name = "del_at")
     private String delAt;
+
+    @Transient
+    private Long categoryPid;
+
+    @Transient
+    private Long subcategoryPid;
+
+    @Transient
+    private String subcategoryNm;
+
+
 }

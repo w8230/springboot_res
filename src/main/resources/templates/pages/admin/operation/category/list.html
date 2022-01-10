@@ -38,6 +38,7 @@
                                 <button class="btn btn_sm btn_gray" onclick="fn_search()">
                                     <i class="material-icons">search</i>조회
                                 </button>
+
                             </dd>
                         </dl>
                     </div>
@@ -51,6 +52,7 @@
                                 <a class="btn btn_sm btn_blue" href="/admin/operation/category/add">
                                     <i class="material-icons">library_add</i>카테고리 추가
                                 </a>
+
                             </div>
                         </div>
 
@@ -83,7 +85,12 @@
                                 <td th:text="${list.totalElements - list.pageable.pageSize * list.pageable.pageNumber - idx.index}"></td>
                                 <td>
                                     <b>
-                                        <a th:href="|/admin/operation/category/detail/${item.id}|"  th:text="${item.categoryNm}"></a>
+                                        <th:block th:if="${item.cateDvTy eq 'MAIN'}">
+                                            <a th:href="|/admin/operation/category/detail/${item.id}|"  th:text="${item.categoryNm}"></a>
+                                        </th:block>
+                                        <th:block th:if="${item.cateDvTy eq 'SUB'}">
+                                            <a th:href="|/admin/operation/category/detail/${item.subcategoryPid}|"  th:text="${item.subcategoryNm}"></a>
+                                        </th:block>
                                     </b>
                                 </td>
                                 <td>
