@@ -116,7 +116,7 @@ public class CategoryController extends BaseCont {
         if(!categoryService.existsBySubCategory(id)) {
             log.info("run if");
             model.addAttribute("altmsg" , "서브카테고리가 존재하는 메인카테고리는 삭제할 수 없습니다.");
-            model.addAttribute("locul" , "/pages/admin/operation/category/list");
+            model.addAttribute("locul" , "/pages/admin/operation/category/detail/"+id);
             return "/message";
         } else if(categoryService.existsBySubCategory(id)) {
             log.info("run else");
@@ -130,16 +130,22 @@ public class CategoryController extends BaseCont {
             model.addAttribute("locul" , "/pages/admin/operation/category/list");
             return "/message";
         }
-         /*if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)) {
-            //service
-            categoryVO.setCateDvTy(CateDvTy.SUB);
-            categoryVO.setUpdDtm(LocalDateTime.now());
-            categoryVO.setUpdPsId(account.getLoginId());
-            categoryVO.setDelAt("Y");
-            categoryService.delete(categoryVO);
-            model.addAttribute("altmsg" , "서브카테고리가 삭제 되었습니다.");
-            model.addAttribute("locul" , "/pages/admin/operation/category/list" + id);
-            return "/message";
+
+        /*
+        if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)) {
+        0111 메모 참고하여 구현할 것.
+        위에 if문 필요 없음 컨트롤러 새로 만들거임
+
+     
+
+        categoryVO.setCateDvTy(CateDvTy.SUB);
+        categoryVO.setUpdDtm(LocalDateTime.now());
+        categoryVO.setUpdPsId(account.getLoginId());
+        categoryVO.setDelAt("Y");
+        categoryService.delete(categoryVO);
+        model.addAttribute("altmsg" , "서브카테고리가 삭제 되었습니다.");
+        model.addAttribute("locul" , "/pages/admin/operation/category/list" + id);
+        return "/message";
         }*/
 
         return "/pages/admin/operation/category/list";
