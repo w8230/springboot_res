@@ -68,7 +68,6 @@ public class CategoryController extends BaseCont {
             System.out.println(mclist.get(i).getCateDvTy());
             System.out.println(mclist.get(i).getDelAt());
             System.out.println(mclist.get(i).getRegDtm());
-
         }*/
 
         return "/pages/admin/operation/category/register";
@@ -110,34 +109,25 @@ public class CategoryController extends BaseCont {
                          @ModelAttribute CategoryVO categoryVO,
                          @PathVariable(name = "id") Long id ,
                          @CurrentUser Account account) throws Exception {
-        log.info("delete run");
-        System.out.println("id : " + id );
 
         if(!categoryService.existsBySubCategory(id)) {
-            log.info("run if");
             model.addAttribute("altmsg" , "서브카테고리가 존재하는 메인카테고리는 삭제할 수 없습니다.");
-            model.addAttribute("locul" , "/pages/admin/operation/category/detail/"+id);
-            return "/message";
+            model.addAttribute("locurl" , "/admin/operation/category/detail/"+id);
+
         } else if(categoryService.existsBySubCategory(id)) {
-            log.info("run else");
-            //service
             categoryVO.setCateDvTy(CateDvTy.MAIN);
             categoryVO.setUpdDtm(LocalDateTime.now());
             categoryVO.setUpdPsId(account.getLoginId());
             categoryVO.setDelAt("Y");
             categoryService.delete(categoryVO);
             model.addAttribute("altmsg" , "메인카테고리가 삭제 되었습니다.");
-            model.addAttribute("locul" , "/pages/admin/operation/category/list");
-            return "/message";
+            model.addAttribute("locurl" , "/admin/operation/category/list");
         }
 
         /*
         if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)) {
         0111 메모 참고하여 구현할 것.
         위에 if문 필요 없음 컨트롤러 새로 만들거임
-
-     
-
         categoryVO.setCateDvTy(CateDvTy.SUB);
         categoryVO.setUpdDtm(LocalDateTime.now());
         categoryVO.setUpdPsId(account.getLoginId());
@@ -148,7 +138,24 @@ public class CategoryController extends BaseCont {
         return "/message";
         }*/
 
-        return "/pages/admin/operation/category/list";
+        return "/message";
+    }
+    @RequestMapping(value = "/sub/delete/{id}")
+    public String subdelete(Model model,
+                            @ModelAttribute CategoryVO categoryVO,
+                            @PathVariable(name = "id") Long id ,
+                            @CurrentUser Account account) throws Exception {
+
+        categoryVO.setCateDvTy(CateDvTy.SUB);
+        categoryVO.setUpdDtm(LocalDateTime.now());
+        categoryVO.setUpdPsId(account.getLoginId());
+        categoryVO.setDelAt("Y");
+        categoryService.delete(categoryVO);
+
+        model.addAttribute("altmsg" , "서브카테고리가 삭제 되었습니다.");
+        model.addAttribute("locurl" , "/admin/operation/category/list" + id);
+
+        return "/message";
     }
 
     @RequestMapping("/modify")

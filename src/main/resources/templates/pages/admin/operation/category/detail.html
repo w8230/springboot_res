@@ -94,24 +94,47 @@
                                 <table class="tbl_write">
                                     <colgroup>
                                         <col style="width:8%"/>
+                                        <col style="width:13%"/>
                                         <col style="width:8%"/>
                                         <col style="width:8%"/>
                                         <col style="width:8%"/>
                                         <col style="width:8%"/>
-                                        <col style="width:24%"/>
                                         <col style="width:8%"/>
-                                        <col style="width:10%"/>
+                                        <col style="width:8%"/>
                                     </colgroup>
 
                                     <tbody th:each="item : ${sub}">
-                                        <tr>
+                                        <tr style="margin-bottom: 20px;">
                                             <input type="hidden" th:value="${item.id}">
                                             <th scope="row"><label>서브 카테고리명</label></th>
-                                            <td th:text="${item.subcategoryNm}"></td>
+                                            <td>
+                                                <a th:text="${item.subcategoryNm}"></a>
+                                                <a class="btn btn_sm btn_red" th:href="|/admin/operation/category/sub/delete/${item.id}|">
+                                                    <i class="material-icons">delete_forever</i>삭제
+                                                </a>
+                                            </td>
+                                            </a>
                                             <th scope="row"><label>등록자</label></th>
                                             <td th:text="${item.regPsId}"></td>
                                             <th scope="row"><label>등록일</label></th>
                                             <td th:text="|${#temporals.format(item.regDtm,'yyyy-MM-dd')}|"></td>
+
+                                            <th:block th:if="${item.updPsId eq null}">
+                                                <th scope="row"><label>수정자</label></th>
+                                                <td>최근 수정사항 없음</td>
+                                            </th:block>
+                                            <th:block th:if="${item.updPsId ne null}">
+                                                <th scope="row"><label>수정자</label></th>
+                                                <td th:text="${item.updPsId}"></td>
+                                            </th:block>
+
+                                            <th:block th:if="${item.updDtm eq null}">
+                                                <th scope="row"><label>수정일시</label></th>
+                                                <td>최근 수정사항 없음</td>
+                                            </th:block>
+                                            <th:block th:if="${item.updDtm ne null}">
+                                                <th scope="row"><label>수정일시</label></th>
+                                                <td th:text="${#temporals.format(item.updDtm,'yyyy-MM-dd')}"></td>
                                         </tr>
                                     </tbody>
                                     <th:block th:if="${sub.isEmpty()}">

@@ -226,21 +226,19 @@ public class CategoryService extends _BaseService {
     public boolean delete(CategoryVO categoryVO) {
         log.info("run service");
         if(categoryVO.getCateDvTy().equals(CateDvTy.MAIN)) {
-            log.info("main if");
-            /*Category category = this.getCapid(categoryVO.getId());
-            category.setUpdDtm(LocalDateTime.now());
-            category.setUpdPsId(categoryVO.getUpdPsId());
-            category.setDelAt(categoryVO.getDelAt());*/
             categoryRepository.setDelAt(categoryVO.getId(), categoryVO.getDelAt(),
                     categoryVO.getUpdPsId() , LocalDateTime.now());
 
 
         } else if(categoryVO.getCateDvTy().equals(CateDvTy.SUB)) {
             SubCategory subCategory = this.getSbpid(categoryVO.getId());
+            /*subCategory.setCategoryPid(0L);
             subCategory.setUpdDtm(LocalDateTime.now());
             subCategory.setUpdPsId(categoryVO.getUpdPsId());
-            subCategory.setDelAt(categoryVO.getDelAt());
-            subCategoryRepository.save(subCategory);
+            subCategory.setDelAt(categoryVO.getDelAt());*/
+            /*subCategoryRepository.save(subCategory);*/
+
+            subCategoryRepository.setDelAt(categoryVO.getId() , categoryVO.getDelAt() , categoryVO.getUpdPsId() , LocalDateTime.now());
         }
         return true;
     }

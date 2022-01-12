@@ -1,5 +1,6 @@
 package kr.co.team.res.domain.vo.admin;
 
+import kr.co.team.res.domain.enums.CateDvTy;
 import kr.co.team.res.domain.vo.common.SearchVO;
 import lombok.Getter;
 import lombok.Setter;

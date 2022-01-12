@@ -1,5 +1,6 @@
 package kr.co.team.res.domain.entity;
 
+import kr.co.team.res.domain.enums.CateDvTy;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
