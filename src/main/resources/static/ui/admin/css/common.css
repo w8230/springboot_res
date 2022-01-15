@@ -508,6 +508,7 @@ body{color:#333;font-size:14px;font-family:'Nanum Gothic',Malgun Gothic,'맑은�
 .policy_list > li .policy_sec .alpha_list > li ol,
 .policy_list > li .policy_sec .dash_list{margin-top:5px}
 .policy_list > li .policy_sec .dash_list > li{padding-left:10px;text-indent:-10px}
+.del_btn{float: left; width: 50%; padding: 0 5px;}
 
 /*** skipnav ***/
 #skipnav a{position:absolute;left:-3000%}

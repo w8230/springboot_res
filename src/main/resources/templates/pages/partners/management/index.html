@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/admin/header"></th:block>
+    <!--    <script type="text/javascript">-->
+    <!--        /*var colorList = [-->
+    <!--            "#67B7DC"-->
+    <!--            ,"#6a74dc"-->
+    <!--            ,"#534bc2"-->
+    <!--            ,"#9a4df5"-->
+    <!--            ,"#fe9b19"-->
+    <!--            ,"#ce0f54"-->
+    <!--            ,"#21c1aa"-->
+    <!--            ,"#84f4a8"-->
+    <!--            ,"#ff66ad"-->
+    <!--            ,"#1f9925"-->
+    <!--        ]*/-->
+
+    <!--        ////&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; page load-->
+    <!--        $(function(){-->
+    <!--            fn_setDatePicker('#adviceSrchStDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        maxDate:$('#adviceSrchEdDt').val()?$('#adviceSrchEdDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+
+    <!--            fn_setDatePicker('#adviceSrchEdDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        minDate:$('#adviceSrchStDt').val()?$('#adviceSrchStDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+    <!--            fn_setDatePicker('#courseSrchStDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        maxDate:$('#courseSrchEdDt').val()?$('#courseSrchEdDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+
+    <!--            fn_setDatePicker('#courseSrchEdDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        minDate:$('#courseSrchStDt').val()?$('#courseSrchStDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+    <!--            fn_setDatePicker('#courseStateSrchStDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        maxDate:$('#courseStateSrchEdDt').val()?$('#courseStateSrchEdDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+
+    <!--            fn_setDatePicker('#courseStateSrchEdDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        minDate:$('#courseStateSrchStDt').val()?$('#courseStateSrchStDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+    <!--            fn_setDatePicker('#surveySrchStDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        maxDate:$('#surveyStateSrchEdDt').val()?$('#surveyStateSrchEdDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+
+    <!--            fn_setDatePicker('#surveyStateSrchEdDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        minDate:$('#surveySrchStDt').val()?$('#surveySrchStDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+    <!--            fn_setDatePicker('#menuSrchStDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        maxDate:$('#menuStateSrchEdDt').val()?$('#menuStateSrchEdDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+
+    <!--            fn_setDatePicker('#menuStateSrchEdDt', {-->
+    <!--                onShow:function( ct ){-->
+    <!--                    this.setOptions({-->
+    <!--                        minDate:$('#menuSrchStDt').val()?$('#menuSrchStDt').val():false-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+    <!--            fn_monthResult();-->
+    <!--            fn_monthConnectResult();-->
+    <!--            fn_dayConnnectResult();-->
+
+    <!--            fn_adviceSearch();-->
+    <!--            fn_courseSearch();-->
+    <!--            fn_courseStateSearch();-->
+
+    <!--            fn_surveySearch();-->
+    <!--            fn_menuSearch();-->
+    <!--        });-->
+
+    <!--        function fn_adviceSearch() {-->
+    <!--            fn_monthConnectResult_2('memberToAdvice', '/api/admin/dashboard/memberTypeToAdvice');-->
+    <!--        }-->
+
+    <!--        function fn_courseSearch() {-->
+    <!--            fn_monthConnectResult_2('memberToCourse', '/api/admin/dashboard/memberTypeToCourse');-->
+    <!--        }-->
+
+    <!--        function fn_courseStateSearch() {-->
+    <!--            fn_monthConnectResult_2('courseCompleteStatus', '/api/admin/dashboard/courseCompleteStatus');-->
+    <!--        }-->
+
+    <!--        function fn_surveySearch() {-->
+    <!--            fn_surveyRequest();-->
+    <!--        }-->
+
+    <!--        function fn_menuSearch() {-->
+    <!--            fn_monthConnectResult_2('menuResult', '/api/admin/dashboard/menuStatusResult');-->
+    <!--        }-->
+
+    <!--        function fn_groupByCourseRequest(type, defaultNm, id) {-->
+    <!--            var jsonData = {-->
+    <!--                'areaNm' : $("#courseStateAreaNm").val(),-->
+    <!--                'schlNm' : $("#courseStateSchlNm").val(),-->
+    <!--                'grade' : $("#courseStateGrade").val(),-->
+    <!--                'ban' : $("#courseStateBan").val(),-->
+    <!--            };-->
+    <!--            $.ajax({-->
+    <!--                type: 'post',-->
+    <!--                url: '/api/admin/dashboard/groupByCourseRequest',-->
+    <!--                contentType: "application/json",-->
+    <!--                data: JSON.stringify(jsonData),-->
+    <!--                datatype: 'json',-->
+    <!--                success: function (data) {-->
+    <!--                    let optionHtml = '<option value="">' + defaultNm + '</option>';-->
+    <!--                    if (data) {-->
+    <!--                        $.each(data, function (index, item) {-->
+    <!--                            optionHtml += '<option value="' + item + '">' + item + '</option>';-->
+    <!--                        });-->
+    <!--                    }-->
+
+    <!--                    $("#" + id).html(optionHtml).niceSelect('update');-->
+
+    <!--                    if (type == '1') {-->
+    <!--                        $("#courseStateGrade").html('<option value="">학년</option>').niceSelect('update');-->
+    <!--                        $("#courseStateBan").html('<option value="">반</option>').niceSelect('update');-->
+    <!--                        $("#courseStateNo").html('<option value="">번</option>').niceSelect('update');-->
+    <!--                    } else if (type == '2') {-->
+    <!--                        $("#courseStateBan").html('<option value="">반</option>').niceSelect('update');-->
+    <!--                        $("#courseStateNo").html('<option value="">번</option>').niceSelect('update');-->
+    <!--                    } else if (type == '3') {-->
+    <!--                        $("#courseStateNo").html('<option value="">번</option>').niceSelect('update');-->
+    <!--                    }-->
+    <!--                },-->
+    <!--                error: function (error) {-->
+    <!--                    //alert('save error!!!');-->
+    <!--                    alert('error::' + error.statusText);-->
+    <!--                }-->
+    <!--            });-->
+    <!--        }-->
+
+    <!--        function fn_surveyRequest() {-->
+    <!--            var jsonData = {-->
+    <!--                'userRollTypeStr' : $("#surveyUserRollType").val(),-->
+    <!--                'surveyDvTypeStr': $("#surveyDvType").val(),-->
+    <!--                'srchStDt': $("#surveySrchStDt").val(),-->
+    <!--                'srchEdDt': $("#surveySrchEdDt").val()-->
+    <!--            };-->
+    <!--            $.ajax({-->
+    <!--                type: 'post',-->
+    <!--                url: '/api/admin/dashboard/surveyStatusResult',-->
+    <!--                contentType: "application/json",-->
+    <!--                data: JSON.stringify(jsonData),-->
+    <!--                datatype: 'json',-->
+    <!--                success: function (data) {-->
+    <!--                    makeChart_pieChart("surveyResult", data);-->
+    <!--                },-->
+    <!--                error: function (error) {-->
+    <!--                    //alert('save error!!!');-->
+    <!--                    alert('error::' + error.statusText);-->
+    <!--                }-->
+    <!--            });-->
+    <!--        }-->
+
+    <!--        function fn_dayConnnectResult(yyyymm) {-->
+    <!--            //var nowYear = $('#srchYear2').val();-->
+    <!--            var yearMonth = yyyymm;-->
+    <!--            var jsonData = {-->
+    <!--                'nowYearMonth' : yearMonth-->
+    <!--            };-->
+    <!--            $.ajax({-->
+    <!--                type: 'post',-->
+    <!--                url: '/api/admin/dashboard/dayConnectResult',-->
+    <!--                contentType: "application/json",-->
+    <!--                data: JSON.stringify(jsonData),-->
+    <!--                datatype: 'json',-->
+    <!--                success: function (data) {-->
+    <!--                    makeToBarChart("memberDayConnect", data);-->
+
+    <!--                    var theadHtml;-->
+    <!--                    var tbodyHtml;-->
+    <!--                    $.each(data, function(index, items){-->
+    <!--                        theadHtml += `<th>${items.category}</th>`;-->
+    <!--                        tbodyHtml += `<td>${items.first}</td>`;-->
+    <!--                    });-->
+
+    <!--                    $('#thead_dayConnect').html(theadHtml);-->
+    <!--                    $('#tbody_dayConnect').html(tbodyHtml);-->
+    <!--                },-->
+    <!--                error: function (error) {-->
+    <!--                    //alert('save error!!!');-->
+    <!--                    alert('error::' + error.statusText);-->
+    <!--                }-->
+    <!--            });-->
+    <!--        }-->
+
+    <!--        function fn_monthConnectResult() {-->
+    <!--            var nowYear = $('#srchYear2').val();-->
+    <!--            var jsonData = {-->
+    <!--                'nowYear' : nowYear-->
+    <!--            };-->
+    <!--            $.ajax({-->
+    <!--                type: 'post',-->
+    <!--                url: '/api/admin/dashboard/monthConnectResult',-->
+    <!--                contentType: "application/json",-->
+    <!--                data: JSON.stringify(jsonData),-->
+    <!--                datatype: 'json',-->
+    <!--                success: function (data) {-->
+    <!--                    makeToBarChart("memberMonthConnect", data, fn_dayConnnectResult);-->
+
+    <!--                    var theadHtml;-->
+    <!--                    var tbodyHtml;-->
+    <!--                    $.each(data, function(index, items){-->
+    <!--                        theadHtml += `<th>${items.category}</th>`;-->
+    <!--                        tbodyHtml += `<td>${items.first}</td>`;-->
+    <!--                    });-->
+
+    <!--                    $('#thead_monthConnect').html(theadHtml);-->
+    <!--                    $('#tbody_monthConnect').html(tbodyHtml);-->
+    <!--                },-->
+    <!--                error: function (error) {-->
+    <!--                    //alert('save error!!!');-->
+    <!--                    alert('error::' + error.statusText);-->
+    <!--                }-->
+    <!--            });-->
+    <!--        }-->
+
+    <!--        function fn_monthConnectResult_2(divId, api_url) {-->
+    <!--            var jsonData = {};-->
+    <!--            if (divId === 'memberToAdvice') {-->
+    <!--                jsonData = {-->
+    <!--                    //'reservationDvTy': $("#adviceDvTy").val(),-->
+    <!--                    'srchCodePid': $("#adviceAreaCode").val() ? $("#adviceAreaCode").val() : 0,-->
+    <!--                    'srchStDt': $("#adviceSrchStDt").val(),-->
+    <!--                    'srchEdDt': $("#adviceSrchEdDt").val()-->
+    <!--                };-->
+    <!--            } else if (divId === 'memberToCourse') {-->
+    <!--                jsonData = {-->
+    <!--                    'srchWord': $("#courseAreaNm").val(),-->
+    <!--                    'srchStDt': $("#courseSrchStDt").val(),-->
+    <!--                    'srchEdDt': $("#courseSrchEdDt").val()-->
+    <!--                };-->
+    <!--            } else if (divId === 'courseCompleteStatus') {-->
+    <!--                jsonData = {-->
+    <!--                    'sn': $("#courseStateSn").val(),-->
+    <!--                    'areaNm' : $("#courseStateAreaNm").val(),-->
+    <!--                    'schlNm' : $("#courseStateSchlNm").val(),-->
+    <!--                    'grade' : $("#courseStateGrade").val(),-->
+    <!--                    'ban' : $("#courseStateBan").val(),-->
+    <!--                    'no' : $("#courseStateNo").val(),-->
+    <!--                    'srchStDt': $("#courseStateSrchStDt").val(),-->
+    <!--                    'srchEdDt': $("#courseStateSrchEdDt").val()-->
+    <!--                };-->
+    <!--            } else if (divId === 'menuResult') {-->
+    <!--                jsonData = {-->
+    <!--                    'userRollTypeStr' : $("#userRollType").val(),-->
+    <!--                    'srchStDt': $("#menuSrchStDt").val(),-->
+    <!--                    'srchEdDt': $("#menuSrchEdDt").val()-->
+    <!--                };-->
+    <!--            }-->
+    <!--            $.ajax({-->
+    <!--                type: 'post',-->
+    <!--                url: api_url,-->
+    <!--                contentType: "application/json",-->
+    <!--                data: JSON.stringify(jsonData),-->
+    <!--                datatype: 'json',-->
+    <!--                success: function (data) {-->
+    <!--                    makeToBarChart_2(divId, data);-->
+
+    <!--                    /*var theadHtml;-->
+    <!--                    var tbodyHtml;-->
+    <!--                    $.each(data, function(index, items){-->
+    <!--                        theadHtml += `<th>${items.category}</th>`;-->
+    <!--                        tbodyHtml += `<td>${items.first}</td>`;-->
+    <!--                    });-->
+
+    <!--                    $('#thead_monthConnect').html(theadHtml);-->
+    <!--                    $('#tbody_monthConnect').html(tbodyHtml);*/-->
+    <!--                },-->
+    <!--                error: function (error) {-->
+    <!--                    //alert('save error!!!');-->
+    <!--                    alert('error::' + error.statusText);-->
+    <!--                }-->
+    <!--            });-->
+    <!--        }-->
+
+    <!--        function fn_monthResult() {-->
+    <!--            var nowYear = $('#srchYear').val();-->
+    <!--            var jsonData = {-->
+    <!--                'nowYear' : nowYear-->
+    <!--            };-->
+    <!--            $.ajax({-->
+    <!--                type: 'post',-->
+    <!--                url: '/api/admin/dashboard/monthResult',-->
+    <!--                contentType: "application/json",-->
+    <!--                data: JSON.stringify(jsonData),-->
+    <!--                datatype: 'json',-->
+    <!--                success: function (data) {-->
+    <!--                    makeToBarChart("memberMonthGbn", data);-->
+
+    <!--                    // makeToMonthly("memberMonthGbn", data);-->
+
+    <!--                    var theadHtml;-->
+    <!--                    var tbodyHtml;-->
+    <!--                    $.each(data, function(index, items){-->
+    <!--                        theadHtml += `<th>${items.category}</th>`;-->
+    <!--                        tbodyHtml += `<td>${items.first}</td>`;-->
+    <!--                    });-->
+
+    <!--                    $('#thead_monthJoin').html(theadHtml);-->
+    <!--                    $('#tbody_monthJoin').html(tbodyHtml);-->
+    <!--                },-->
+    <!--                error: function (error) {-->
+    <!--                    //alert('save error!!!');-->
+    <!--                    alert('error::' + error.statusText);-->
+    <!--                }-->
+    <!--            });-->
+    <!--        }-->
+
+    <!--        am4core.ready(function () {-->
+
+    <!--            makeChart_pieChart('memberSexGbn', [(${memberSexGbn})]); //회원현황 (성별) 파이차트-->
+    <!--            makeChart_pieChart('memberAgeGbn', [(${memberAgeGbn})]); //회원현황 (연령대) 파이차트-->
+    <!--            makeChart_pieChart('memberTypeGbn', [(${memberTypeGbn})]); //회원현황 (연령대) 파이차트-->
+
+    <!--            makeToBarChart_2('memberTypeGbn_2', [(${memberTypeGbn})])-->
+
+    <!--        }); // end am4core.ready()-->
+
+    <!--        /*[파이차트]*/-->
+    <!--        function makeChart_pieChart(id, data){-->
+    <!--            var data = data;-->
+
+    <!--            // Themes begin-->
+    <!--            am4core.useTheme(am4themes_animated);-->
+    <!--            // Themes end-->
+
+    <!--            // Create chart instance-->
+    <!--            var chart = am4core.create(id, am4charts.PieChart);-->
+    <!--            // Add data-->
+
+    <!--            /*for (var i=0; i<data.length; i++) {-->
+    <!--                if (i < colorList.length) {-->
+    <!--                    data[i].color = colorList[i];-->
+    <!--                }-->
+    <!--            }*/-->
+    <!--            chart.data = data;-->
+
+    <!--            // Add and configure Series-->
+    <!--            var pieSeries = chart.series.push(new am4charts.PieSeries());-->
+    <!--            pieSeries.dataFields.value = "cVal";-->
+    <!--            pieSeries.dataFields.category = "category";-->
+    <!--            pieSeries.slices.template.stroke = am4core.color("#fff");-->
+    <!--            pieSeries.slices.template.strokeWidth = 2;-->
+    <!--            pieSeries.slices.template.strokeOpacity = 1;-->
+    <!--            pieSeries.slices.template.propertyFields.fill = "color";-->
+    <!--            pieSeries.labels.template.disabled = true;-->
+
+    <!--            chart.legend = new am4charts.Legend();-->
+    <!--            chart.legend.position = "right";-->
+    <!--            chart.legend.scrollable = true;-->
+
+    <!--            // This creates initial animation-->
+    <!--            pieSeries.hiddenState.properties.opacity = 1;-->
+    <!--            pieSeries.hiddenState.properties.endAngle = -90;-->
+    <!--            pieSeries.hiddenState.properties.startAngle = -90;-->
+
+    <!--            /*pieSeries.slices.template.events.on("hit", function(ev) {-->
+    <!--                var id = ev.target.dataItem.pieId;-->
+    <!--                if (hitCallback && typeof hitCallback === 'function') {-->
+    <!--                    hitCallback(id);-->
+    <!--                }-->
+    <!--            }, this);*/-->
+    <!--        }-->
+
+    <!--        function makeToBarChart(divID, chartData, hitCallback){-->
+    <!--            am4core.useTheme(am4themes_animated);-->
+    <!--            var chart = am4core.create(divID, am4charts.XYChart)-->
+    <!--            /*chart.colors.list = [-->
+    <!--                am4core.color("#01afb6"),-->
+    <!--                am4core.color("#00437f"),-->
+    <!--            ]*/-->
+
+    <!--            chart.legend = new am4charts.Legend()-->
+    <!--            chart.legend.position = 'top'-->
+    <!--            chart.legend.paddingBottom = 20-->
+    <!--            chart.legend.labels.template.maxWidth = 95-->
+    <!--            chart.data = chartData;-->
+
+    <!--            var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())-->
+    <!--            xAxis.dataFields.category = 'category'-->
+    <!--            xAxis.renderer.cellStartLocation = 0.1-->
+    <!--            xAxis.renderer.cellEndLocation = 0.9-->
+    <!--            xAxis.renderer.grid.template.location = 0;-->
+    <!--            xAxis.renderer.minGridDistance = 1;-->
+    <!--            //xAxis.renderer.labels.template.rotation = 90;-->
+
+    <!--            let label = xAxis.renderer.labels.template;-->
+    <!--            label.wrap = true;-->
+    <!--            //label.truncate = true;-->
+    <!--            label.maxWidth = 100;-->
+    <!--            //label.tooltipText = "{category}";-->
+
+    <!--            let max = fn_getMax(chartData, 'first');-->
+    <!--            var yAxis = chart.yAxes.push(new am4charts.ValueAxis());-->
+    <!--            yAxis.min = 0;-->
+    <!--            if (max) {-->
+    <!--                yAxis.max = max * 1.1;-->
+    <!--            }-->
+
+    <!--            var series = chart.series.push(new am4charts.ColumnSeries())-->
+    <!--            series.dataFields.valueY = 'first'-->
+    <!--            series.dataFields.categoryX = 'category'-->
+    <!--            series.name = '건수'-->
+    <!--            series.columns.template.events.on("hit", function(ev) {-->
+    <!--                if (hitCallback && typeof hitCallback === 'function') {-->
+    <!--                    hitCallback(ev.target.dataItem.categoryX);-->
+    <!--                }-->
+    <!--            });-->
+    <!--            series.columns.template.tooltipText = "[#fff font-size: 15px]{categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]"-->
+    <!--            series.columns.template.propertyFields.fillOpacity = "fillOpacity";-->
+    <!--            series.columns.template.propertyFields.stroke = "stroke";-->
+    <!--            series.columns.template.propertyFields.strokeWidth = "strokeWidth";-->
+    <!--            series.columns.template.propertyFields.strokeDasharray = "columnDash";-->
+    <!--            series.columns.template.width = am4core.percent(70);-->
+    <!--            series.tooltip.label.textAlign = "middle";-->
+
+    <!--            /*series.events.on("hidden", arrangeColumns);-->
+    <!--            series.events.on("shown", arrangeColumns);*/-->
+
+    <!--            var bullet = series.bullets.push(new am4charts.LabelBullet())-->
+    <!--            bullet.interactionsEnabled = false-->
+    <!--            bullet.dy = - 10;-->
+    <!--            bullet.label.text = '{valueY}'-->
+    <!--            bullet.label.fill = am4core.color('#000000')-->
+
+    <!--        }-->
+
+    <!--        function makeToBarChart_2(divID, chartData){-->
+    <!--            am4core.useTheme(am4themes_animated);-->
+    <!--            var chart = am4core.create(divID, am4charts.XYChart)-->
+    <!--            /*chart.colors.list = [-->
+    <!--                am4core.color("#01afb6"),-->
+    <!--                am4core.color("#00437f"),-->
+    <!--            ]*/-->
+
+    <!--            chart.legend = new am4charts.Legend()-->
+    <!--            chart.legend.position = 'top'-->
+    <!--            chart.legend.paddingBottom = 20-->
+    <!--            chart.legend.labels.template.maxWidth = 95-->
+    <!--            chart.data = chartData;-->
+
+    <!--            var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())-->
+    <!--            xAxis.dataFields.category = 'category'-->
+    <!--            xAxis.renderer.cellStartLocation = 0.1-->
+    <!--            xAxis.renderer.cellEndLocation = 0.9-->
+    <!--            xAxis.renderer.grid.template.location = 0;-->
+    <!--            xAxis.renderer.minGridDistance = 1;-->
+    <!--            //xAxis.renderer.labels.template.rotation = 90;-->
+
+    <!--            let label = xAxis.renderer.labels.template;-->
+    <!--            label.wrap = true;-->
+    <!--            //label.truncate = true;-->
+    <!--            label.maxWidth = 100;-->
+    <!--            //label.tooltipText = "{category}";-->
+
+    <!--            let max = fn_getMax(chartData, 'cVal');-->
+    <!--            var yAxis = chart.yAxes.push(new am4charts.ValueAxis());-->
+    <!--            yAxis.min = 0;-->
+    <!--            if (max) {-->
+    <!--                yAxis.max = max * 1.1;-->
+    <!--            }-->
+
+    <!--            var series = chart.series.push(new am4charts.ColumnSeries())-->
+    <!--            series.dataFields.valueY = 'cVal'-->
+    <!--            series.dataFields.categoryX = 'category'-->
+    <!--            series.name = '건수'-->
+
+    <!--            series.columns.template.tooltipText = "[#fff font-size: 15px]{categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]"-->
+    <!--            series.columns.template.propertyFields.fillOpacity = "fillOpacity";-->
+    <!--            series.columns.template.propertyFields.stroke = "stroke";-->
+    <!--            series.columns.template.propertyFields.strokeWidth = "strokeWidth";-->
+    <!--            series.columns.template.propertyFields.strokeDasharray = "columnDash";-->
+    <!--            series.columns.template.width = am4core.percent(70);-->
+    <!--            series.tooltip.label.textAlign = "middle";-->
+
+    <!--            /*series.events.on("hidden", arrangeColumns);-->
+    <!--            series.events.on("shown", arrangeColumns);*/-->
+
+    <!--            var bullet = series.bullets.push(new am4charts.LabelBullet())-->
+    <!--            bullet.interactionsEnabled = false-->
+    <!--            bullet.dy = - 10;-->
+    <!--            bullet.label.text = '{valueY}'-->
+    <!--            bullet.label.fill = am4core.color('#000000')-->
+
+    <!--        }-->
+
+    <!--        function fn_getMax(list, col) {-->
+    <!--            let max = 0;-->
+    <!--            if (list && col) {-->
+    <!--                $.each(list, function(index, item) {-->
+    <!--                    if (item[col] > max) {-->
+    <!--                        max = item[col];-->
+    <!--                    }-->
+    <!--                });-->
+    <!--            }-->
+    <!--            return max;-->
+    <!--        }-->
+    <!--    </script>-->
+    <style>
+        #memberMonthGbn{width:100%;height:300px}
+        #memberTypeGbn_2{width:100%;height:300px}
+        #memberMonthConnect{width:100%;height:350px}
+        #memberDayConnect{width:100%;height:350px}
+        #memberToAdvice{width:100%;height:300px}
+        #memberToCourse{width:100%;height:300px}
+        #courseCompleteStatus{width:100%;height:350px}
+        #surveyResult{width:100%;height:350px}
+        #menuResult{width:100%;height:350px}
+        .chartBox{width:calc(50% - 10px);height:300px;float:left;padding-left:20px}
+        .chartBox:last-child{width:100%;margin-top:50px;padding-left:0}
+        .chart{width:100%;height:100%}
+        .nice-select{margin-top:-5px}
+        .chart_wrap{float:none}
+        .sub_sec + .sub_sec{margin-top:20px}
+        @media(min-width:1620px){
+            .chart_wrap .chartBox{width:calc(33.33% - 7px);height:500px}
+            .chartBox:last-child{margin-top:0;padding-left:20px}
+        }
+        @media(max-width:767px){
+            .chart_wrap .chartBox{width:100%;height:240px;padding-left:0}
+            .chartBox + .chartBox{margin-top:40px}
+            .chartBox:last-child{height:350px}
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="fragments/client/menu"></th:block>
+    <div id="container">
+
+    </div>
+    <th:block th:replace="fragments/admin/footer"></th:block>
+</div>
+</body>
+</html>

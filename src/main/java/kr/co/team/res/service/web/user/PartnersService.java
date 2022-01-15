@@ -5,7 +5,9 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.team.res.common.exceptions.ValidCustomException;
+import kr.co.team.res.domain.entity.CommonCode;
 import kr.co.team.res.domain.entity.Partners;
+import kr.co.team.res.domain.entity.QCommonCode;
 import kr.co.team.res.domain.entity.QPartners;
 import kr.co.team.res.domain.repository.PartnersRepository;
 import kr.co.team.res.domain.vo.user.PartnersVO;
@@ -65,6 +67,40 @@ public class PartnersService extends _BaseService {
                 .orderBy(orderSpecifier)
                 .fetchFirst();
         return partnersList;
+    }
+
+    public List<CommonCode> menuListForUppCdPid(Long prntCodePid) {
+        QCommonCode qCommonCode = QCommonCode.commonCode;
+
+        OrderSpecifier<Integer> orderSpecifier = qCommonCode.codeSno.asc();
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        for(Long i= 5L; i==8; i++){
+            builder.and(qCommonCode.id.eq(i));
+        }
+        builder.and(qCommonCode.delAt.eq("N"));
+
+        List<CommonCode> results = queryFactory
+                .select(Projections.fields(CommonCode.class,
+                        qCommonCode.id,
+                        qCommonCode.prntCodePid,
+                        qCommonCode.codeSno,
+                        qCommonCode.codeNm,
+                        qCommonCode.codeDsc,
+                        qCommonCode.codeValue,
+                        qCommonCode.regPsId,
+                        qCommonCode.regDtm,
+                        qCommonCode.updPsId,
+                        qCommonCode.updDtm,
+                        qCommonCode.delAt
+                ))
+                .from(qCommonCode)
+                .where(builder)
+                .orderBy(orderSpecifier)
+                .fetch();
+
+        return results;
     }
 }
 

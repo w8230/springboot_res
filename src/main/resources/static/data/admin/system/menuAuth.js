@@ -44,7 +44,7 @@ function fn_chkSave(menuPid) {
     };
     $.ajax({
         type: 'post',
-        url: '/api/menu/authSave',
+        url: '/api/menu/authSave', 
         contentType: "application/json",
         data: JSON.stringify(jsonData),
         datatype: 'text',

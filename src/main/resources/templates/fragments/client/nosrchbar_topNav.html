@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <script src="resources/data-components/search/search.js"></script>
 
 <header>
@@ -12,8 +12,14 @@
 							<th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
 								<a class="top-a-tag"><th:block sec:authentication="principal.account.ncnm"></th:block>님</a>
 								<a href="/pages/mypage/info" class="top-a-tag">내정보</a>
+								<th:block sec:authorize="hasAnyRole('ROLE_PARTNERS')">
+								<a href="/partners/management" class="top-a-tag">나의 매장관리</a>
+								</th:block>
+								<th:block>
 								<a href="/logout" class="top-a-tag">로그아웃</a>
+								</th:block>
 							</th:block>
+
 							<th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
 								<a href="/pages/login" class="top-a-tag sp_active">로그인</a>
 								<a href="/pages/register" class="top-a-tag">회원가입</a>
